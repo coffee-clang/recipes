@@ -1,4 +1,4 @@
-MDS := $(wildcard [a-z]/*/index.md)
+MDS := $(wildcard recipes/*/*/index.md)
 HTMLS := $(MDS:.md=.html)
 
 .PHONY: all clean
@@ -9,4 +9,4 @@ all: $(HTMLS)
 	./build.sh $< $@ templates/template.html
 
 clean:
-	rm -f [a-z]/*/index.html
+	find recipes -name index.html -delete
