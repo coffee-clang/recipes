@@ -1,13 +1,12 @@
-MDS := $(wildcard recipes/*/*/library.toml)
-HTMLS := $(MDS:/library.toml=/index.html)
+TOMLS := $(wildcard recipes/*/*/library.toml)
+HTMLS := $(TOMLS:/library.toml=/index.html)
 
 .PHONY: all clean letter_index
 
 all: index.html about.html letter_index $(HTMLS)
 
 index.html: index.md templates/template.html
-	for c in {A..Z}; do echo "[$c](recipes/${c,,})" >> index.md; done
-	lowdown index.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
+	lowdown index2.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
 
 about.html: about.md templates/template.html
 	lowdown about.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
