@@ -6,7 +6,7 @@ HTMLS := $(TOMLS:/library.toml=/index.html)
 all: index.html about.html letter_index $(HTMLS)
 
 index.html: index.md templates/template.html
-	lowdown index.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
+	lowdown index.md | sed -e 's/{{ title }}/Cup of Coffee/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
 
 about.html: about.md templates/template.html
 	lowdown about.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
