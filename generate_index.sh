@@ -1,80 +1,32 @@
 #!/bin/bash
+set -e
 
-CSV_FILE="summary.csv"
+INPUT="index.md"
 OUTPUT="index.html"
+TEMPLATE="templates/template.html"
 
-cat >"$OUTPUT" <<'HEAD'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link href="sqlite.css" rel="stylesheet">
-<title>Cup of Coffee - C Package Manager</title>
-</head>
-<body>
-<div class="nosearch">
-<div class="logo-container">
-<img class="logo" src="logo.svg" alt="Cup of Coffee">
-<div class="tagline">
-<h1>Cup of Coffee</h1>
-<p>C Package Manager</p>
-</div>
-</div>
-<div class="menu mainmenu">
-<ul>
-<li><a href="index.html">Home</a>
-<li><a href="a/index.html">Packages</a>
-<li><a href="about.html">About</a>
-<li><a href="https://github.com/coffee-clang/recipes">GitHub</a>
-</ul>
-</div>
-</div>
+CONTENT=$(lowdown "$INPUT")
 
-<div class="content">
+ALPHABET="A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 
-<h1>C Libraries</h1>
+LETTER_TABLE="<h2>Browse by Letter</h2><p>"
+for letter in $ALPHABET; do
+	lower=$(echo "$letter" | tr '[:upper:]' '[:lower:]')
+	if [ -d "recipes/$lower" ] && [ "$(ls "recipes/$lower"/*/library.toml 2>/dev/null | wc -l)" -gt 0 ]; then
+		LETTER_TABLE+="<a href=\"recipes/$lower/index.html\">$letter</a> "
+	else
+		LETTER_TABLE+="$letter "
+	fi
+done
+LETTER_TABLE+="</p>"
 
-<p>A collection of widely used C libraries with installation recipes.</p>
+FULL_CONTENT="$CONTENT $LETTER_TABLE"
 
-<h2>Packages</h2>
-
-<table>
-<thead>
-<tr>
-<th>Package</th>
-<th>Version</th>
-<th>License</th>
-<th>Last Updated</th>
-</tr>
-</thead>
-<tbody>
-HEAD
-
-tail -n +2 "$CSV_FILE" | sed 's/"//g' | while IFS=',' read -r name version link license date; do
-	first_letter="${name:0:1}"
-	echo "<tr>"
-	echo "<td><a href=\"$first_letter/$name/\">$name</a></td>"
-	echo "<td>$version</td>"
-	echo "<td>$license</td>"
-	echo "<td>$date</td>"
-	echo "</tr>"
-done >>"$OUTPUT"
-
-TOTAL=$(tail -n +2 "$CSV_FILE" | wc -l)
-
-cat >>"$OUTPUT" <<TAIL
-</tbody>
-</table>
-
-<p>Total: $TOTAL packages</p>
-
-</div>
-
-<p><small><i>This page was last updated on $(date -u +"%Y-%m-%d %H:%M:%SZ")</i></small></p>
-
-</body>
-</html>
-TAIL
+sed -e "s/{{ title }}/Cup of Coffee/g" \
+	-e "/{{ content }}/r /dev/stdin" \
+	-e "/{{ content }}/d" \
+	"$TEMPLATE" >"$OUTPUT" <<EOF
+$FULL_CONTENT
+EOF
 
 echo "Generated: $OUTPUT"

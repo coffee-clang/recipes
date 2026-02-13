@@ -137,6 +137,20 @@ a:visited { color: #4a2c2a }
   border-top: 2px solid #f5e6d3;
 }
 
+/* Pagination */
+.pagination {
+  margin: 20px 0;
+  text-align: center;
+}
+.pagination a {
+  background-color: #d4a574;
+  border: 2px solid #4a2c2a;
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #2d1810;
+}
+
 /* Styling for the search menu */
 .searchmenu {
   width: 100%;

@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import tomllib
 import subprocess
-import os
+import math
 from pathlib import Path
+
+
+PAGE_SIZE = 50
 
 
 def get_last_updated(dir_path: Path) -> str:
@@ -64,21 +67,56 @@ def generate_letter_pages():
         if not libraries:
             continue
 
-        letter_dir = base_dir / letter.lower()
+        letter_lower = letter.lower()
+        letter_dir = base_dir / letter_lower
         letter_dir.mkdir(exist_ok=True)
-        output_path = letter_dir / "index.html"
 
-        rows = []
-        for lib in libraries:
-            lib_path = f"{lib['name']}/"
-            rows.append(f"""<tr>
+        total_pages = math.ceil(len(libraries) / PAGE_SIZE)
+
+        for page_num in range(total_pages):
+            start_idx = page_num * PAGE_SIZE
+            end_idx = min(start_idx + PAGE_SIZE, len(libraries))
+            page_libraries = libraries[start_idx:end_idx]
+
+            if page_num == 0:
+                output_path = letter_dir / "index.html"
+            else:
+                page_dir = letter_dir / str(page_num)
+                page_dir.mkdir(exist_ok=True)
+                output_path = page_dir / "index.html"
+
+            rows = []
+            for lib in page_libraries:
+                lib_path = f"{lib['name']}/"
+                rows.append(f"""<tr>
 <td><a href="{lib_path}">{lib["name"]}</a></td>
 <td>{lib["version"]}</td>
 <td>{lib["license"]}</td>
 <td>{lib["last_updated"]}</td>
 </tr>""")
 
-        html_content = f"""<h1>C Libraries - {letter}</h1>
+            pagination = ""
+            if total_pages > 1:
+                pagination = '<p class="pagination">'
+                if page_num > 0:
+                    prev_link = (
+                        str(page_num - 1) + "/index.html"
+                        if page_num > 1
+                        else "index.html"
+                    )
+                    pagination += f'<a href="{prev_link}">&laquo; Previous</a> '
+                pagination += f"Page {page_num + 1} of {total_pages}"
+                if page_num < total_pages - 1:
+                    next_link = f"{page_num + 1}/index.html"
+                    pagination += f' <a href="{next_link}">Next &raquo;</a>'
+                pagination += "</p>"
+
+            if page_num == 0:
+                page_title = f"Cup of Coffee - {letter}"
+            else:
+                page_title = f"Cup of Coffee - {letter} [Page {page_num + 1}]"
+
+            html_content = f"""<h1>C Libraries - {letter}</h1>
 
 <table>
 <thead>
@@ -94,16 +132,18 @@ def generate_letter_pages():
 </tbody>
 </table>
 
+{pagination}
+
 <p>Total: {len(libraries)} packages starting with {letter}</p>
 """
 
-        output = template.replace("{{ title }}", f"Cup of Coffee - {letter}")
-        output = output.replace("{{ content }}", html_content)
+            output = template.replace("{{ title }}", page_title)
+            output = output.replace("{{ content }}", html_content)
 
-        with open(output_path, "w") as f:
-            f.write(output)
+            with open(output_path, "w") as f:
+                f.write(output)
 
-        print(f"Generated: {output_path}")
+            print(f"Generated: {output_path}")
 
 
 if __name__ == "__main__":

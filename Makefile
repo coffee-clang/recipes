@@ -3,7 +3,10 @@ HTMLS := $(MDS:/library.toml=/index.html)
 
 .PHONY: all clean letter_index
 
-all: about.html letter_index $(HTMLS)
+all: index.html about.html letter_index $(HTMLS)
+
+index.html: index.md templates/template.html
+	./generate_index.sh
 
 about.html: about.md templates/template.html
 	lowdown about.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
@@ -16,4 +19,4 @@ letter_index: templates/template.html
 
 clean:
 	find recipes -name index.html -delete
-	rm -f about.html
+	rm -f index.html about.html
