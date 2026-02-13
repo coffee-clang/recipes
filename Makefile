@@ -1,14 +1,14 @@
 TOMLS := $(wildcard recipes/*/*/library.toml)
 HTMLS := $(TOMLS:/library.toml=/index.html)
 
-.PHONY: all clean letter_index packages.json.zstd
+.PHONY: all clean letter_index
 
-all: index.html about.html letter_index $(HTMLS) packages.json.zstd
+all: index.html about.html letter_index $(HTMLS) docs/.well-known/packages.json.zstd
 
-packages.json.zstd: packages.json
-	zstd -19 -o docs/.well-known/packages.json.zstd packages.json
+docs/.well-known/packages.json.zstd: docs/.well-known/packages.json
+	zstd -19 -o docs/.well-known/packages.json.zstd docs/.well-known/packages.json
 
-packages.json: generate_packages.py
+docs/.well-known/packages.json: generate_packages.py
 	python3 ./generate_packages.py
 
 index.html: index.md templates/template.html
@@ -29,4 +29,4 @@ html: all
 
 clean:
 	find recipes -name index.html -delete
-	rm -f index.html about.html
+	rm -f index.html about.html docs/.well-known/*

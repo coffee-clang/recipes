@@ -3,7 +3,7 @@ import tomllib
 import json
 from pathlib import Path
 
-OUTPUT = "packages.json"
+OUTPUT = "docs/.well-known/packages.json"
 
 packages = []
 
