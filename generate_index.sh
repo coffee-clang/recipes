@@ -24,6 +24,9 @@ cat >"$OUTPUT" <<'HEAD'
 <div class="menu mainmenu">
 <ul>
 <li><a href="index.html">Home</a>
+<li><a href="index.html">Packages</a>
+<li><a href="about.html">About</a>
+<li><a href="https://github.com/coffee-clang/recipes">GitHub</a>
 </ul>
 </div>
 </div>
