@@ -10,18 +10,13 @@ A collection of widely used C libraries with installation recipes.
 
 ## Packages
 
-| Package | Version | License | Last Updated |
-|---------|---------|---------|--------------|
+| Package | Version | License | Last Updated | Link |
+|---------|---------|---------|--------------|------|
 HEADER
 
 tail -n +2 "$CSV_FILE" | while IFS=',' read -r name version link license date; do
-  name=$(echo "$name" | tr -d '"')
-  version=$(echo "$version" | tr -d '"')
-  license=$(echo "$license" | tr -d '"')
-  date=$(echo "$date" | tr -d '"')
-
-  first_letter="${name:0:1}"
-  echo "| [$name](recipes/$first_letter/$name/) | $version | $license | $date |"
+    first_letter="${name:0:1}"
+    echo "| [$name]($first_letter/$name/) | $version | $license | $date | $link |"
 done >>"$OUTPUT"
 
 echo "" >>"$OUTPUT"
