@@ -1,0 +1,33 @@
+name: Build C Library Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install lowdown
+        run: sudo apt-get update && sudo apt-get install -y lowdown
+
+      - name: Generate summary.csv
+        run: ./generate_summary.sh
+
+      - name: Generate index.md and index.html
+        run: ./generate_index.sh
+
+      - name: Build HTML files
+        run: make
+
+      - name: Commit HTML files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git diff --staged --quiet || git commit -m "Build HTML pages with lowdown"
+          git push
