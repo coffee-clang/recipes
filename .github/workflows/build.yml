@@ -48,6 +48,7 @@ jobs:
           cp index.html docs/
           cp summary.csv docs/
           rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
+          find docs -name '*.html' > /docs/dirs.txt
        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
