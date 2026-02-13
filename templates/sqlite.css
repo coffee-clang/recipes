@@ -29,7 +29,6 @@ body {
   text-decoration: none;
   border-radius: 4px;
   padding: 0 1ex 0 1ex;
-  white-space: nowrap;
   font-size: 90%;
   line-height: 150%;
   color: #2d1810;
@@ -99,7 +98,6 @@ a:visited { color: #4a2c2a }
   margin: 0;
   list-style-type: none;
   padding: 0;
-  overflow: hidden;
 }
 .menu ul li {
   color: #f5e6d3;
@@ -189,11 +187,11 @@ a:visited { color: #4a2c2a }
 .fancy h1,.fancy h2,.fancy h3,.fancy h4 {font-weight:normal;color:#4a2c2a}
 .fancy th {text-align:left;border-bottom:solid 1px #444}
 .fancy th, .fancy td {padding: 0.2em 1ex; vertical-align:top}
-table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+table { border-collapse: collapse; width: 100%; }
 table th { background-color: #4a2c2a; color: #f5e6d3; }
 table tbody tr:nth-child(odd) { background-color: #e8dcc8; }
 table tbody tr:nth-child(even) { background-color: #f5e6d3; }
-table th, table td { border: 1px solid #4a2c2a; padding: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+table th, table td { border: 1px solid #4a2c2a; padding: 8px;   }
 .toct { color: #4a2c2a ! important; }
 #toc_sub a        { color: #4a2c2a; text-decoration: none }
 #toc_sub { margin-top: 1em; }
@@ -292,7 +290,6 @@ path { fill: none; stroke:#111111; stroke-width:1 }
 .doccat {
   padding-left: 2ex;
   padding-right: 2ex;
-  white-space:nowrap;
 }
 .doccat li {
   list-style-type: none;
@@ -334,7 +331,6 @@ div.columns > ul {
   list-style-type: none;
   padding: 10px;
   margin: 0px;
-  white-space: nowrap;
 }
 div.columns > ul li:first-child {
   margin-top:0px;
