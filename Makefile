@@ -1,5 +1,5 @@
 MDS := $(wildcard recipes/*/*/library.toml)
-HTMLS := $(MDS:.toml=.html)
+HTMLS := $(MDS:/library.toml=/index.html)
 
 .PHONY: all clean
 
