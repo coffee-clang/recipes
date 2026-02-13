@@ -31,7 +31,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install lowdown
-        run: sudo apt-get update && sudo apt-get install -y lowdown
+        run: sudo apt-get update && sudo apt-get install -y lowdown zstd
 
       - name: Build HTML files
         run: make

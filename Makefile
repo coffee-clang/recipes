@@ -1,9 +1,15 @@
 TOMLS := $(wildcard recipes/*/*/library.toml)
 HTMLS := $(TOMLS:/library.toml=/index.html)
 
-.PHONY: all clean letter_index
+.PHONY: all clean letter_index packages.json.zstd
 
-all: index.html about.html letter_index $(HTMLS)
+all: index.html about.html letter_index $(HTMLS) packages.json.zstd
+
+packages.json.zstd: packages.json
+	zstd -19 -o docs/.well-known/packages.json.zstd packages.json
+
+packages.json: generate_packages.py
+	python3 ./generate_packages.py
 
 index.html: index.md templates/template.html
 	lowdown index.md | sed -e 's/{{ title }}/Cup of Coffee/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
