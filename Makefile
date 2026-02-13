@@ -17,6 +17,10 @@ letter_index: templates/template.html
 %/index.html: %/library.toml templates/template.html
 	python3 ./build.py $< $@ templates/template.html
 
+html: all
+	cp *.html docs/
+	rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
+
 clean:
 	find recipes -name index.html -delete
 	rm -f index.html about.html

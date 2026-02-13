@@ -33,20 +33,12 @@ jobs:
       - name: Install lowdown
         run: sudo apt-get update && sudo apt-get install -y lowdown
 
-      - name: Generate letter index pages
-        run: python3 ./generate_letter_indexes.py
-
       - name: Build HTML files
         run: make
       
       - name: Copy HTML to docs
-        run: |
-          mkdir -p docs
-          cp *.html docs/
-          cp templates/sqlite.css docs/
-          cp templates/logo.svg docs/
-          rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
-       
+        run: make html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
