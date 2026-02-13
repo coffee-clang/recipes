@@ -48,6 +48,7 @@ jobs:
           cp index.html docs/
           cp summary.csv docs/
           cp templates/sqlite.css docs/
+          cp templates/logo.svg docs/
           rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
           find docs -mindepth 1 -type d -exec cp docs/sqlite.css {} \;
           find docs -name '*.html' > docs/dirs.txt

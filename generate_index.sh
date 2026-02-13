@@ -10,10 +10,13 @@ cat >"$OUTPUT" <<'HEAD'
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link href="sqlite.css" rel="stylesheet">
-<title>C Libraries</title>
+<title>Cup of Coffee - C Package Manager</title>
 </head>
 <body>
 <div class="nosearch">
+<div class="logo-container">
+<img class="logo" src="logo.svg" alt="Cup of Coffee">
+</div>
 <div class="menu mainmenu">
 <ul>
 <li><a href="index.html">Home</a>
