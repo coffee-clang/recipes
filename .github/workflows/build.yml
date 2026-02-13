@@ -42,11 +42,16 @@ jobs:
       - name: Build HTML files
         run: make
       
+      - name: Copy HTML to docs
+        run: |
+          mkdir -p docs
+          cp index.html docs/
+          cp -r [a-z] docs/
+       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: 'docs'
       
       - name: Deploy to GitHub Pages
         id: deployment
