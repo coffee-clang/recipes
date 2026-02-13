@@ -6,7 +6,7 @@ HTMLS := $(MDS:/library.toml=/index.html)
 all: index.html about.html letter_index $(HTMLS)
 
 index.html: index.md templates/template.html
-	for c in "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"; do echo "[$c](recipes/$(echo $c| tr A-Z a-z))" >> index.md; done
+	for c in {A..Z}; do echo "[$c](recipes/${c,,})" >> index.md; done
 	lowdown index.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
 
 about.html: about.md templates/template.html
