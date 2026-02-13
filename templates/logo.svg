@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100" width="350" height="100">
   <defs>
     <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#4a2c2a;stop-opacity:1" />
@@ -10,36 +10,40 @@
     </linearGradient>
   </defs>
   
-  <!-- Background circle -->
-  <circle cx="100" cy="100" r="95" fill="#f5e6d3" stroke="#4a2c2a" stroke-width="3"/>
+  <!-- Background rectangle -->
+  <rect x="0" y="0" width="350" height="100" rx="8" fill="#f5e6d3" stroke="#4a2c2a" stroke-width="3"/>
   
   <!-- Coffee cup body -->
-  <path d="M45 80 L50 150 Q50 165 65 165 L135 165 Q150 165 150 150 L155 80 Z" 
+  <path d="M25 45 L28 85 Q28 95 38 95 L72 95 Q82 95 82 85 L85 45 Z" 
         fill="url(#cupGrad)" stroke="#2d1810" stroke-width="2"/>
   
   <!-- Cup handle -->
-  <path d="M155 95 Q180 95 180 115 Q180 135 155 135" 
-        fill="none" stroke="#2d1810" stroke-width="8" stroke-linecap="round"/>
+  <path d="M85 52 Q98 52 98 65 Q98 78 85 78" 
+        fill="none" stroke="#2d1810" stroke-width="5" stroke-linecap="round"/>
   
   <!-- Coffee surface -->
-  <ellipse cx="100" cy="80" rx="55" ry="12" fill="#5d3a30"/>
-  <ellipse cx="100" cy="80" rx="50" ry="10" fill="#6b4438"/>
+  <ellipse cx="55" cy="45" rx="30" ry="7" fill="#5d3a30"/>
+  <ellipse cx="55" cy="45" rx="27" ry="6" fill="#6b4438"/>
   
   <!-- Steam lines -->
-  <path d="M70 55 Q75 45 70 35" fill="none" stroke="url(#steamGrad)" stroke-width="3" stroke-linecap="round">
-    <animate attributeName="d" values="M70 55 Q75 45 70 35;M70 52 Q65 42 70 32;M70 55 Q75 45 70 35" dur="3s" repeatCount="indefinite"/>
+  <path d="M38 28 Q41 22 38 18" fill="none" stroke="url(#steamGrad)" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="d" values="M38 28 Q41 22 38 18;M38 26 Q35 20 38 16;M38 28 Q41 22 38 18" dur="3s" repeatCount="indefinite"/>
   </path>
-  <path d="M100 50 Q105 38 100 28" fill="none" stroke="url(#steamGrad)" stroke-width="3" stroke-linecap="round">
-    <animate attributeName="d" values="M100 50 Q105 38 100 28;M100 47 Q95 35 100 25;M100 50 Q105 38 100 28" dur="3s" repeatCount="indefinite" begin="0.5s"/>
+  <path d="M55 25 Q58 18 55 14" fill="none" stroke="url(#steamGrad)" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="d" values="M55 25 Q58 18 55 14;M55 23 Q52 16 55 12;M55 25 Q58 18 55 14" dur="3s" repeatCount="indefinite" begin="0.5s"/>
   </path>
-  <path d="M130 55 Q135 45 130 35" fill="none" stroke="url(#steamGrad)" stroke-width="3" stroke-linecap="round">
-    <animate attributeName="d" values="M130 55 Q135 45 130 35;M130 52 Q125 42 130 32;M130 55 Q135 45 130 35" dur="3s" repeatCount="indefinite" begin="1s"/>
+  <path d="M72 28 Q75 22 72 18" fill="none" stroke="url(#steamGrad)" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="d" values="M72 28 Q75 22 72 18;M72 26 Q69 20 72 16;M72 28 Q75 22 72 18" dur="3s" repeatCount="indefinite" begin="1s"/>
   </path>
   
   <!-- Code brackets </> on the cup -->
-  <g transform="translate(100, 130)" fill="#f5e6d3" font-family="monospace" font-weight="bold" font-size="28" text-anchor="middle">
-    <text x="-32" y="5">&lt;</text>
+  <g transform="translate(55, 72)" fill="#f5e6d3" font-family="monospace" font-weight="bold" font-size="18" text-anchor="middle">
+    <text x="-18" y="5">&lt;</text>
     <text x="0" y="5">/</text>
-    <text x="28" y="5">&gt;</text>
+    <text x="16" y="5">&gt;</text>
   </g>
+  
+  <!-- "Cup of Coffee" text -->
+  <text x="130" y="45" font-family="Verdana, sans-serif" font-size="28" font-weight="bold" fill="#4a2c2a">Cup of Coffee</text>
+  <text x="130" y="70" font-family="Verdana, sans-serif" font-size="16" fill="#6b4438">C Package Manager</text>
 </svg>

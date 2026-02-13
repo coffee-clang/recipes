@@ -54,14 +54,15 @@ a:visited { color: #4a2c2a }
 
 .logo {
   float: left;
-  margin:1px;
-  width: 80px;
-  height: 80px;
+  margin: 10px;
+  width: 350px;
+  height: 100px;
 }
 .logo-container {
   display: flex;
   align-items: center;
   padding: 10px;
+  background-color: #f5e6d3;
 }
 .tagline {
   float:right;
