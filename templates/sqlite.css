@@ -189,6 +189,11 @@ a:visited { color: #4a2c2a }
 .fancy h1,.fancy h2,.fancy h3,.fancy h4 {font-weight:normal;color:#4a2c2a}
 .fancy th {text-align:left;border-bottom:solid 1px #444}
 .fancy th, .fancy td {padding: 0.2em 1ex; vertical-align:top}
+table { border-collapse: collapse; width: 100%; }
+table th { background-color: #4a2c2a; color: #f5e6d3; }
+table tbody tr:nth-child(odd) { background-color: #e8dcc8; }
+table tbody tr:nth-child(even) { background-color: #f5e6d3; }
+table th, table td { border: 1px solid #4a2c2a; padding: 8px; }
 .toct { color: #4a2c2a ! important; }
 #toc_sub a        { color: #4a2c2a; text-decoration: none }
 #toc_sub { margin-top: 1em; }
