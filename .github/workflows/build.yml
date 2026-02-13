@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir -p docs
           cp index.html docs/
-          cp -r [a-z] docs/
+          rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
