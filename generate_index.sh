@@ -16,6 +16,10 @@ cat >"$OUTPUT" <<'HEAD'
 <div class="nosearch">
 <div class="logo-container">
 <img class="logo" src="logo.svg" alt="Cup of Coffee">
+<div class="tagline">
+<h1>Cup of Coffee</h1>
+<p>C Package Manager</p>
+</div>
 </div>
 <div class="menu mainmenu">
 <ul>

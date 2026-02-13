@@ -55,8 +55,8 @@ a:visited { color: #4a2c2a }
 .logo {
   float: left;
   margin: 10px;
-  width: 350px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
 }
 .logo-container {
   display: flex;
@@ -65,12 +65,21 @@ a:visited { color: #4a2c2a }
   background-color: #f5e6d3;
 }
 .tagline {
-  float:right;
-  text-align:right;
-  font-style:italic;
-  width:300px;
-  margin:12px;
-  margin-top:58px;
+  float: left;
+  text-align: left;
+  font-style: normal;
+  margin: 15px;
+  margin-top: 25px;
+}
+.tagline h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #4a2c2a;
+}
+.tagline p {
+  margin: 5px 0 0 0;
+  font-size: 18px;
+  color: #6b4438;
 }
 
 /* Style common to both the main and submenu */
