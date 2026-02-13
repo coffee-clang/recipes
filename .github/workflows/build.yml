@@ -34,7 +34,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lowdown
 
       - name: Generate summary.csv
-        run: ./generate_summary.sh
+        run: python3 ./generate_summary.py
 
       - name: Generate index.md and index.html
         run: ./generate_index.sh
