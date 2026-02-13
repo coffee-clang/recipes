@@ -17,23 +17,5 @@ GPL-2.0
 - libpthread
 
 ## Recipe
-#!/bin/bash
-# Install script for D-Bus
-# Version: 1.16.0
 
-set -e
-
-VERSION="1.16.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://dbus.freedesktop.org/releases/dbus/dbus-${VERSION}.tar.gz
-tar xzf dbus-${VERSION}.tar.gz
-cd dbus-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --disable-systemd --disable-x11-autolaunch
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/dbus-${VERSION}
+[Install Script](./install.sh)

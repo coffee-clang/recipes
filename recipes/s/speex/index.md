@@ -17,23 +17,5 @@ BSD-3-Clause
 - autoconf/automake
 
 ## Recipe
-#!/bin/bash
-# Install script for Speex
-# Version: 1.2.1
 
-set -e
-
-VERSION="1.2.1"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://downloads.xiph.org/releases/speex/speex-${VERSION}.tar.gz
-tar xzf speex-${VERSION}.tar.gz
-cd speex-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/speex-${VERSION}
+[Install Script](./install.sh)

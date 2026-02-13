@@ -17,23 +17,5 @@ Apache-2.0
 - ca-certificates (for verification)
 
 ## Recipe
-#!/bin/bash
-# Install script for OpenSSL
-# Version: 3.4.1
 
-set -e
-
-VERSION="3.4.1"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/openssl/openssl/releases/download/openssl-${VERSION}/openssl-${VERSION}.tar.gz
-tar xzf openssl-${VERSION}.tar.gz
-cd openssl-${VERSION}
-
-./Configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --openssldir="$PREFIX/etc/ssl"
-make -j$(nproc)
-sudo make install_sw install_ssldirs
-sudo ldconfig
-
-rm -rf /tmp/openssl-${VERSION}
+[Install Script](./install.sh)

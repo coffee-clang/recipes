@@ -16,23 +16,5 @@ Jansson is a C library for encoding, decoding, and manipulating JSON data. It pr
 MIT
 
 ## Recipe
-#!/bin/bash
-# Install script for jansson
-# Version: 2.14
 
-set -e
-
-VERSION="2.14"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/akheron/jansson/releases/download/v${VERSION}/jansson-${VERSION}.tar.gz
-tar xzf jansson-${VERSION}.tar.gz
-cd jansson-${VERSION}
-
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PREFIX"
-cmake --build build -j$(nproc)
-sudo cmake --install build
-sudo ldconfig
-
-rm -rf /tmp/jansson-${VERSION}
+[Install Script](./install.sh)

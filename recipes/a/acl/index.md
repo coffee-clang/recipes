@@ -16,23 +16,5 @@ The acl library provides utilities for manipulating Access Control Lists (ACLs) 
 LGPL-2.1
 
 ## Recipe
-#!/bin/bash
-# Install script for acl
-# Version: 2.3.2
 
-set -e
-
-VERSION="2.3.2"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://download.savannah.nongnu.org/releases/acl/acl-${VERSION}.tar.gz
-tar xzf acl-${VERSION}.tar.gz
-cd acl-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/acl-${VERSION} /tmp/acl-${VERSION}.tar.gz
+[Install Script](./install.sh)

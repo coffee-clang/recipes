@@ -17,23 +17,5 @@ curl
 - zlib
 
 ## Recipe
-#!/bin/bash
-# Install script for libcurl
-# Version: 8.11.1
 
-set -e
-
-VERSION="8.11.1"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://curl.se/download/curl-${VERSION}.tar.gz
-tar xzf curl-${VERSION}.tar.gz
-cd curl-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --with-openssl --without-libpsl
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/curl-${VERSION}
+[Install Script](./install.sh)

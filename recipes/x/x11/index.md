@@ -17,23 +17,5 @@ MIT
 - libxcb (optional)
 
 ## Recipe
-#!/bin/bash
-# Install script for libX11
-# Version: 1.8.9
 
-set -e
-
-VERSION="1.8.9"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://x.org/archive/individual/lib/libX11-${VERSION}.tar.xz
-tar xf libX11-${VERSION}.tar.xz
-cd libX11-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/libX11-${VERSION}
+[Install Script](./install.sh)

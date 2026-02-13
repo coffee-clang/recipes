@@ -18,23 +18,5 @@ GPL-2.0
 - libsmartcols
 
 ## Recipe
-#!/bin/bash
-# Install script for util-linux
-# Version: 2.40.2
 
-set -e
-
-VERSION="2.40.2"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/karelzak/util-linux/archive/refs/tags/v${VERSION}.tar.gz
-tar xzf v${VERSION}.tar.gz
-cd util-linux-${VERSION}
-
-./autogen.sh --prefix="$PREFIX" --libdir="$PREFIX/lib" --disable-makeinstall-chown --disable-makeinstall-setuid
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/util-linux-${VERSION}
+[Install Script](./install.sh)

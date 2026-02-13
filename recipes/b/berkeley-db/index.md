@@ -16,23 +16,5 @@ Oracle Berkeley DB is an embedded database library providing key-value storage w
 BSD-2-Clause
 
 ## Recipe
-#!/bin/bash
-# Install script for Berkeley DB
-# Version: 6.2.32
 
-set -e
-
-VERSION="6.2.32"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://download.oracle.com/berkeley-db/db-${VERSION}.tar.gz
-tar xzf db-${VERSION}.tar.gz
-cd db-${VERSION}/build_unix
-
-../dist/configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/db-${VERSION}
+[Install Script](./install.sh)

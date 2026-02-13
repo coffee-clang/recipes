@@ -19,23 +19,5 @@ LGPL-2.1
 - pixman
 
 ## Recipe
-#!/bin/bash
-# Install script for cairo
-# Version: 1.18.2
 
-set -e
-
-VERSION="1.18.2"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://www.cairographics.org/releases/cairo-${VERSION}.tar.xz
-tar xf cairo-${VERSION}.tar.xz
-cd cairo-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --disable-xlib
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/cairo-${VERSION}
+[Install Script](./install.sh)

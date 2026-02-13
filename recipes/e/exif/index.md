@@ -17,23 +17,5 @@ LGPL-2.1
 - pkg-config
 
 ## Recipe
-#!/bin/bash
-# Install script for libexif
-# Version: 0.6.24
 
-set -e
-
-VERSION="0.6.24"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/libexif/libexif/releases/download/v${VERSION}/libexif-${VERSION}.tar.gz
-tar xzf libexif-${VERSION}.tar.gz
-cd libexif-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/libexif-${VERSION}
+[Install Script](./install.sh)

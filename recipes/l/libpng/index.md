@@ -16,23 +16,5 @@ libpng is the official PNG reference library for reading and writing PNG (Portab
 libpng
 
 ## Recipe
-#!/bin/bash
-# Install script for libpng
-# Version: 1.6.46
 
-set -e
-
-VERSION="1.6.46"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://sourceforge.net/projects/libpng/files/libpng${VERSION}/libpng-${VERSION}.tar.gz
-tar xzf libpng-${VERSION}.tar.gz
-cd libpng-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/libpng-${VERSION}
+[Install Script](./install.sh)

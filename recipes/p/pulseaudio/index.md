@@ -18,23 +18,5 @@ LGPL-2.1
 - dbus
 
 ## Recipe
-#!/bin/bash
-# Install script for PulseAudio
-# Version: 17.0
 
-set -e
-
-VERSION="17.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://freedesktop.org/software/pulseaudio/releases/pulseaudio-${VERSION}.tar.xz
-tar xf pulseaudio-${VERSION}.tar.xz
-cd pulseaudio-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --disable-zeroconf --disable-jack
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/pulseaudio-${VERSION}
+[Install Script](./install.sh)

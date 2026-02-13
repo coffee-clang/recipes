@@ -16,23 +16,5 @@ FFTW is a free, fast C library for computing the Discrete Fourier Transform (DFT
 GPL-2.0
 
 ## Recipe
-#!/bin/bash
-# Install script for FFTW
-# Version: 3.3.10
 
-set -e
-
-VERSION="3.3.10"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://fftw.org/fftw-${VERSION}.tar.gz
-tar xzf fftw-${VERSION}.tar.gz
-cd fftw-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --enable-shared --enable-threads
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/fftw-${VERSION}
+[Install Script](./install.sh)

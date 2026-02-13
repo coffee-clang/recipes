@@ -16,23 +16,5 @@ GMP (GNU Multiple Precision Arithmetic Library) is a free library for arbitrary 
 LGPL-3.0
 
 ## Recipe
-#!/bin/bash
-# Install script for GMP
-# Version: 6.3.0
 
-set -e
-
-VERSION="6.3.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://ftp.gnu.org/gnu/gmp/gmp-${VERSION}.tar.gz
-tar xzf gmp-${VERSION}.tar.gz
-cd gmp-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --enable-cxx
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/gmp-${VERSION}
+[Install Script](./install.sh)

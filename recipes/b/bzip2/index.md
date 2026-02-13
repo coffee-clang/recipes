@@ -16,22 +16,5 @@ bzip2 is a free, open-source lossless compression library known for its high com
 bzip2
 
 ## Recipe
-#!/bin/bash
-# Install script for bzip2
-# Version: 1.0.8
 
-set -e
-
-VERSION="1.0.8"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://sourceware.org/pub/bzip2/bzip2-${VERSION}.tar.gz
-tar xzf bzip2-${VERSION}.tar.gz
-cd bzip2-${VERSION}
-
-make -j$(nproc) CFLAGS="-fPIC -O2"
-sudo make install PREFIX="$PREFIX"
-sudo ldconfig
-
-rm -rf /tmp/bzip2-${VERSION}
+[Install Script](./install.sh)

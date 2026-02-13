@@ -16,22 +16,5 @@ WavPack is a free, open-source audio codec providing both lossless and lossy com
 BSD-3-Clause
 
 ## Recipe
-#!/bin/bash
-# Install script for WavPack
-# Version: 5.7.0
 
-set -e
-
-VERSION="5.7.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-git clone --depth 1 --branch ${VERSION} https://github.com/dbry/WavPack.git
-cd WavPack
-
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PREFIX"
-cmake --build build -j$(nproc)
-sudo cmake --install build
-sudo ldconfig
-
-rm -rf /tmp/WavPack
+[Install Script](./install.sh)

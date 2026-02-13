@@ -17,23 +17,5 @@ LGPL-3.0
 - libsodium (optional)
 
 ## Recipe
-#!/bin/bash
-# Install script for ZeroMQ
-# Version: 4.3.5
 
-set -e
-
-VERSION="4.3.5"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/zeromq/libzmq/releases/download/v${VERSION}/zeromq-${VERSION}.tar.gz
-tar xzf zeromq-${VERSION}.tar.gz
-cd zeromq-${_VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/zeromq-${VERSION}
+[Install Script](./install.sh)

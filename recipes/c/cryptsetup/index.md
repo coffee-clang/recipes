@@ -19,23 +19,5 @@ GPL-2.0
 - json-c
 
 ## Recipe
-#!/bin/bash
-# Install script for cryptsetup
-# Version: 2.7.5
 
-set -e
-
-VERSION="2.7.5"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://gitlab.com/cryptsetup/cryptsetup/-/archive/v${VERSION}/cryptsetup-v${VERSION}.tar.gz
-tar xzf cryptsetup-v${VERSION}.tar.gz
-cd cryptsetup-v${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --disable-cryptsetup-reencrypt
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/cryptsetup-v${VERSION}
+[Install Script](./install.sh)

@@ -17,23 +17,5 @@ MIT
 - zlib
 
 ## Recipe
-#!/bin/bash
-# Install script for libtiff
-# Version: 4.7.0
 
-set -e
-
-VERSION="4.7.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://download.osgeo.org/libtiff/tiff-${VERSION}.tar.gz
-tar xzf tiff-${VERSION}.tar.gz
-cd tiff-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/tiff-${VERSION}
+[Install Script](./install.sh)

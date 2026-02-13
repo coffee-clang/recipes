@@ -16,22 +16,5 @@ xkbcommon is a keyboard handling library providing a portable way to process key
 MIT
 
 ## Recipe
-#!/bin/bash
-# Install script for xkbcommon
-# Version: 1.5.0
 
-set -e
-
-VERSION="1.5.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-${VERSION}.tar.gz
-tar xzf xkbcommon-${VERSION}.tar.gz
-cd libxkbcommon-xkbcommon-${VERSION}
-
-meson setup build --prefix="$PREFIX" -Ddocs=false -Dx11=false
-meson compile -C build
-sudo meson install -C build
-
-rm -rf /tmp/libxkbcommon-xkbcommon-${VERSION}
+[Install Script](./install.sh)

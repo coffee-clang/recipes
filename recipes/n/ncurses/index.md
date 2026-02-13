@@ -16,23 +16,5 @@ ncurses is a programming library providing an API for building terminal user int
 MIT
 
 ## Recipe
-#!/bin/bash
-# Install script for ncurses
-# Version: 6.5
 
-set -e
-
-VERSION="6.5"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://ftp.gnu.org/gnu/ncurses/ncurses-${VERSION}.tar.gz
-tar xzf ncurses-${VERSION}.tar.gz
-cd ncurses-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --without-ada --without-cxx-binding
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/ncurses-${VERSION}
+[Install Script](./install.sh)

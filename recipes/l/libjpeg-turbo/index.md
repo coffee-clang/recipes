@@ -16,23 +16,5 @@ libjpeg-turbo is a JPEG image codec that uses SIMD instructions to accelerate ba
 BSD-3-Clause
 
 ## Recipe
-#!/bin/bash
-# Install script for libjpeg-turbo
-# Version: 3.0.4
 
-set -e
-
-VERSION="3.0.4"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://sourceforge.net/projects/libjpeg-turbo/files/${VERSION}/libjpeg-turbo-${VERSION}.tar.gz
-tar xzf libjpeg-turbo-${VERSION}.tar.gz
-cd libjpeg-turbo-${VERSION}
-
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PREFIX"
-cmake --build build -j$(nproc)
-sudo cmake --install build
-sudo ldconfig
-
-rm -rf /tmp/libjpeg-turbo-${VERSION}
+[Install Script](./install.sh)

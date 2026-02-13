@@ -16,23 +16,5 @@ LMDB (Lightning Memory-Mapped Database) is an embedded key-value database with A
 OpenSSL
 
 ## Recipe
-#!/bin/bash
-# Install script for LMDB
-# Version: 0.9.33
 
-set -e
-
-VERSION="0.9.33"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/LMDB/lmdb/archive/refs/tags/LMDB_${VERSION}.tar.gz
-tar xzf LMDB_${VERSION}.tar.gz
-cd LMDB_LMDB_${VERSION}
-
-make -j$(nproc)
-sudo cp -r libraries/liblmdb "$PREFIX"
-sudo cp -r libraries/lmdb.h "$PREFIX/include/"
-sudo ldconfig
-
-rm -rf /tmp/LMDB_LMDB_${VERSION}
+[Install Script](./install.sh)

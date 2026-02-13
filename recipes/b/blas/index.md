@@ -16,24 +16,5 @@ BLAS (Basic Linear Algebra Subprograms) is a specification for linear algebra li
 BSD-3-Clause
 
 ## Recipe
-#!/bin/bash
-# Install script for BLAS
-# Version: 3.12.0
 
-set -e
-
-VERSION="3.12.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://www.netlib.org/blas/blas-${VERSION}.tar.gz
-tar xzf blas-${VERSION}.tar.gz
-cd BLAS-${VERSION}
-
-gfortran -O3 -fPIC -c *.f
-ar r libblas.a *.o
-sudo cp libblas.a "$PREFIX/lib/"
-sudo cp *.h "$PREFIX/include/"
-sudo ldconfig
-
-rm -rf /tmp/BLAS-${VERSION}
+[Install Script](./install.sh)

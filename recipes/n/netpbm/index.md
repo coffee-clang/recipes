@@ -18,23 +18,5 @@ BSD-3-Clause
 - libtiff
 
 ## Recipe
-#!/bin/bash
-# Install script for Netpbm
-# Version: 11.0.0
 
-set -e
-
-VERSION="11.0.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://sourceforge.net/projects/netpbm/advanced/11.0.0/netpbm-${VERSION}.tgz
-tar xzf netpbm-${VERSION}.tgz
-cd netpbm-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --with-jpeg=/usr --with-tiff=/usr --with-png=/usr
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/netpbm-${VERSION}
+[Install Script](./install.sh)

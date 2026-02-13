@@ -16,23 +16,5 @@ Nettle is a low-level cryptographic library providing implementations of symmetr
 LGPL-2.1
 
 ## Recipe
-#!/bin/bash
-# Install script for nettle
-# Version: 3.10
 
-set -e
-
-VERSION="3.10"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://ftp.gnu.org/gnu/nettle/nettle-${VERSION}.tar.gz
-tar xzf nettle-${VERSION}.tar.gz
-cd nettle-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/nettle-${VERSION}
+[Install Script](./install.sh)

@@ -17,22 +17,5 @@ MIT
 - libxml2
 
 ## Recipe
-#!/bin/bash
-# Install script for Wayland
-# Version: 1.23.0
 
-set -e
-
-VERSION="1.23.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://wayland.freedesktop.org/releases/wayland-${VERSION}.tar.xz
-tar xf wayland-${VERSION}.tar.xz
-cd wayland-${VERSION}
-
-meson setup build --prefix="$PREFIX" -Ddocumentation=false
-meson compile -C build
-sudo meson install -C build
-
-rm -rf /tmp/wayland-${VERSION}
+[Install Script](./install.sh)

@@ -19,22 +19,5 @@ LGPL-2.1
 - fontconfig
 
 ## Recipe
-#!/bin/bash
-# Install script for pango
-# Version: 1.54.0
 
-set -e
-
-VERSION="1.54.0"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://download.gnome.org/sources/pango/${VERSION%.*}/pango-${VERSION}.tar.xz
-tar xf pango-${VERSION}.tar.xz
-cd pango-${VERSION}
-
-meson setup build --prefix="$PREFIX" -Dtests=false
-meson compile -C build
-sudo meson install -C build
-
-rm -rf /tmp/pango-${VERSION}
+[Install Script](./install.sh)

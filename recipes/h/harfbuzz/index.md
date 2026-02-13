@@ -19,23 +19,5 @@ LGPL-2.1
 - icu (optional)
 
 ## Recipe
-#!/bin/bash
-# Install script for HarfBuzz
-# Version: 10.0.1
 
-set -e
-
-VERSION="10.0.1"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://github.com/harfbuzz/harfbuzz/releases/download/${VERSION}/harfbuzz-${VERSION}.tar.xz
-tar xf harfbuzz-${VERSION}.tar.xz
-cd harfbuzz-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --with-glib
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/harfbuzz-${VERSION}
+[Install Script](./install.sh)

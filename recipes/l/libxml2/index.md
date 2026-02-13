@@ -17,23 +17,5 @@ MIT
 - zlib (optional)
 
 ## Recipe
-#!/bin/bash
-# Install script for libxml2
-# Version: 2.12.9
 
-set -e
-
-VERSION="2.12.9"
-PREFIX="${PREFIX:-/usr/local}"
-
-cd /tmp
-wget -q https://download.gnome.org/sources/libxml2/${VERSION%.*}/libxml2-${VERSION}.tar.gz
-tar xzf libxml2-${VERSION}.tar.gz
-cd libxml2-${VERSION}
-
-./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --without-python
-make -j$(nproc)
-sudo make install
-sudo ldconfig
-
-rm -rf /tmp/libxml2-${VERSION}
+[Install Script](./install.sh)
