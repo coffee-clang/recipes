@@ -46,6 +46,7 @@ jobs:
         run: |
           mkdir -p docs
           cp index.html docs/
+          cp summary.csv docs/
           rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
        
       - name: Upload artifact
