@@ -1,27 +1,70 @@
 #!/bin/bash
 
 CSV_FILE="summary.csv"
-OUTPUT="index.md"
+OUTPUT="index.html"
 
-cat >"$OUTPUT" <<'HEADER'
-# C Libraries
+cat >"$OUTPUT" <<'HEAD'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link href="sqlite.css" rel="stylesheet">
+<title>C Libraries</title>
+</head>
+<body>
+<div class="nosearch">
+<div class="menu mainmenu">
+<ul>
+<li><a href="index.html">Home</a>
+</ul>
+</div>
+</div>
 
-A collection of widely used C libraries with installation recipes.
+<div class="content">
 
-## Packages
+<h1>C Libraries</h1>
 
-| Package | Version | License | Last Updated | Link |
-|---------|---------|---------|--------------|------|
-HEADER
+<p>A collection of widely used C libraries with installation recipes.</p>
 
-tail -n +2 "$CSV_FILE" | while IFS=',' read -r name version link license date; do
-    first_letter="${name:0:1}"
-    echo "| [$name]($first_letter/$name/) | $version | $license | $date | $link |"
+<h2>Packages</h2>
+
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Version</th>
+<th>License</th>
+<th>Last Updated</th>
+</tr>
+</thead>
+<tbody>
+HEAD
+
+tail -n +2 "$CSV_FILE" | sed 's/"//g' | while IFS=',' read -r name version link license date; do
+	first_letter="${name:0:1}"
+	echo "<tr>"
+	echo "<td><a href=\"$first_letter/$name/\">$name</a></td>"
+	echo "<td>$version</td>"
+	echo "<td>$license</td>"
+	echo "<td>$date</td>"
+	echo "</tr>"
 done >>"$OUTPUT"
 
-echo "" >>"$OUTPUT"
-echo "Total: $(tail -n +2 "$CSV_FILE" | wc -l) packages" >>"$OUTPUT"
+TOTAL=$(tail -n +2 "$CSV_FILE" | wc -l)
 
-lowdown -s <"$OUTPUT" >"${OUTPUT%.md}.html"
+cat >>"$OUTPUT" <<TAIL
+</tbody>
+</table>
 
-echo "Generated: $OUTPUT and index.html"
+<p>Total: $TOTAL packages</p>
+
+</div>
+
+<p><small><i>This page was last updated on $(date -u +"%Y-%m-%d %H:%M:%SZ")</i></small></p>
+
+</body>
+</html>
+TAIL
+
+echo "Generated: $OUTPUT"
