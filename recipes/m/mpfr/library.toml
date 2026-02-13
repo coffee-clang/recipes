@@ -1,0 +1,6 @@
+title = "mpfr"
+version = "4.2.1"
+description = "MPFR (Multiple Precision Floating-Point Rounding) is a C library for arbitrary-precision floating-point arithmetic. It extends GMP with accurate rounding and provides functions for high-precision calculations."
+license = "LGPL-3.0"
+dependencies = "gmp"
+recipe_url = "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.gz"

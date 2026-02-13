@@ -1,0 +1,6 @@
+title = "udev"
+version = "257.4"
+description = "udev is the device manager for the Linux kernel. It manages device nodes in /dev and handles all user-space events when devices are added or removed, essential for modern Linux systems."
+license = "GPL-2.0"
+dependencies = "glib"
+recipe_url = "https://github.com/systemd/systemd/archive/refs/tags/v257.4.tar.gz"

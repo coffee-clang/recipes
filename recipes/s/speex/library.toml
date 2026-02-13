@@ -1,0 +1,6 @@
+title = "speex"
+version = "1.2.1"
+description = "Speex is a patent-free audio codec optimized for voice compression. It provides excellent quality for voice at low bitrates and was widely used for VoIP applications before Opus became the standard."
+license = "BSD-3-Clause"
+dependencies = "libogg"
+recipe_url = "https://downloads.xiph.org/releases/speex/speex-1.2.1.tar.gz"

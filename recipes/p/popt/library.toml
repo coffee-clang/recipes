@@ -1,0 +1,6 @@
+title = "popt"
+version = "1.19"
+description = "popt is a command-line option parsing library for C. It provides a convenient interface for parsing command-line arguments and is used by many applications including rpm and wget."
+license = "MIT"
+dependencies = "None (self-contained)"
+recipe_url = "https://github.com/rpm-software-management/popt/releases/download/popt-1.19/popt-1.19.tar.gz"

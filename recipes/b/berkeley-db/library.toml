@@ -1,0 +1,6 @@
+title = "berkeley-db"
+version = "6.2.32"
+description = "Oracle Berkeley DB is an embedded database library providing key-value storage with transactions, locking, and recovery. It is widely used as a backend for directories, caches, and application data storage."
+license = "BSD-2-Clause"
+dependencies = "java (optional, for Java API)"
+recipe_url = "https://download.oracle.com/berkeley-db/db-6.2.32.tar.gz"

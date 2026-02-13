@@ -1,0 +1,6 @@
+title = "glib"
+version = "2.82.5"
+description = "GLib is the core library of GTK+ and GNOME. It provides data structure handling, type casting, string utilities, file utilities, main loop, and other fundamental functionality used by most GNOME applications."
+license = "LGPL-2.1"
+dependencies = "pcre2"
+recipe_url = "https://download.gnome.org/sources/glib/${VERSION%.*}/glib-2.82.5.tar.xz"

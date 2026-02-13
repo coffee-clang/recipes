@@ -1,0 +1,6 @@
+title = "bind"
+version = "9.18.28"
+description = "BIND (Berkeley Internet Name Domain) is the most widely used DNS server software on the Internet. The libdns library provides DNS protocol handling, resolution, and zone management capabilities."
+license = "MPL-2.0"
+dependencies = "openssl"
+recipe_url = "https://downloads.isc.org/isc/bind9/9.18.28/bind-9.18.28.tar.gz"

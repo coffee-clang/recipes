@@ -1,0 +1,6 @@
+title = "pango"
+version = "1.54.0"
+description = "Pango is a library for layout and rendering of internationalized text. It works with GTK+ to provide proper text rendering for complex scripts and is used by GNOME applications for internationalized text display."
+license = "LGPL-2.1"
+dependencies = "glib"
+recipe_url = "https://download.gnome.org/sources/pango/${VERSION%.*}/pango-1.54.0.tar.xz"

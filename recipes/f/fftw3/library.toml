@@ -1,0 +1,6 @@
+title = "fftw3"
+version = "3.3.10"
+description = "FFTW is a free, fast C library for computing the Discrete Fourier Transform (DFT). It is one of the fastest FFT implementations available, supporting 1D, 2D, and 3D transforms, and both real and complex data."
+license = "GPL-2.0"
+dependencies = "None (pure C library)"
+recipe_url = "https://fftw.org/fftw-3.3.10.tar.gz"

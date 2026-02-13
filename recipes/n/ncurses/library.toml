@@ -1,0 +1,6 @@
+title = "ncurses"
+version = "6.5"
+description = "ncurses is a programming library providing an API for building terminal user interfaces. It extends the basic terminal capabilities allowing colored text, forms, menus, and windows. Used by most terminal applications."
+license = "MIT"
+dependencies = "None (self-contained)"
+recipe_url = "https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz"

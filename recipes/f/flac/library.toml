@@ -1,0 +1,6 @@
+title = "flac"
+version = "1.4.3"
+description = "FLAC (Free Lossless Audio Codec) is an audio coding format for lossless compression of digital audio. The libFLAC library provides the reference encoder and decoder, supporting FLAC levels 0-8."
+license = "BSD-3-Clause"
+dependencies = "libogg"
+recipe_url = "https://downloads.xiph.org/flac/flac-1.4.3.tar.xz"

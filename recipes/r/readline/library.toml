@@ -1,0 +1,6 @@
+title = "readline"
+version = "8.2"
+description = "GNU Readline is a library for interactive command-line editing. It provides line editing, history, and completion features used by bash, gdb, and other interactive command-line programs."
+license = "GPL-3.0"
+dependencies = "ncurses (for terminal support)"
+recipe_url = "https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz"

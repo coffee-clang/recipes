@@ -1,0 +1,6 @@
+title = "microhttpd"
+version = "1.0.0"
+description = "GNU libmicrohttpd is a small, embeddable HTTP server library. It supports HTTP/1.1, HTTPS, chunked transfer encoding, and multiple threading models. It is designed for embedding HTTP server functionality into applications."
+license = "LGPL-2.1"
+dependencies = "libgnutls (optional)"
+recipe_url = "https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-1.0.0.tar.gz"

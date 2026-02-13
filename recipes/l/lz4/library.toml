@@ -1,0 +1,6 @@
+title = "lz4"
+version = "1.10.0"
+description = "LZ4 is a lossless compression algorithm focusing on speed. It provides extremely fast compression and decompression, making it ideal for scenarios where speed is more important than maximum compression ratio."
+license = "BSD-2-Clause"
+dependencies = "cmake"
+recipe_url = "https://github.com/lz4/lz4.git"

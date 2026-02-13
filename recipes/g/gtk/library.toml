@@ -1,0 +1,6 @@
+title = "gtk"
+version = "3.24.47"
+description = "GTK (GIMP Toolkit) is a cross-platform GUI toolkit for creating graphical user interfaces. It is one of the most popular C GUI frameworks, used by GNOME applications, GIMP, Inkscape, and many other software."
+license = "LGPL-2.1"
+dependencies = "glib"
+recipe_url = "https://download.gnome.org/sources/gtk+/${VERSION%.*}/gtk+-3.24.47.tar.xz"

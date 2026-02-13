@@ -1,0 +1,6 @@
+title = "libjpeg-turbo"
+version = "3.0.4"
+description = "libjpeg-turbo is a JPEG image codec that uses SIMD instructions to accelerate baseline JPEG compression and decompression. It provides significantly faster performance than libjpeg while maintaining compatibility."
+license = "BSD-3-Clause"
+dependencies = "cmake (build)"
+recipe_url = "https://sourceforge.net/projects/libjpeg-turbo/files/3.0.4/libjpeg-turbo-3.0.4.tar.gz"

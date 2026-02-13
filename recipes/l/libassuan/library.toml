@@ -1,0 +1,6 @@
+title = "libassuan"
+version = "2.5.8"
+description = "Libassuan is a library implementing the Assuan protocol used by GnuPG for inter-process communication. It provides a generic IPC mechanism for applications requiring secure communication."
+license = "LGPL-2.1"
+dependencies = "libgpg-error"
+recipe_url = "https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.8.tar.bz2"

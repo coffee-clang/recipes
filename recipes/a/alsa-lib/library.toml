@@ -1,0 +1,6 @@
+title = "alsa-lib"
+version = "1.2.14"
+description = "The Advanced Linux Sound Architecture (ALSA) library provides audio and MIDI functionality for Linux. It is the core library for audio playback and recording, used by most Linux audio applications including PulseAudio, JACK, and many others."
+license = "LGPL-2.1"
+dependencies = "ncurses (for alsaconf optional)"
+recipe_url = "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.14.tar.bz2"

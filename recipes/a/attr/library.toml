@@ -1,0 +1,6 @@
+title = "attr"
+version = "2.5.2"
+description = "The attr library provides extended attributes support for filesystems on Linux. Extended attributes allow storing additional metadata (key-value pairs) associated with files, used by SELinux, ACLs, and other filesystem features."
+license = "LGPL-2.1"
+dependencies = "gettext (for internationalization)"
+recipe_url = "https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.gz"

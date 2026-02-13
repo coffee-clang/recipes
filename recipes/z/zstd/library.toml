@@ -1,0 +1,6 @@
+title = "zstd"
+version = "1.5.6"
+description = "Zstandard (zstd) is a real-time compression algorithm developed by Facebook. It provides excellent compression ratios with very fast speeds, making it suitable for data compression, backups, and content distribution."
+license = "BSD-3-Clause"
+dependencies = "cmake"
+recipe_url = "https://github.com/facebook/zstd.git"

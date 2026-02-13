@@ -1,0 +1,6 @@
+title = "harfbuzz"
+version = "10.0.1"
+description = "HarfBuzz is a text shaping library for OpenType and Graphite fonts. It determines how to render Unicode text and is used by GNOME, Firefox, LibreOffice, and other applications for proper text rendering."
+license = "LGPL-2.1"
+dependencies = "glib"
+recipe_url = "https://github.com/harfbuzz/harfbuzz/releases/download/10.0.1/harfbuzz-10.0.1.tar.xz"

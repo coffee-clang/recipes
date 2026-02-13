@@ -1,0 +1,6 @@
+title = "qrencode"
+version = "4.1.1"
+description = "QRencode is a fast QR code encoder library. It converts strings or URLs into QR code images that can be scanned by mobile phones and barcode readers."
+license = "LGPL-2.1"
+dependencies = "libpng (optional)"
+recipe_url = "https://github.com/fukuchi/libqrencode/archive/refs/tags/v4.1.1.tar.gz"

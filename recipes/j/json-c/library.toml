@@ -1,0 +1,6 @@
+title = "json-c"
+version = "0.18"
+description = "json-c provides a C library for parsing and manipulating JSON data. It supports JSON parsing, building, modification, and serialization with a simple object model and streaming API."
+license = "MIT"
+dependencies = "cmake"
+recipe_url = "https://s3.amazonaws.com/json-c_releases/releases/json-c-0.18.tar.gz"

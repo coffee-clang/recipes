@@ -1,0 +1,6 @@
+title = "fuse"
+version = "3.16.2"
+description = "FUSE (Filesystem in Userspace) allows users to create filesystems without kernel modifications. It enables developers to implement filesystems in user space, used by sshfs, gvfs, and many virtual filesystems."
+license = "GPL-2.0"
+dependencies = "libtool"
+recipe_url = "https://github.com/libfuse/libfuse/releases/download/fuse-3.16.2/fuse-3.16.2.tar.gz"

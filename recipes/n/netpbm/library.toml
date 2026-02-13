@@ -1,0 +1,6 @@
+title = "netpbm"
+version = "11.0.0"
+description = "Netpbm is a toolkit for manipulation of graphic images including conversion between over 100 formats. It provides utilities for image conversion, editing, and analysis used by many graphics applications."
+license = "BSD-3-Clause"
+dependencies = "libjpeg"
+recipe_url = "https://sourceforge.net/projects/netpbm/advanced/11.0.0/netpbm-11.0.0.tgz"

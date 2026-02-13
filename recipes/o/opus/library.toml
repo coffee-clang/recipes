@@ -1,0 +1,6 @@
+title = "opus"
+version = "1.5.2"
+description = "Opus is a lossy audio codec designed for interactive speech and music transmission over the internet. It provides excellent quality at low bitrates and is used by VoIP applications, streaming, and video conferencing."
+license = "BSD-3-Clause"
+dependencies = "cmake"
+recipe_url = "https://archive.mozilla.org/pub/opus/opus-1.5.2.tar.gz"

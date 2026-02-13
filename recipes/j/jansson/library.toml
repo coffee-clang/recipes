@@ -1,0 +1,6 @@
+title = "jansson"
+version = "2.14"
+description = "Jansson is a C library for encoding, decoding, and manipulating JSON data. It provides a simple API and is known for its small size, ease of use, and good performance."
+license = "MIT"
+dependencies = "cmake (build)"
+recipe_url = "https://github.com/akheron/jansson/releases/download/v2.14/jansson-2.14.tar.gz"

@@ -1,0 +1,6 @@
+title = "util-linux"
+version = "2.40.2"
+description = "util-linux is a collection of essential Linux system utilities including mount, umount, fdisk, mkfs, and many other fundamental command-line tools. Many of these are essential for system administration."
+license = "GPL-2.0"
+dependencies = "ncurses"
+recipe_url = "https://github.com/karelzak/util-linux/archive/refs/tags/v2.40.2.tar.gz"

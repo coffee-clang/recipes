@@ -1,0 +1,6 @@
+title = "xz"
+version = "5.6.3"
+description = "XZ Utils is a set of tools for the .xz compression format. liblzma provides the LZMA compression algorithm implementation, offering high compression ratios for data storage and distribution."
+license = "PublicDomain"
+dependencies = "None (self-contained)"
+recipe_url = "https://tukaani.org/xz/xz-5.6.3.tar.gz"

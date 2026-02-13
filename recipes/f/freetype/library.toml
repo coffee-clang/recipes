@@ -1,0 +1,6 @@
+title = "freetype"
+version = "2.13.3"
+description = "FreeType is a freely available software library for rendering fonts. It provides a uniform interface to access font content and is used by most Linux desktop environments, browsers, and ebook readers."
+license = "FreeType"
+dependencies = "zlib (optional, for bitmap fonts)"
+recipe_url = "https://download.savannah.nongnu.org/releases/freetype/freetype-2.13.3.tar.gz"

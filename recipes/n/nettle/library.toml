@@ -1,0 +1,6 @@
+title = "nettle"
+version = "3.10"
+description = "Nettle is a low-level cryptographic library providing implementations of symmetric and asymmetric encryption algorithms. It is designed to be portable and is used by GnuTLS and other security applications."
+license = "LGPL-2.1"
+dependencies = "gmp"
+recipe_url = "https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz"

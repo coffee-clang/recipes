@@ -1,0 +1,6 @@
+title = "zeromq"
+version = "4.3.5"
+description = "ZeroMQ (0MQ) is a high-performance asynchronous messaging library providing a socket abstraction for various messaging patterns. It supports request-reply, publish-subscribe, and push-pull patterns across transports."
+license = "LGPL-3.0"
+dependencies = "cmake"
+recipe_url = "https://github.com/zeromq/libzmq/releases/download/v4.3.5/zeromq-4.3.5.tar.gz"

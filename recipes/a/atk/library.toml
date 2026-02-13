@@ -1,0 +1,6 @@
+title = "atk"
+version = "2.52.0"
+description = "ATK (Accessibility Toolkit) provides an interface for accessibility support. It is used by assistive technologies to interact with GTK and other GNOME applications, enabling screen readers and other accessibility tools."
+license = "LGPL-2.1"
+dependencies = "glib"
+recipe_url = "https://download.gnome.org/sources/atk/${VERSION%.*}/atk-2.52.0.tar.xz"

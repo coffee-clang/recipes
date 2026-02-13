@@ -1,0 +1,6 @@
+title = "x11"
+version = "1.8.9"
+description = "X11 (X Window System) is the foundation for graphical user interfaces on Unix-like systems. libX11 provides the client library for connecting to X servers and creating graphical applications."
+license = "MIT"
+dependencies = "xorgproto"
+recipe_url = "https://x.org/archive/individual/lib/libX11-1.8.9.tar.xz"

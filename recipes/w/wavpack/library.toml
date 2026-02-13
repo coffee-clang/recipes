@@ -1,0 +1,6 @@
+title = "wavpack"
+version = "5.7.0"
+description = "WavPack is a free, open-source audio codec providing both lossless and lossy compression. It offers excellent quality and is used by audio production software and music collection management."
+license = "BSD-3-Clause"
+dependencies = "cmake"
+recipe_url = "https://github.com/dbry/WavPack.git"
