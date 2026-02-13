@@ -12,6 +12,9 @@ FriBidi is a free implementation of the Unicode Bidirectional Algorithm. It is u
 ## Dependencies
 - meson or cmake
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for FriBidi

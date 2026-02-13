@@ -12,6 +12,9 @@ XZ Utils is a set of tools for the .xz compression format. liblzma provides the 
 ## Dependencies
 - None (self-contained)
 
+## License
+Public Domain
+
 ## Recipe
 #!/bin/bash
 # Install script for XZ Utils

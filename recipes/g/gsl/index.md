@@ -12,6 +12,9 @@ GNU Scientific Library (GSL) is a numerical library for C and C++ providing a wi
 ## Dependencies
 - None (self-contained)
 
+## License
+GPL-3.0
+
 ## Recipe
 #!/bin/bash
 # Install script for GSL

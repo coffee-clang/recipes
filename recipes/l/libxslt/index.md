@@ -12,6 +12,9 @@ libxslt is the XSLT C library for XML transformation. It implements XSLT version
 ## Dependencies
 - libxml2
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for libxslt

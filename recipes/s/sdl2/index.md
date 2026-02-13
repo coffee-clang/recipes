@@ -11,6 +11,9 @@ SDL (Simple DirectMedia Layer) is a cross-platform library for multimedia and ga
 
 ## Dependencies
 - libpulse (optional)
+
+## License
+Zlib
 - alsa (optional)
 
 ## Recipe

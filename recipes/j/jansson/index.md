@@ -12,6 +12,9 @@ Jansson is a C library for encoding, decoding, and manipulating JSON data. It pr
 ## Dependencies
 - cmake (build)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for jansson

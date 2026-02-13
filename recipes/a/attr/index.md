@@ -12,6 +12,9 @@ The attr library provides extended attributes support for filesystems on Linux. 
 ## Dependencies
 - gettext (for internationalization)
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for attr

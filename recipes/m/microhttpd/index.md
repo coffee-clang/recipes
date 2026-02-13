@@ -12,6 +12,9 @@ GNU libmicrohttpd is a small, embeddable HTTP server library. It supports HTTP/1
 ## Dependencies
 - libgnutls (optional)
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for libmicrohttpd

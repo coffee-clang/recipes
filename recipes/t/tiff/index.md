@@ -11,6 +11,9 @@ LibTIFF provides support for the Tag Image File Format (TIFF), a widely used for
 
 ## Dependencies
 - libjpeg
+
+## License
+MIT
 - zlib
 
 ## Recipe

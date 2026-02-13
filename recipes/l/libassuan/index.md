@@ -12,6 +12,9 @@ Libassuan is a library implementing the Assuan protocol used by GnuPG for inter-
 ## Dependencies
 - libgpg-error
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for libassuan

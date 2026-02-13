@@ -11,6 +11,9 @@ GTK (GIMP Toolkit) is a cross-platform GUI toolkit for creating graphical user i
 
 ## Dependencies
 - glib
+
+## License
+LGPL-2.1
 - cairo
 - pango
 - atk

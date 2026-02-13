@@ -12,6 +12,9 @@ Oracle Berkeley DB is an embedded database library providing key-value storage w
 ## Dependencies
 - java (optional, for Java API)
 
+## License
+BSD-2-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for Berkeley DB

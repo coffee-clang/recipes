@@ -11,6 +11,9 @@ PulseAudio is a sound server providing advanced features including per-applicati
 
 ## Dependencies
 - glib
+
+## License
+LGPL-2.1
 - libsndfile
 - dbus
 

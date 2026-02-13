@@ -12,6 +12,9 @@ GMP (GNU Multiple Precision Arithmetic Library) is a free library for arbitrary 
 ## Dependencies
 - m4 (build requirement)
 
+## License
+LGPL-3.0
+
 ## Recipe
 #!/bin/bash
 # Install script for GMP

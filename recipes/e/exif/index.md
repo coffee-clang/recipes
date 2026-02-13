@@ -11,6 +11,9 @@ libexif is a library for parsing, editing, and saving EXIF metadata from digital
 
 ## Dependencies
 - libjpeg
+
+## License
+LGPL-2.1
 - pkg-config
 
 ## Recipe

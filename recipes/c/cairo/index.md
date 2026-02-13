@@ -11,6 +11,9 @@ Cairo is a 2D graphics library supporting multiple output targets including X Wi
 
 ## Dependencies
 - libpng
+
+## License
+LGPL-2.1
 - freetype
 - fontconfig
 - pixman

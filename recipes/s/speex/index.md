@@ -11,6 +11,9 @@ Speex is a patent-free audio codec optimized for voice compression. It provides 
 
 ## Dependencies
 - libogg
+
+## License
+BSD-3-Clause
 - autoconf/automake
 
 ## Recipe

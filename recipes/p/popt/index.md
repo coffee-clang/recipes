@@ -12,6 +12,9 @@ popt is a command-line option parsing library for C. It provides a convenient in
 ## Dependencies
 - None (self-contained)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for popt

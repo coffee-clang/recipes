@@ -12,6 +12,9 @@ liblzma provides LZMA compression and decompression functionality. It is part of
 ## Dependencies
 - None (self-contained)
 
+## License
+Public Domain
+
 ## Recipe
 #!/bin/bash
 # Install script for liblzma

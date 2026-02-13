@@ -12,6 +12,9 @@ json-c provides a C library for parsing and manipulating JSON data. It supports 
 ## Dependencies
 - cmake
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for json-c

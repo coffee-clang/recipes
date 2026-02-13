@@ -12,6 +12,9 @@ LZ4 is a lossless compression algorithm focusing on speed. It provides extremely
 ## Dependencies
 - cmake
 
+## License
+BSD-2-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for LZ4

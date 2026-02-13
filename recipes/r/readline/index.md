@@ -12,6 +12,9 @@ GNU Readline is a library for interactive command-line editing. It provides line
 ## Dependencies
 - ncurses (for terminal support)
 
+## License
+GPL-3.0
+
 ## Recipe
 #!/bin/bash
 # Install script for readline

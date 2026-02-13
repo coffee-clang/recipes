@@ -12,6 +12,9 @@ BLAS (Basic Linear Algebra Subprograms) is a specification for linear algebra li
 ## Dependencies
 - gfortran (for reference implementation)
 
+## License
+BSD-3-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for BLAS

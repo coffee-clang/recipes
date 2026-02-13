@@ -11,6 +11,9 @@ X11 (X Window System) is the foundation for graphical user interfaces on Unix-li
 
 ## Dependencies
 - xorgproto
+
+## License
+MIT
 - libxcb (optional)
 
 ## Recipe

@@ -11,6 +11,9 @@ Wayland is a display server protocol and library implementation. It provides the
 
 ## Dependencies
 - libffi
+
+## License
+MIT
 - libxml2
 
 ## Recipe

@@ -12,6 +12,9 @@ libpng is the official PNG reference library for reading and writing PNG (Portab
 ## Dependencies
 - zlib
 
+## License
+libpng
+
 ## Recipe
 #!/bin/bash
 # Install script for libpng

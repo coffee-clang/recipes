@@ -12,6 +12,9 @@ PCRE (Perl Compatible Regular Expressions) is a library implementing regular exp
 ## Dependencies
 - None (self-contained)
 
+## License
+BSD
+
 ## Recipe
 #!/bin/bash
 # Install script for PCRE

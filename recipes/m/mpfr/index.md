@@ -12,6 +12,9 @@ MPFR (Multiple Precision Floating-Point Rounding) is a C library for arbitrary-p
 ## Dependencies
 - gmp
 
+## License
+LGPL-3.0
+
 ## Recipe
 #!/bin/bash
 # Install script for MPFR

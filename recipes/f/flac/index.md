@@ -11,6 +11,9 @@ FLAC (Free Lossless Audio Codec) is an audio coding format for lossless compress
 
 ## Dependencies
 - libogg
+
+## License
+BSD-3-Clause
 - cmake
 
 ## Recipe

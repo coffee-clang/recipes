@@ -12,6 +12,9 @@ Brotli is a lossless compression algorithm developed by Google. It provides bett
 ## Dependencies
 - cmake
 
+## License
+BSD-3-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for brotli

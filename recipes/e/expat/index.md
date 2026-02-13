@@ -12,6 +12,9 @@ Expat is a stream-oriented XML parser library written in C. It is widely used fo
 ## Dependencies
 - None (pure C library)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for expat

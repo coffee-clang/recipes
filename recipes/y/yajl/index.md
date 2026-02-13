@@ -12,6 +12,9 @@ YAJL (Yet Another JSON Library) is a small, event-driven JSON parser and generat
 ## Dependencies
 - cmake
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for YAJL

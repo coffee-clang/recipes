@@ -12,6 +12,9 @@ ncurses is a programming library providing an API for building terminal user int
 ## Dependencies
 - None (self-contained)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for ncurses

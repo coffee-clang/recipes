@@ -12,6 +12,9 @@ LMDB (Lightning Memory-Mapped Database) is an embedded key-value database with A
 ## Dependencies
 - None (self-contained)
 
+## License
+OpenSSL
+
 ## Recipe
 #!/bin/bash
 # Install script for LMDB

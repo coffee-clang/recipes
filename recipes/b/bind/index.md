@@ -11,6 +11,9 @@ BIND (Berkeley Internet Name Domain) is the most widely used DNS server software
 
 ## Dependencies
 - openssl
+
+## License
+MPL-2.0
 - libuv
 - zlib
 

@@ -12,6 +12,9 @@ FUSE (Filesystem in Userspace) allows users to create filesystems without kernel
 ## Dependencies
 - libtool
 
+## License
+GPL-2.0
+
 ## Recipe
 #!/bin/bash
 # Install script for FUSE

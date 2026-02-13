@@ -11,6 +11,9 @@ Avahi is a free, LGPL implementation of DNS Service Discovery (DNS-SD) for Linux
 
 ## Dependencies
 - glib
+
+## License
+LGPL-2.1
 - expat
 - libdaemon
 

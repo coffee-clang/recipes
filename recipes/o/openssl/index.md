@@ -11,6 +11,9 @@ OpenSSL is a robust, full-featured toolkit for SSL/TLS protocols and general-pur
 
 ## Dependencies
 - perl (for build)
+
+## License
+Apache-2.0
 - ca-certificates (for verification)
 
 ## Recipe

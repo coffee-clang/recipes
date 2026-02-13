@@ -11,6 +11,9 @@ Pango is a library for layout and rendering of internationalized text. It works 
 
 ## Dependencies
 - glib
+
+## License
+LGPL-2.1
 - cairo
 - harfbuzz
 - fontconfig

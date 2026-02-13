@@ -12,6 +12,9 @@ libuv is a multi-platform support library for async I/O operations. It provides 
 ## Dependencies
 - cmake
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for libuv

@@ -11,6 +11,9 @@ util-linux is a collection of essential Linux system utilities including mount, 
 
 ## Dependencies
 - ncurses
+
+## License
+GPL-2.0
 - libcap-ng
 - libsmartcols
 

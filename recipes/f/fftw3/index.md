@@ -12,6 +12,9 @@ FFTW is a free, fast C library for computing the Discrete Fourier Transform (DFT
 ## Dependencies
 - None (pure C library)
 
+## License
+GPL-2.0
+
 ## Recipe
 #!/bin/bash
 # Install script for FFTW

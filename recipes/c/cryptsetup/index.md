@@ -11,6 +11,9 @@ cryptsetup is a library for setting up encrypted disk volumes using LUKS (Linux 
 
 ## Dependencies
 - libgcrypt
+
+## License
+GPL-2.0
 - libpopt
 - popt
 - json-c

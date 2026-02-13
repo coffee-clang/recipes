@@ -11,6 +11,9 @@ libxml2 is the XML C parser and toolkit developed for the GNOME project. It prov
 
 ## Dependencies
 - python3 (optional)
+
+## License
+MIT
 - zlib (optional)
 
 ## Recipe

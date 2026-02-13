@@ -12,6 +12,9 @@ bzip2 is a free, open-source lossless compression library known for its high com
 ## Dependencies
 - None (pure C library)
 
+## License
+bzip2
+
 ## Recipe
 #!/bin/bash
 # Install script for bzip2

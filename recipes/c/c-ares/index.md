@@ -12,6 +12,9 @@ c-ares is a C library for asynchronous DNS requests and name resolution. It prov
 ## Dependencies
 - cmake (build)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for c-ares

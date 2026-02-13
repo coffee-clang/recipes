@@ -11,6 +11,9 @@ The Advanced Linux Sound Architecture (ALSA) library provides audio and MIDI fun
 
 ## Dependencies
 - ncurses (for alsaconf optional)
+
+## License
+LGPL-2.1
 - python3 (for tools)
 
 ## Recipe

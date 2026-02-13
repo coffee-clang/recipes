@@ -11,6 +11,9 @@ D-Bus is a message bus system for inter-process communication in Linux desktop e
 
 ## Dependencies
 - expat
+
+## License
+GPL-2.0
 - libpthread
 
 ## Recipe

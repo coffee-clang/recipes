@@ -11,6 +11,9 @@ udev is the device manager for the Linux kernel. It manages device nodes in /dev
 
 ## Dependencies
 - glib
+
+## License
+GPL-2.0
 - libkmod
 - gzip
 

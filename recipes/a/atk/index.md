@@ -11,6 +11,9 @@ ATK (Accessibility Toolkit) provides an interface for accessibility support. It 
 
 ## Dependencies
 - glib
+
+## License
+LGPL-2.1
 - gobject-introspection
 
 ## Recipe

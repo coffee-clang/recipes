@@ -12,6 +12,9 @@ libevent is an event notification library for developing scalable network server
 ## Dependencies
 - openssl (optional)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for libevent

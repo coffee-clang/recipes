@@ -11,6 +11,9 @@ libcurl is a free, easy-to-use URL transfer library supporting HTTP, HTTPS, FTP,
 
 ## Dependencies
 - openssl
+
+## License
+curl
 - zlib
 
 ## Recipe

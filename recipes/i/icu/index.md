@@ -12,6 +12,9 @@ ICU (International Components for Unicode) provides Unicode and globalization su
 ## Dependencies
 - None (self-contained)
 
+## License
+Unicode
+
 ## Recipe
 #!/bin/bash
 # Install script for ICU

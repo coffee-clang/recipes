@@ -12,6 +12,9 @@ xkbcommon is a keyboard handling library providing a portable way to process key
 ## Dependencies
 - libxcb (optional)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for xkbcommon

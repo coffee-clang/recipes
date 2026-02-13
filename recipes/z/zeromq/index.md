@@ -11,6 +11,9 @@ ZeroMQ (0MQ) is a high-performance asynchronous messaging library providing a so
 
 ## Dependencies
 - cmake
+
+## License
+LGPL-3.0
 - libsodium (optional)
 
 ## Recipe

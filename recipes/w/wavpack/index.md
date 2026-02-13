@@ -12,6 +12,9 @@ WavPack is a free, open-source audio codec providing both lossless and lossy com
 ## Dependencies
 - cmake
 
+## License
+BSD-3-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for WavPack

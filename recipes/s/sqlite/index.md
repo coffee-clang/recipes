@@ -12,6 +12,9 @@ SQLite is a small, fast, self-contained, high-reliability, full-featured SQL dat
 ## Dependencies
 - None (self-contained)
 
+## License
+Public Domain
+
 ## Recipe
 #!/bin/bash
 # Install script for SQLite

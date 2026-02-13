@@ -12,6 +12,9 @@ Pixman is a low-level software pixel manipulation library providing image compos
 ## Dependencies
 - meson or autoconf
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for pixman

@@ -11,6 +11,9 @@ Netpbm is a toolkit for manipulation of graphic images including conversion betw
 
 ## Dependencies
 - libjpeg
+
+## License
+BSD-3-Clause
 - libpng
 - libtiff
 

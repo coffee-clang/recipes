@@ -12,6 +12,9 @@ PCRE2 is the successor to PCRE, implementing regular expressions with improved f
 ## Dependencies
 - cmake (build)
 
+## License
+BSD
+
 ## Recipe
 #!/bin/bash
 # Install script for PCRE2

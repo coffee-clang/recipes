@@ -11,6 +11,9 @@ Mesa is an open-source implementation of the OpenGL, Vulkan, and other graphics 
 
 ## Dependencies
 - llvm
+
+## License
+MIT
 - libdrm
 - glproto
 

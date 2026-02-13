@@ -12,6 +12,9 @@ zlib is a massively portable, free, general-purpose, legally unencumbered lossle
 ## Dependencies
 - None (self-contained)
 
+## License
+zlib
+
 ## Recipe
 #!/bin/bash
 # Install script for zlib

@@ -11,6 +11,9 @@ GLib is the core library of GTK+ and GNOME. It provides data structure handling,
 
 ## Dependencies
 - pcre2
+
+## License
+LGPL-2.1
 - libffi
 
 ## Recipe

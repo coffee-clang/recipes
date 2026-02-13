@@ -12,6 +12,9 @@ Nettle is a low-level cryptographic library providing implementations of symmetr
 ## Dependencies
 - gmp
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for nettle

@@ -11,6 +11,9 @@ HarfBuzz is a text shaping library for OpenType and Graphite fonts. It determine
 
 ## Dependencies
 - glib
+
+## License
+LGPL-2.1
 - freetype
 - cairo
 - icu (optional)

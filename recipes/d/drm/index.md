@@ -11,6 +11,9 @@ Direct Rendering Manager (DRM) provides user-space libraries for interfacing wit
 
 ## Dependencies
 - libdrm (userspace component)
+
+## License
+MIT
 - kernel headers
 
 ## Recipe

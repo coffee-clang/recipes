@@ -12,6 +12,9 @@ The acl library provides utilities for manipulating Access Control Lists (ACLs) 
 ## Dependencies
 - attr (extended attributes library)
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for acl

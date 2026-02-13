@@ -11,6 +11,9 @@ FFmpeg is the leading multimedia framework for encoding, decoding, transcoding, 
 
 ## Dependencies
 - libx264
+
+## License
+GPL-3.0
 - libx265
 - libvpx
 - libmp3lame

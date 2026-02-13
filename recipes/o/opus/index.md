@@ -12,6 +12,9 @@ Opus is a lossy audio codec designed for interactive speech and music transmissi
 ## Dependencies
 - cmake
 
+## License
+BSD-3-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for opus

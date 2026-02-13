@@ -12,6 +12,9 @@ CUnit is a lightweight unit testing framework for C. It provides a simple API fo
 ## Dependencies
 - None (minimal dependencies)
 
+## License
+GPL-2.0
+
 ## Recipe
 #!/bin/bash
 # Install script for CUnit

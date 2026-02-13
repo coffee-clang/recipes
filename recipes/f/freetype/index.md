@@ -11,6 +11,9 @@ FreeType is a freely available software library for rendering fonts. It provides
 
 ## Dependencies
 - zlib (optional, for bitmap fonts)
+
+## License
+FreeType
 - brotli (optional, for color emoji)
 
 ## Recipe

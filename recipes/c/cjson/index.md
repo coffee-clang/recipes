@@ -12,6 +12,9 @@ cJSON is an ultra-lightweight JSON parser and writer for C. It is designed to be
 ## Dependencies
 - None (pure C library)
 
+## License
+MIT
+
 ## Recipe
 #!/bin/bash
 # Install script for cJSON

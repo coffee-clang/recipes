@@ -12,6 +12,9 @@ Zstandard (zstd) is a real-time compression algorithm developed by Facebook. It 
 ## Dependencies
 - cmake
 
+## License
+BSD-3-Clause
+
 ## Recipe
 #!/bin/bash
 # Install script for Zstandard

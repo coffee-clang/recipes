@@ -12,6 +12,9 @@ QRencode is a fast QR code encoder library. It converts strings or URLs into QR 
 ## Dependencies
 - libpng (optional)
 
+## License
+LGPL-2.1
+
 ## Recipe
 #!/bin/bash
 # Install script for qrencode
