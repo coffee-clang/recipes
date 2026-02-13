@@ -1,0 +1,6 @@
+title = "kmod"
+version = "33"
+description = "The kmod library provides tools for managing Linux kernel modules. It allows loading, unloading, and querying kernel modules, replacing the legacy modutils tools."
+license = "GPL-2.0"
+dependencies = "None"
+recipe_url = "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.gz"

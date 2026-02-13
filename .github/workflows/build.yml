@@ -36,6 +36,9 @@ jobs:
       - name: Generate summary.csv
         run: python3 ./generate_summary.py
 
+      - name: Generate letter index pages
+        run: python3 ./generate_letter_indexes.py
+
       - name: Generate index.md and index.html
         run: ./generate_index.sh
 

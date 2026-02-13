@@ -1,0 +1,6 @@
+title = "vte"
+version = "0.76.3"
+description = "VTE (Virtual Terminal Emulator) is a terminal emulator widget for use in GNOME applications. It provides terminal emulation capabilities with support for multiple terminal protocols."
+license = "LGPL-2.1"
+dependencies = "gtk, pcre2"
+recipe_url = "https://gitlab.gnome.org/GNOME/vte/-/archive/0.76.3/vte-0.76.3.tar.gz"
