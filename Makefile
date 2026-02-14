@@ -1,12 +1,15 @@
 TOMLS := $(wildcard recipes/*/*/library.toml)
 HTMLS := $(TOMLS:/library.toml=/index.html)
 
-.PHONY: all clean check_canonical_names
+.PHONY: all clean check_canonical_names check_toml
 
 all: check_canonical_names website
 
 check_canonical_names:
 	python3 ./check_canonical_names.py
+
+check_toml:
+	python3 ./check_toml_schema.py
 
 docs/.well-known/packages.json.zstd: docs/.well-known/packages.json
 	zstd -19 -o docs/.well-known/packages.json.zstd docs/.well-known/packages.json
