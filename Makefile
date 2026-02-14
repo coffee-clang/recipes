@@ -23,7 +23,7 @@ about.html: about.md templates/template.html
 %/index.html: %/library.toml templates/template.html
 	python3 ./build.py $< $@ templates/template.html
 
-website: index.html about.html $(HTMLS) docs/.well-known/packages.json.zstd letter_index
+website: index.html about.html $(HTMLS) docs/.well-known/packages.json.zstd
 	cp *.html docs/
 	rsync -avm --include='*/' --include='*.html' --include='install[-.]*' --exclude='*' recipes/ docs/
 
