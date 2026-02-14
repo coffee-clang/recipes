@@ -15,8 +15,18 @@ docs/.well-known/packages.json.zstd: docs/.well-known/packages.json
 docs/.well-known/packages.json: generate_packages.py
 	python3 ./generate_packages.py
 
-docs/%.html: %.md templates/template-index.html
-	lowdown -s --template templates/template-index.html $< -o $@
+# docs/%.html: %.md templates/template-index.html
+# 	lowdown -s --template templates/template-index.html $< -o $@
+
+docs/index.html: index.md templates/template-index.html
+	@title=$$(sed -n 's/^title: //p' index.md) && \
+	lowdown -s index.md | sed -n '/<body>/,/<\/body>/p' | sed '1d;$$d' > /tmp/body.html && \
+	sed -e "s/\\$$title/$$title/" -e "/\\$$body/r /tmp/body.html" -e "/\\$$body/d" templates/template-index.html > $$@
+
+docs/about.html: about.md templates/template-index.html
+	@title=$$(sed -n 's/^title: //p' about.md) && \
+	lowdown -s about.md | sed -n '/<body>/,/<\/body>/p' | sed '1d;$$d' > /tmp/body.html && \
+	sed -e "s/\\$$title/$$title/" -e "/\\$$body/r /tmp/body.html" -e "/\\$$body/d" templates/template-index.html > $$@
 
 %/index.html: %/library.toml templates/template.html
 	python3 ./build.py $< $@ templates/template.html
