@@ -34,10 +34,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lowdown zstd
 
       - name: Build HTML files
-        run: make
-      
-      - name: Copy HTML to docs
-        run: make html
+        run: make all
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
