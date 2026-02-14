@@ -1,14 +1,12 @@
 TOMLS := $(wildcard recipes/*/*/library.toml)
 HTMLS := $(TOMLS:/library.toml=/index.html)
 
-.PHONY: all clean check_canonical_names check_toml
+.PHONY: all clean checks
 
-all: check_canonical_names website
+all: checks website
 
-check_canonical_names:
+checks:
 	python3 ./check_canonical_names.py
-
-check_toml:
 	python3 ./check_toml_schema.py
 
 docs/.well-known/packages.json.zstd: docs/.well-known/packages.json
@@ -17,17 +15,13 @@ docs/.well-known/packages.json.zstd: docs/.well-known/packages.json
 docs/.well-known/packages.json: generate_packages.py
 	python3 ./generate_packages.py
 
-index.html: index.md templates/template.html
-	lowdown index.md | sed -e 's/{{ title }}/Cup of Coffee/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
-
-about.html: about.md templates/template.html
-	lowdown about.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
+docs/%.html: %.md templates/template-index.html
+	lowdown -s --template templates/template-index.html $< -o $@
 
 %/index.html: %/library.toml templates/template.html
 	python3 ./build.py $< $@ templates/template.html
 
-website: index.html about.html $(HTMLS) docs/.well-known/packages.json.zstd
-	cp *.html docs/
+website: docs/index.html docs/about.html $(HTMLS) docs/.well-known/packages.json.zstd
 	rsync -avm --include='*/' --include='*.html' --include='install[-.]*' --exclude='*' recipes/ docs/
 
 clean:

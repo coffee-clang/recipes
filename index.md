@@ -1,4 +1,8 @@
-# C Libraries
+---
+title: Cup of Coffee
+---
+
+# Coffee: C libraries that are easy to use
 
 A collection of widely used C libraries with installation recipes.
 

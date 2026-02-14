@@ -1,3 +1,7 @@
+---
+title: Cup of Coffee - About
+---
+
 # About Cup of Coffee
 
 Cup of Coffee is a collection of installation recipes for widely used C libraries.
