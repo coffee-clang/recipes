@@ -1,9 +1,9 @@
 TOMLS := $(wildcard recipes/*/*/library.toml)
 HTMLS := $(TOMLS:/library.toml=/index.html)
 
-.PHONY: all clean letter_index check_canonical_names
+.PHONY: all clean check_canonical_names
 
-all: check_canonical_names index.html about.html letter_index $(HTMLS) docs/.well-known/packages.json.zstd
+all: check_canonical_names website
 
 check_canonical_names:
 	python3 ./check_canonical_names.py
@@ -20,13 +20,10 @@ index.html: index.md templates/template.html
 about.html: about.md templates/template.html
 	lowdown about.md | sed -e 's/{{ title }}/Cup of Coffee - About/' -e '/{{ content }}/r /dev/stdin' -e '/{{ content }}/d' templates/template.html > $@
 
-letter_index: templates/template.html
-	python3 ./generate_letter_indexes.py
-
 %/index.html: %/library.toml templates/template.html
 	python3 ./build.py $< $@ templates/template.html
 
-html: all
+website: index.html about.html $(HTMLS) docs/.well-known/packages.json.zstd letter_index
 	cp *.html docs/
 	rsync -avm --include='*/' --include='*.html' --include='install[-.]*' --exclude='*' recipes/ docs/
 
