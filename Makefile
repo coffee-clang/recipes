@@ -25,7 +25,7 @@ letter_index: templates/template.html
 
 html: all
 	cp *.html docs/
-	rsync -avm --include='*/' --include='*.html' --exclude='*' recipes/ docs/
+	rsync -avm --include='*/' --include='*.html' --include='install[-.]*' --exclude='*' recipes/ docs/
 
 clean:
 	find recipes -name index.html -delete
