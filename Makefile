@@ -21,9 +21,12 @@ docs/%.html: %.md templates/template-index.html
 %/index.html: %/library.toml templates/template.html
 	python3 ./build.py $< $@ templates/template.html
 
-website: docs/index.html docs/about.html $(HTMLS) docs/.well-known/packages.json.zstd
+letter_index: templates/template.html
+	python3 ./generate_letter_indexes.py
+
+website: docs/index.html docs/about.html letter_index $(HTMLS) docs/.well-known/packages.json.zstd
 	rsync -avm --include='*/' --include='*.html' --include='install[-.]*' --exclude='*' recipes/ docs/
 
 clean:
 	find recipes -name index.html -delete
-	rm -f index.html about.html docs/.well-known/*
+	rm -f docs/*.html docs/.well-known/*
