@@ -3,3 +3,5 @@ index*.html
 /about.html
 /docs/.well-known/packages.*
 /packages.json
+/docs/*/*
+/docs/*.html

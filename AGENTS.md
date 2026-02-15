@@ -19,6 +19,8 @@ This repository contains recipes for building C libraries. Each recipe has:
 
 The build system generates HTML documentation from these recipes.
 
+Read carefully the README.md file for additional instructions to follow.
+
 ## Build Commands
 
 ```bash
