@@ -1,0 +1,7 @@
+title = "check"
+version = "0.15.2"
+description = "Check is a unit testing framework for C. It features a simple interface for defining unit tests, limiting each test to run in a separate process."
+license = "LGPL-2.1"
+dependencies = "None (standard C library only)"
+canonical_name = "check"
+recipe_url = "https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz"

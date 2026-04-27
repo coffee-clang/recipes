@@ -1,0 +1,7 @@
+title = "cmocka"
+version = "1.1.7"
+description = "cmocka is an elegant unit testing framework for C with support for mock objects. It requires only the standard C library and works on many platforms."
+license = "Apache-2.0"
+dependencies = "None (standard C library only)"
+canonical_name = "cmocka"
+recipe_url = "https://git.cryptomilk.org/projects/cmocka.git/snapshot/cmocka-1.1.7.tar.gz"
