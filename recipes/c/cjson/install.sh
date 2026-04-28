@@ -1,14 +1,15 @@
 #!/bin/bash
 set -e
 
-SCRATCH="${1:-cjson}"
-mkdir -p "$SCRATCH"
-
+PACKAGE="cjson"
 GITURL="https://github.com/DaveGamble/cJSON.git"
 VERSION="1.7.18"
 BRANCH="1.7.18"
 
+# Github package
+COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
+PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
 cd /tmp
 git clone --depth 1 --branch "$BRANCH" "$GITURL"
-rm -rf "$SCRATCH/cjson"
-mv "cjson" "$SCRATCH/"
+rm -rf "$PREFIX"
+mv "$PACKAGE" "$PREFIX"
