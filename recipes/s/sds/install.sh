@@ -1,14 +1,15 @@
 #!/bin/bash
 set -e
 
-SCRATCH="${1:-sds}"
-mkdir -p "$SCRATCH"
-
+PACKAGE="sds"
 URL="https://github.com/antirez/sds/archive/refs/tags/2.0.0.tar.gz"
 VERSION="2.0.0"
 ARCHIVE="$(basename "$URL")"
 
+COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
+PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
+mkdir -p "$PREFIX"
 cd /tmp
 wget -q "$URL"
-tar xzf "$ARCHIVE" -C "$SCRATCH"
+tar xzf "$ARCHIVE" -C "$PREFIX"
 rm -f "$ARCHIVE"
