@@ -1,0 +1,7 @@
+title = "QuickJS"
+version = "2025-09-13"
+description = "QuickJS is a small and embeddable Javascript engine supporting ES2023, with fast interpreter startup and minimal dependencies."
+license = "MIT"
+dependencies = "None"
+canonical_name = "quickjs"
+recipe_url = "https://bellard.org/quickjs/quickjs-2025-09-13-2.tar.xz"
