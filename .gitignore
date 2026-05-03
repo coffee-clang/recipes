@@ -5,3 +5,4 @@ index*.html
 /packages.json
 /docs/*/*
 /docs/*.html
+.worktrees/
