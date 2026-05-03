@@ -1,0 +1,7 @@
+title = "linenoise"
+version = "1.0"
+description = "Linenoise is a minimal, zero-config, BSD-licensed readline replacement. It provides line editing, history, and completion in ~500 lines of clean C code. Used by Redis, MongoDB, and many other projects."
+license = "BSD-2-Clause"
+dependencies = "None"
+canonical_name = "linenoise"
+recipe_url = "https://github.com/antirez/linenoise/archive/refs/tags/1.0.tar.gz"
