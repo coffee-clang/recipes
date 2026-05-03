@@ -1,0 +1,7 @@
+title = "uthash"
+version = "2.3.0"
+description = "uthash is a hash table, linked list, dynamic array, and string buffer implementation for C using preprocessor macros. It is header-only, has no dependencies, and provides generic containers that work with any data type."
+license = "BSD-1-Clause"
+dependencies = "None"
+canonical_name = "uthash"
+recipe_url = "https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz"
