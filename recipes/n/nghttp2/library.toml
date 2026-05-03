@@ -1,0 +1,7 @@
+title = "nghttp2"
+version = "1.62.1"
+description = "nghttp2 is an implementation of HTTP/2 protocol framing for C. It provides both client and server APIs with flow control, header compression (HPACK), and support for all HTTP/2 features."
+license = "MIT"
+dependencies = "openssl libev"
+canonical_name = "nghttp2"
+recipe_url = "https://github.com/nghttp2/nghttp2/releases/download/v1.62.1/nghttp2-1.62.1.tar.gz"
