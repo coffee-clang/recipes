@@ -1,6 +1,6 @@
 title = "cpu_features"
 version = "0.9.0"
-description = "cpu_features is a C library for runtime CPU feature detection. It uses CPUID on x86, /proc/cpuinfo on ARM, and other platform-specific methods to detect available SIMD and CPU capabilities at runtime."
+description = "cpu_features is a C library for runtime CPU feature detection. It uses CPUID on x86, /proc/cpuinfo on ARM, and other methods to detect available SIMD instructions."
 license = "Apache-2.0"
 dependencies = "None"
 canonical_name = "cpu_features"

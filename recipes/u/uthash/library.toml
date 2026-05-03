@@ -1,6 +1,6 @@
 title = "uthash"
 version = "2.3.0"
-description = "uthash is a hash table, linked list, dynamic array, and string buffer implementation for C using preprocessor macros. It is header-only, has no dependencies, and provides generic containers that work with any data type."
+description = "uthash provides hash table, linked list, dynamic array, and string buffer implementations for C using preprocessor macros. It is header-only with no dependencies."
 license = "BSD-1-Clause"
 dependencies = "None"
 canonical_name = "uthash"

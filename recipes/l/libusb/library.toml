@@ -1,6 +1,6 @@
 title = "libusb"
 version = "1.0.27"
-description = "libusb is a cross-platform user-space library for USB device communication. It provides synchronous and asynchronous APIs for device discovery, control transfers, bulk transfers, and isochronous transfers."
+description = "libusb is a cross-platform user-space library for USB device communication. It provides synchronous and asynchronous APIs for device discovery and data transfers."
 license = "LGPL-2.1"
 dependencies = "udev"
 canonical_name = "libusb"

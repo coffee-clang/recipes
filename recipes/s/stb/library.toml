@@ -1,6 +1,6 @@
 title = "stb"
 version = "2024-12-01"
-description = "stb is a collection of single-file C libraries by Sean Barrett for image loading (stb_image.h), font rendering (stb_truetype.h), audio (stb_vorbis.c) and more. Each library is a single .h or .c file with no dependencies."
+description = "stb is a collection of single-file C libraries by Sean Barrett for image loading, font rendering, audio playback and more. Each library is a single .h or .c file with zero dependencies."
 license = "PublicDomain"
 dependencies = "None"
 canonical_name = "stb"
