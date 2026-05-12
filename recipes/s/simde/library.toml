@@ -1,0 +1,7 @@
+title = "simde"
+version = "0.8.2"
+description = "SIMDe (SIMD Everywhere) provides portable SIMD intrinsics for x86 SSE/SSE2/AVX, ARM NEON, WASM SIMD, and more, enabling cross-platform SIMD development without platform-specific code."
+license = "MIT"
+dependencies = "None"
+canonical_name = "simde"
+recipe_url = "https://github.com/simd-everywhere/simde/archive/refs/tags/v0.8.2.tar.gz"
