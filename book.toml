@@ -1,0 +1,13 @@
+[book]
+title = "Cup of Coffee"
+description = "A collection of installation recipes for widely used C libraries."
+language = "en"
+
+[build]
+build-dir = "docs"
+create-missing = false
+
+[output.html]
+additional-css = []
+additional-js = []
+no-section-label = true

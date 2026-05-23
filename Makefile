@@ -1,7 +1,6 @@
 TOMLS := $(wildcard recipes/*/*/library.toml)
-HTMLS := $(TOMLS:/library.toml=/index.html)
 
-.PHONY: all clean checks
+.PHONY: all clean checks website
 
 all: checks website
 
@@ -9,33 +8,18 @@ checks:
 	python3 ./check_canonical_names.py
 	python3 ./check_toml_schema.py
 
-docs/.well-known/packages.json.zstd: docs/.well-known/packages.json
+# Generate mdBook source files from TOML recipes
+src/SUMMARY.md: generate_mdbook_src.py $(TOMLS)
+	python3 ./generate_mdbook_src.py
+
+# Build the site with mdBook (reads from src/, writes to docs/)
+website: src/SUMMARY.md
+	mdbook build
+	mkdir -p docs/.well-known
+	python3 ./generate_packages.py
 	zstd -19 -o docs/.well-known/packages.json.zstd docs/.well-known/packages.json
 
-docs/.well-known/packages.json: generate_packages.py
-	python3 ./generate_packages.py
-
-# This will replace the next two targets when github actions are on ubuntu 26.04
-# which has lowdown v2
-#
-# docs/%.html: %.md templates/template-index.html
-# 	lowdown -s --template templates/template-index.html $< -o $@
-
-docs/index.html: index.md templates/template-index.html
-	python3 ./build_md.py $< $@ templates/template-index.html
-
-docs/about.html: about.md templates/template-index.html
-	python3 ./build_md.py $< $@ templates/template-index.html
-
-%/index.html: %/library.toml templates/template.html
-	python3 ./build.py $< $@ templates/template.html
-
-letter_index: templates/template.html
-	python3 ./generate_letter_indexes.py
-
-website: docs/index.html docs/about.html letter_index $(HTMLS) docs/.well-known/packages.json.zstd
-	rsync -avm --include='*/' --include='*.html' --include='install[-.]*' --exclude='*' recipes/ docs/
-
 clean:
-	find recipes -name index.html -delete
-	rm -f docs/*.html docs/.well-known/*
+	rm -rf src/
+	rm -f docs/*.html docs/*.css docs/*.json docs/*.js docs/*.svg docs/*.png docs/searcher.js docs/highlight.js docs/book.js docs/clipboard.min.js docs/elasticlunr.min.js docs/mark.min.js docs/print.html
+	rm -rf docs/css/ docs/FontAwesome/ docs/fonts/ docs/.well-known/

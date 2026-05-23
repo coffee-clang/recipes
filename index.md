@@ -1,10 +1,12 @@
----
-title: Cup of Coffee
----
-
-# Coffee: C libraries that are easy to use
-
-A collection of widely used C libraries with installation recipes.
+<div class="logo-container">
+  <div class="logo">
+    <img src="https://coffee-clang.github.io/logo.svg" alt="Coffee logo" width="120" height="120">
+  </div>
+  <div class="tagline">
+    <h1>Cup of Coffee</h1>
+    <p>Installation recipes for widely used C libraries</p>
+  </div>
+</div>
 
 ## Packages
 
