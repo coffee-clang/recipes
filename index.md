@@ -4,7 +4,7 @@
   </div>
   <div class="tagline">
     <h1>Cup of Coffee</h1>
-    <p>Installation recipes for widely used C libraries</p>
+    <p>C packages that are easy to use</p>
   </div>
 </div>
 

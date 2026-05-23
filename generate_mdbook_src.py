@@ -136,9 +136,6 @@ def generate_summary(by_letter: dict[str, list[dict]]) -> str:
         letter_lower = letter.lower()
         lines.append("")
         lines.append(f"- [{letter}]({letter_lower}/index.md)")
-        for lib in sorted(by_letter[letter], key=lambda x: x["name"]):
-            name = lib["name"]
-            lines.append(f"    - [{name}]({letter_lower}/{name}/index.md)")
 
     lines.append("")
     return "\n".join(lines)
