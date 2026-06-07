@@ -2,6 +2,6 @@ title = "libsodium"
 version = "1.0.20"
 description = "libsodium is a modern, easy-to-use library for encryption, decryption, signatures, and password hashing. It provides a clean, high-level API that is harder to misuse than OpenSSL."
 license = "ISC"
-dependencies = "None"
 canonical_name = "libsodium"
 recipe_url = "https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz"
+[dependencies]

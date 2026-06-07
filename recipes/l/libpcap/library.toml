@@ -2,6 +2,6 @@ title = "libpcap"
 version = "1.10.5"
 description = "libpcap is a system-independent interface for user-level packet capture. It provides a high-level API for capturing network packets, filtering them with BPF expressions, and inspecting packet data."
 license = "BSD-3-Clause"
-dependencies = "None"
 canonical_name = "libpcap"
 recipe_url = "https://www.tcpdump.org/release/libpcap-1.10.5.tar.gz"
+[dependencies]

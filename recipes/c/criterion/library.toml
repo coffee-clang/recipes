@@ -1,0 +1,14 @@
+title = "Criterion"
+version = "2.4.3"
+description = "Criterion is a cross-platform C and C++ unit testing framework for the 21st century. It follows the KISS principle and automatically registers tests when declared."
+license = "MIT"
+canonical_name = "criterion"
+recipe_url = "https://github.com/Snaipe/Criterion/archive/refs/tags/v2.4.3.tar.gz"
+[dependencies]
+cmake = ""
+libffi = ""
+libgit2 = ""
+meson = ""
+ninja = ""
+pkg-config = ""
+

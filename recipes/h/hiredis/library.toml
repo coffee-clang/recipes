@@ -2,6 +2,7 @@ title = "hiredis"
 version = "1.2.0"
 description = "hiredis is a minimalistic C client library for the Redis database. It provides synchronous and asynchronous APIs, protocol parsing, and supports Redis Sentinel, TLS, and RESP3 protocol."
 license = "BSD-3-Clause"
-dependencies = "openssl"
 canonical_name = "hiredis"
 recipe_url = "https://github.com/redis/hiredis/archive/refs/tags/v1.2.0.tar.gz"
+[dependencies]
+openssl = ""

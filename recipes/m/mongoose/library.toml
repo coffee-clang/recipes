@@ -2,6 +2,7 @@ title = "mongoose"
 version = "3.16"
 description = "Mongoose is an embedded web server and networking library for C/C++. It is single-file, MIT-licensed, and supports HTTP, HTTPS, WebSocket, and MQTT."
 license = "MIT"
-dependencies = "openssl"
 canonical_name = "mongoose"
 recipe_url = "https://github.com/cesanta/mongoose/archive/refs/tags/3.16.tar.gz"
+[dependencies]
+openssl = ""

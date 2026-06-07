@@ -2,6 +2,6 @@ title = "inih"
 version = "r56"
 description = "inih (INI Not Invented Here) is a tiny INI file parser for C in approximately 100 lines of well-commented code. It is the perfect first library for a C learner to read."
 license = "BSD-3-Clause"
-dependencies = "None"
 canonical_name = "inih"
 recipe_url = "https://github.com/benhoyt/inih/archive/refs/tags/r56.tar.gz"
+[dependencies]

@@ -2,6 +2,6 @@ title = "uthash"
 version = "2.3.0"
 description = "uthash provides hash table, linked list, dynamic array, and string buffer implementations for C using preprocessor macros. It is header-only with no dependencies."
 license = "BSD-1-Clause"
-dependencies = "None"
 canonical_name = "uthash"
 recipe_url = "https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz"
+[dependencies]

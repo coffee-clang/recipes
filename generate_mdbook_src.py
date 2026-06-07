@@ -21,6 +21,28 @@ SRC_DIR = Path("src")
 PAGE_SIZE = 50  # Recipes per letter-index page (pagination for large letters)
 
 
+def parse_dependencies(dep: str | dict | None) -> dict[str, str]:
+    """Normalize dependencies to a dict: {pkg_name: version_constraint}.
+
+    Accepts a TOML table (dict), a string, or None.
+    Empty string means 'any version is fine'.
+    """
+    if dep is None:
+        return {}
+    if isinstance(dep, dict):
+        return {str(k): str(v) for k, v in dep.items()}
+    s = dep.strip()
+    if not s or s.lower().startswith("none"):
+        return {}
+    parts = [p.strip() for p in s.replace(",", " ").split() if p.strip()]
+    result = {}
+    for part in parts:
+        name = part.split("(")[0].strip().rstrip(")")
+        if name:
+            result[name] = ""
+    return result
+
+
 def get_last_updated(dir_path: Path) -> str:
     """Get the last commit date for a recipe directory."""
     try:
@@ -45,6 +67,8 @@ def load_recipes() -> dict[str, list[dict]]:
         with open(toml_file, "rb") as f:
             data = tomllib.load(f)
 
+        deps = parse_dependencies(data.get("dependencies"))
+
         by_letter.setdefault(letter, []).append({
             "name": lib_name,
             "title": data.get("title", lib_name),
@@ -52,7 +76,7 @@ def load_recipes() -> dict[str, list[dict]]:
             "version": data.get("version", ""),
             "description": data.get("description", ""),
             "license": data.get("license", ""),
-            "dependencies": data.get("dependencies", ""),
+            "dependencies": deps,
             "recipe_url": data.get("recipe_url", ""),
             "last_updated": get_last_updated(toml_file.parent),
         })
@@ -77,17 +101,22 @@ def generate_recipe_page(lib: dict, letter_lower: str) -> str:
         "",
         "## Dependencies",
         "",
-        lib["dependencies"] or "None",
-        "",
-        "## Recipe URL",
-        "",
-        lib["recipe_url"] or "N/A",
-        "",
-        "## Install Script",
-        "",
     ]
 
-    # Point to the install.sh in the same output directory
+    deps = lib["dependencies"]
+    if deps:
+        for pkg, constraint in sorted(deps.items()):
+            constraint_str = f" ({constraint})" if constraint else ""
+            lines.append(f"- `{pkg}`{constraint_str}")
+    else:
+        lines.append("None")
+    lines.append("")
+    lines.append("## Recipe URL")
+    lines.append("")
+    lines.append(lib["recipe_url"] or "N/A")
+    lines.append("")
+    lines.append("## Install Script")
+    lines.append("")
     lines.append(f"[Download install.sh](install.sh)")
     lines.append("")
 
@@ -134,8 +163,12 @@ def generate_summary(by_letter: dict[str, list[dict]]) -> str:
 
     for letter in sorted(by_letter.keys()):
         letter_lower = letter.lower()
+        libraries = sorted(by_letter[letter], key=lambda x: x["name"])
         lines.append("")
         lines.append(f"- [{letter}]({letter_lower}/index.md)")
+        for lib in libraries:
+            path = f"{letter_lower}/{lib['name']}/index.md"
+            lines.append(f"    - [{lib['name']}]({path})")
 
     lines.append("")
     return "\n".join(lines)

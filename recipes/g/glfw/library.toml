@@ -2,6 +2,7 @@ title = "glfw"
 version = "3.4"
 description = "GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan application development. It provides a simple, platform-native API for windowing, context creation, and input handling."
 license = "Zlib"
-dependencies = "x11"
 canonical_name = "glfw"
 recipe_url = "https://github.com/glfw/glfw/archive/refs/tags/3.4.tar.gz"
+[dependencies]
+x11 = ""

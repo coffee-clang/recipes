@@ -2,6 +2,6 @@ title = "igraph"
 version = "0.10.15"
 description = "igraph is a C library for complex network analysis and graph theory, with efficient implementations for a wide range of graph algorithms."
 license = "GPL-2.0"
-dependencies = "None (optional: libxml2, gmp, arpack)"
 canonical_name = "igraph"
 recipe_url = "https://github.com/igraph/igraph/releases/download/0.10.15/igraph-0.10.15.tar.gz"
+[dependencies]

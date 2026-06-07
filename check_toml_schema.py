@@ -8,10 +8,10 @@ MANDATORY_FIELDS = [
     "version",
     "description",
     "license",
-    "dependencies",
     "recipe_url",
     "canonical_name",
 ]
+DEPENDENCIES_FIELD = "dependencies"
 
 errors = []
 
@@ -22,6 +22,17 @@ for toml_file in sorted(Path("recipes").rglob("library.toml")):
     missing = [
         field for field in MANDATORY_FIELDS if field not in data or not data[field]
     ]
+
+    dep = data.get(DEPENDENCIES_FIELD)
+    if dep is None:
+        missing.append(DEPENDENCIES_FIELD)
+    elif isinstance(dep, dict):
+        pass
+    elif isinstance(dep, str):
+        if not dep.strip():
+            missing.append(DEPENDENCIES_FIELD)
+    else:
+        errors.append(f"{toml_file}: dependencies must be a string or a table")
 
     if missing:
         errors.append(f"{toml_file}: missing fields: {', '.join(missing)}")
