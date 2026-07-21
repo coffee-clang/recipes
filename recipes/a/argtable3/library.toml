@@ -1,0 +1,9 @@
+title = "argtable3"
+version = "3.3.1"
+description = "Argtable3 is an ANSI C library for parsing GNU-style command-line options with a declarative API, automatic error handling, and usage text generation."
+license = "BSD-3-Clause"
+canonical_name = "argtable3"
+recipe_url = "https://github.com/argtable/argtable3/archive/refs/tags/v3.3.1.tar.gz"
+output_type = "library"
+[dependencies]
+cmake = ""
