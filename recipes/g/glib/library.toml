@@ -4,5 +4,6 @@ description = "GLib is the core library of GTK+ and GNOME. It provides data stru
 license = "LGPL-2.1"
 canonical_name = "glib"
 recipe_url = "https://download.gnome.org/sources/glib/2.82/glib-2.82.5.tar.xz"
+output_type = "library"
 [dependencies]
 pcre2 = ""

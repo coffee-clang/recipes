@@ -4,5 +4,6 @@ description = "util-linux is a collection of essential Linux system utilities in
 license = "GPL-2.0"
 canonical_name = "util-linux"
 recipe_url = "https://github.com/karelzak/util-linux/archive/refs/tags/v2.40.2.tar.gz"
+output_type = "library"
 [dependencies]
 ncurses = ""

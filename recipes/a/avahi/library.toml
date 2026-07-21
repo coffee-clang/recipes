@@ -4,5 +4,6 @@ description = "Avahi is a free, LGPL implementation of DNS Service Discovery (DN
 license = "LGPL-2.1"
 canonical_name = "avahi"
 recipe_url = "https://github.com/lathiat/avahi/releases/download/v0.9/avahi-0.9.tar.gz"
+output_type = "library"
 [dependencies]
 glib = ""

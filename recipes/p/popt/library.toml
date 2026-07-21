@@ -4,4 +4,5 @@ description = "popt is a command-line option parsing library for C. It provides 
 license = "MIT"
 canonical_name = "popt"
 recipe_url = "https://github.com/rpm-software-management/popt/releases/download/popt-1.19/popt-1.19.tar.gz"
+output_type = "library"
 [dependencies]

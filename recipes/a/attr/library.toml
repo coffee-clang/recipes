@@ -4,5 +4,6 @@ description = "The attr library provides extended attributes support for filesys
 license = "LGPL-2.1"
 canonical_name = "attr"
 recipe_url = "https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.gz"
+output_type = "library"
 [dependencies]
 gettext = ""

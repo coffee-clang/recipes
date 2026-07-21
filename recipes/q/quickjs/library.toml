@@ -4,4 +4,5 @@ description = "QuickJS is a small and embeddable Javascript engine supporting ES
 license = "MIT"
 canonical_name = "quickjs"
 recipe_url = "https://bellard.org/quickjs/quickjs-2025-09-13-2.tar.xz"
+output_type = "library"
 [dependencies]

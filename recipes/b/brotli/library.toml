@@ -4,5 +4,6 @@ description = "Brotli is a lossless compression algorithm developed by Google. I
 license = "BSD-3-Clause"
 canonical_name = "brotli"
 recipe_url = "https://github.com/google/brotli.git"
+output_type = "library"
 [dependencies]
 cmake = ""

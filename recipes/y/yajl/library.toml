@@ -4,5 +4,6 @@ description = "YAJL (Yet Another JSON Library) is a small, event-driven JSON par
 license = "MIT"
 canonical_name = "yajl"
 recipe_url = "https://github.com/lloyd/yajl/archive/refs/tags/2.1.0.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

@@ -4,5 +4,6 @@ description = "libuv is a multi-platform support library for async I/O operation
 license = "MIT"
 canonical_name = "libuv"
 recipe_url = "https://dist.libuv.org/dist/v1.49.2/libuv-v1.49.2.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

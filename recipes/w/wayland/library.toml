@@ -4,5 +4,6 @@ description = "Wayland is a display server protocol and library implementation. 
 license = "MIT"
 canonical_name = "wayland"
 recipe_url = "https://wayland.freedesktop.org/releases/wayland-1.23.0.tar.xz"
+output_type = "library"
 [dependencies]
 libffi = ""

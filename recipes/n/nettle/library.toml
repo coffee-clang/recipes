@@ -4,5 +4,6 @@ description = "Nettle is a low-level cryptographic library providing implementat
 license = "LGPL-2.1"
 canonical_name = "nettle"
 recipe_url = "https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz"
+output_type = "library"
 [dependencies]
 gmp = ""

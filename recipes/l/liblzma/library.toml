@@ -4,4 +4,5 @@ description = "liblzma provides LZMA compression and decompression functionality
 license = "PublicDomain"
 canonical_name = "liblzma"
 recipe_url = "https://tukaani.org/xz/xz-5.6.3.tar.gz"
+output_type = "library"
 [dependencies]

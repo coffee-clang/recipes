@@ -4,5 +4,6 @@ description = "Libassuan is a library implementing the Assuan protocol used by G
 license = "LGPL-2.1"
 canonical_name = "libassuan"
 recipe_url = "https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.8.tar.bz2"
+output_type = "library"
 [dependencies]
 libgpg-error = ""

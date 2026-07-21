@@ -4,5 +4,6 @@ description = "Netpbm is a toolkit for manipulation of graphic images including 
 license = "BSD-3-Clause"
 canonical_name = "netpbm"
 recipe_url = "https://sourceforge.net/projects/netpbm/advanced/11.0.0/netpbm-11.0.0.tgz"
+output_type = "library"
 [dependencies]
 libjpeg = ""

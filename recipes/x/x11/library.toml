@@ -4,5 +4,6 @@ description = "X11 (X Window System) is the foundation for graphical user interf
 license = "MIT"
 canonical_name = "x11"
 recipe_url = "https://x.org/archive/individual/lib/libX11-1.8.9.tar.xz"
+output_type = "library"
 [dependencies]
 xorgproto = ""

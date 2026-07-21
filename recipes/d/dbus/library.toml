@@ -4,5 +4,6 @@ description = "D-Bus is a message bus system for inter-process communication in 
 license = "GPL-2.0"
 canonical_name = "dbus"
 recipe_url = "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.0.tar.gz"
+output_type = "library"
 [dependencies]
 expat = ""

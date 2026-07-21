@@ -4,5 +4,6 @@ description = "Direct Rendering Manager (DRM) provides user-space libraries for 
 license = "MIT"
 canonical_name = "drm"
 recipe_url = "https://dri.freedesktop.org/libdrm/libdrm-2.4.120.tar.gz"
+output_type = "library"
 [dependencies]
 libdrm = ""

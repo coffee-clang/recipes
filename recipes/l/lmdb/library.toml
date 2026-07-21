@@ -4,4 +4,5 @@ description = "LMDB (Lightning Memory-Mapped Database) is an embedded key-value 
 license = "OpenSSL"
 canonical_name = "lmdb"
 recipe_url = "https://github.com/LMDB/lmdb/archive/refs/tags/LMDB_0.9.33.tar.gz"
+output_type = "library"
 [dependencies]

@@ -4,4 +4,5 @@ description = "GNU Scientific Library (GSL) is a numerical library for C and C++
 license = "GPL-3.0"
 canonical_name = "gsl"
 recipe_url = "https://ftp.gnu.org/gnu/gsl/gsl-2.8.tar.gz"
+output_type = "library"
 [dependencies]

@@ -4,5 +4,6 @@ description = "Mongoose is an embedded web server and networking library for C/C
 license = "MIT"
 canonical_name = "mongoose"
 recipe_url = "https://github.com/cesanta/mongoose/archive/refs/tags/3.16.tar.gz"
+output_type = "library"
 [dependencies]
 openssl = ""

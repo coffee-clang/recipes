@@ -4,5 +4,6 @@ description = "libjpeg-turbo is a JPEG image codec that uses SIMD instructions t
 license = "BSD-3-Clause"
 canonical_name = "libjpeg-turbo"
 recipe_url = "https://sourceforge.net/projects/libjpeg-turbo/files/3.0.4/libjpeg-turbo-3.0.4.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

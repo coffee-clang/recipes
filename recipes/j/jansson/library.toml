@@ -4,5 +4,6 @@ description = "Jansson is a C library for encoding, decoding, and manipulating J
 license = "MIT"
 canonical_name = "jansson"
 recipe_url = "https://github.com/akheron/jansson/releases/download/v2.14/jansson-2.14.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

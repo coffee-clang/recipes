@@ -4,5 +4,6 @@ description = "Opus is a lossy audio codec designed for interactive speech and m
 license = "BSD-3-Clause"
 canonical_name = "opus"
 recipe_url = "https://archive.mozilla.org/pub/opus/opus-1.5.2.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

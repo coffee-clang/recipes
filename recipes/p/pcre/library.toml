@@ -4,4 +4,5 @@ description = "PCRE (Perl Compatible Regular Expressions) is a library implement
 license = "BSD"
 canonical_name = "pcre"
 recipe_url = "https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz"
+output_type = "library"
 [dependencies]

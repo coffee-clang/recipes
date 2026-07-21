@@ -4,6 +4,7 @@ description = "Criterion is a cross-platform C and C++ unit testing framework fo
 license = "MIT"
 canonical_name = "criterion"
 recipe_url = "https://github.com/Snaipe/Criterion/archive/refs/tags/v2.4.3.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""
 libffi = ""

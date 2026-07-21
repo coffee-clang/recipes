@@ -4,4 +4,5 @@ description = "Simple unit testing framework for C. Lightweight, with a single C
 license = "MIT"
 canonical_name = "unity"
 recipe_url = "https://github.com/ThrowTheSwitch/Unity/archive/refs/tags/v2.6.1.tar.gz"
+output_type = "library"
 [dependencies]

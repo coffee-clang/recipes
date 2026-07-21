@@ -4,5 +4,6 @@ description = "GNU Readline is a library for interactive command-line editing. I
 license = "GPL-3.0"
 canonical_name = "readline"
 recipe_url = "https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz"
+output_type = "library"
 [dependencies]
 ncurses = ""

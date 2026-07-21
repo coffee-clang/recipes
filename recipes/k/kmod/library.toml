@@ -4,4 +4,5 @@ description = "The kmod library provides tools for managing Linux kernel modules
 license = "GPL-2.0"
 canonical_name = "kmod"
 recipe_url = "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.gz"
+output_type = "library"
 [dependencies]

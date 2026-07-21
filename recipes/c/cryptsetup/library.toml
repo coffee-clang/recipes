@@ -4,5 +4,6 @@ description = "cryptsetup is a library for setting up encrypted disk volumes usi
 license = "GPL-2.0"
 canonical_name = "cryptsetup"
 recipe_url = "https://gitlab.com/cryptsetup/cryptsetup/-/archive/v2.7.5/cryptsetup-v2.7.5.tar.gz"
+output_type = "library"
 [dependencies]
 libgcrypt = ""

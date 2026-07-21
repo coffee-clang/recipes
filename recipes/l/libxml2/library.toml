@@ -4,5 +4,6 @@ description = "libxml2 is the XML C parser and toolkit developed for the GNOME p
 license = "MIT"
 canonical_name = "libxml2"
 recipe_url = "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.9.tar.gz"
+output_type = "library"
 [dependencies]
 python3 = ""

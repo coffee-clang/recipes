@@ -4,5 +4,6 @@ description = "BIND (Berkeley Internet Name Domain) is the most widely used DNS 
 license = "MPL-2.0"
 canonical_name = "bind"
 recipe_url = "https://downloads.isc.org/isc/bind9/9.18.28/bind-9.18.28.tar.gz"
+output_type = "library"
 [dependencies]
 openssl = ""

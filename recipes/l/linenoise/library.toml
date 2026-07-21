@@ -4,4 +4,5 @@ description = "Linenoise is a minimal, zero-config readline replacement in ~500 
 license = "BSD-2-Clause"
 canonical_name = "linenoise"
 recipe_url = "https://github.com/antirez/linenoise/archive/refs/tags/1.0.tar.gz"
+output_type = "library"
 [dependencies]

@@ -4,4 +4,5 @@ description = "Capstone is a lightweight multi-platform, multi-architecture disa
 license = "BSD-3-Clause"
 canonical_name = "capstone"
 recipe_url = "https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.3.tar.gz"
+output_type = "library"
 [dependencies]

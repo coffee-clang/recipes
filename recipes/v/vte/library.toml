@@ -4,6 +4,7 @@ description = "VTE (Virtual Terminal Emulator) is a terminal emulator widget for
 license = "LGPL-2.1"
 canonical_name = "vte"
 recipe_url = "https://gitlab.gnome.org/GNOME/vte/-/archive/0.76.3/vte-0.76.3.tar.gz"
+output_type = "library"
 [dependencies]
 gtk = ""
 pcre2 = ""

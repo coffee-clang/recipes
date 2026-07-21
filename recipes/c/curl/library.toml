@@ -4,5 +4,6 @@ description = "libcurl is a free, easy-to-use URL transfer library supporting HT
 license = "curl"
 canonical_name = "curl"
 recipe_url = "https://curl.se/download/curl-8.11.1.tar.gz"
+output_type = "library"
 [dependencies]
 openssl = ""

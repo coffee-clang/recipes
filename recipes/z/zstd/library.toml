@@ -4,5 +4,6 @@ description = "Zstandard (zstd) is a real-time compression algorithm developed b
 license = "BSD-3-Clause"
 canonical_name = "zstd"
 recipe_url = "https://github.com/facebook/zstd.git"
+output_type = "library"
 [dependencies]
 cmake = ""

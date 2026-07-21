@@ -4,5 +4,6 @@ description = "LZ4 is a lossless compression algorithm focusing on speed. It pro
 license = "BSD-2-Clause"
 canonical_name = "lz4"
 recipe_url = "https://github.com/lz4/lz4.git"
+output_type = "library"
 [dependencies]
 cmake = ""

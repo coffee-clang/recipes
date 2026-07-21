@@ -4,4 +4,5 @@ description = "stb is a collection of single-file C libraries by Sean Barrett fo
 license = "PublicDomain"
 canonical_name = "stb"
 recipe_url = "https://github.com/nothings/stb/archive/refs/heads/master.tar.gz"
+output_type = "library"
 [dependencies]

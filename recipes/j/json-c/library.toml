@@ -4,5 +4,6 @@ description = "json-c provides a C library for parsing and manipulating JSON dat
 license = "MIT"
 canonical_name = "json-c"
 recipe_url = "https://s3.amazonaws.com/json-c_releases/releases/json-c-0.18.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

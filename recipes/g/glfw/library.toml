@@ -4,5 +4,6 @@ description = "GLFW is an Open Source, multi-platform library for OpenGL, OpenGL
 license = "Zlib"
 canonical_name = "glfw"
 recipe_url = "https://github.com/glfw/glfw/archive/refs/tags/3.4.tar.gz"
+output_type = "library"
 [dependencies]
 x11 = ""

@@ -4,5 +4,6 @@ description = "LibTIFF provides support for the Tag Image File Format (TIFF), a 
 license = "MIT"
 canonical_name = "tiff"
 recipe_url = "https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz"
+output_type = "library"
 [dependencies]
 libjpeg = ""

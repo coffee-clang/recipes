@@ -4,4 +4,5 @@ description = "cpu_features is a C library for runtime CPU feature detection. It
 license = "Apache-2.0"
 canonical_name = "cpu_features"
 recipe_url = "https://github.com/google/cpu_features/archive/refs/tags/v0.9.0.tar.gz"
+output_type = "library"
 [dependencies]

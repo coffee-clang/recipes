@@ -4,5 +4,6 @@ description = "FreeType is a freely available software library for rendering fon
 license = "FreeType"
 canonical_name = "freetype"
 recipe_url = "https://download.savannah.nongnu.org/releases/freetype/freetype-2.13.3.tar.gz"
+output_type = "library"
 [dependencies]
 zlib = ""

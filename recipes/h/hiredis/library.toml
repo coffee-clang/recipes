@@ -4,5 +4,6 @@ description = "hiredis is a minimalistic C client library for the Redis database
 license = "BSD-3-Clause"
 canonical_name = "hiredis"
 recipe_url = "https://github.com/redis/hiredis/archive/refs/tags/v1.2.0.tar.gz"
+output_type = "library"
 [dependencies]
 openssl = ""

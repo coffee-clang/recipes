@@ -4,5 +4,6 @@ description = "ATK (Accessibility Toolkit) provides an interface for accessibili
 license = "LGPL-2.1"
 canonical_name = "atk"
 recipe_url = "https://download.gnome.org/sources/atk/2.52/atk-2.52.0.tar.xz"
+output_type = "library"
 [dependencies]
 glib = ""

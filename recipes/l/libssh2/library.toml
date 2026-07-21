@@ -4,5 +4,6 @@ description = "libssh2 is a client-side C library implementing the SSH2 protocol
 license = "BSD-3-Clause"
 canonical_name = "libssh2"
 recipe_url = "https://github.com/libssh2/libssh2/releases/download/libssh2-1.11.1/libssh2-1.11.1.tar.gz"
+output_type = "library"
 [dependencies]
 openssl = ""

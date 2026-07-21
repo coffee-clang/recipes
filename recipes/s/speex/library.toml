@@ -4,5 +4,6 @@ description = "Speex is a patent-free audio codec optimized for voice compressio
 license = "BSD-3-Clause"
 canonical_name = "speex"
 recipe_url = "https://downloads.xiph.org/releases/speex/speex-1.2.1.tar.gz"
+output_type = "library"
 [dependencies]
 libogg = ""

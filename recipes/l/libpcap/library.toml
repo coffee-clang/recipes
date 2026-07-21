@@ -4,4 +4,5 @@ description = "libpcap is a system-independent interface for user-level packet c
 license = "BSD-3-Clause"
 canonical_name = "libpcap"
 recipe_url = "https://www.tcpdump.org/release/libpcap-1.10.5.tar.gz"
+output_type = "library"
 [dependencies]

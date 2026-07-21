@@ -4,5 +4,6 @@ description = "PCRE2 is the successor to PCRE, implementing regular expressions 
 license = "BSD"
 canonical_name = "pcre2"
 recipe_url = "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.44/pcre2-10.44.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""

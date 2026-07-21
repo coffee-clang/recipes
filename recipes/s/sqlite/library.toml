@@ -4,4 +4,5 @@ description = "SQLite is a small, fast, self-contained, high-reliability, full-f
 license = "PublicDomain"
 canonical_name = "sqlite"
 recipe_url = "https://www.sqlite.org/2024/sqlite-autoconf-3.47.2.tar.gz"
+output_type = "library"
 [dependencies]

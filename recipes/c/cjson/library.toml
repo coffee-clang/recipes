@@ -4,4 +4,5 @@ description = "cJSON is an ultra-lightweight JSON parser and writer for C. It is
 license = "MIT"
 canonical_name = "cjson"
 recipe_url = "https://github.com/DaveGamble/cJSON.git"
+output_type = "library"
 [dependencies]

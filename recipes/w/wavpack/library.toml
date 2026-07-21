@@ -4,5 +4,6 @@ description = "WavPack is a free, open-source audio codec providing both lossles
 license = "BSD-3-Clause"
 canonical_name = "wavpack"
 recipe_url = "https://github.com/dbry/WavPack.git"
+output_type = "library"
 [dependencies]
 cmake = ""

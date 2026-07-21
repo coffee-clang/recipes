@@ -4,4 +4,5 @@ description = "XZ Utils is a set of tools for the .xz compression format. liblzm
 license = "PublicDomain"
 canonical_name = "xz"
 recipe_url = "https://tukaani.org/xz/xz-5.6.3.tar.gz"
+output_type = "library"
 [dependencies]

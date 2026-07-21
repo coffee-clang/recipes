@@ -4,4 +4,5 @@ description = "FFTW is a free, fast C library for computing the Discrete Fourier
 license = "GPL-2.0"
 canonical_name = "fftw3"
 recipe_url = "https://fftw.org/fftw-3.3.10.tar.gz"
+output_type = "library"
 [dependencies]

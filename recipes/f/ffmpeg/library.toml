@@ -4,5 +4,6 @@ description = "FFmpeg is the leading multimedia framework for encoding, decoding
 license = "GPL-3.0"
 canonical_name = "ffmpeg"
 recipe_url = "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz"
+output_type = "library"
 [dependencies]
 libx264 = ""

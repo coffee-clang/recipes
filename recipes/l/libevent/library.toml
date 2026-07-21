@@ -4,5 +4,6 @@ description = "libevent is an event notification library for developing scalable
 license = "MIT"
 canonical_name = "libevent"
 recipe_url = "https://github.com/libevent/libevent/releases/download/release-2.1.13/libevent-2.1.13.tar.gz"
+output_type = "library"
 [dependencies]
 openssl = ""

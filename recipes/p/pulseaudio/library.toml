@@ -4,5 +4,6 @@ description = "PulseAudio is a sound server providing advanced features includin
 license = "LGPL-2.1"
 canonical_name = "pulseaudio"
 recipe_url = "https://freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz"
+output_type = "library"
 [dependencies]
 glib = ""

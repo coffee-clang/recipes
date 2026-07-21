@@ -4,5 +4,6 @@ description = "ZeroMQ (0MQ) is a high-performance asynchronous messaging library
 license = "LGPL-3.0"
 canonical_name = "zeromq"
 recipe_url = "https://github.com/zeromq/libzmq/releases/download/v4.3.5/zeromq-4.3.5.tar.gz"
+output_type = "library"
 [dependencies]
 cmake = ""
