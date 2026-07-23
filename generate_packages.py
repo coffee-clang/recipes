@@ -77,6 +77,7 @@ for toml_file in sorted(BASE_DIR.rglob("library.toml")):
         "license": data.get("license", ""),
         "dependencies": deps,
         "recipe_url": data.get("recipe_url", ""),
+        "output_type": data.get("output_type", ""),
         "last_updated": get_last_updated(dir_path),
     }
     flat_entry = {"name": name, **version_data}

@@ -10,8 +10,10 @@ MANDATORY_FIELDS = [
     "license",
     "recipe_url",
     "canonical_name",
+    "output_type",
 ]
 DEPENDENCIES_FIELD = "dependencies"
+VALID_OUTPUT_TYPES = {"library", "executable", "both"}
 
 errors = []
 
@@ -33,6 +35,14 @@ for toml_file in sorted(Path("recipes").rglob("library.toml")):
             missing.append(DEPENDENCIES_FIELD)
     else:
         errors.append(f"{toml_file}: dependencies must be a string or a table")
+
+    if "output_type" in data:
+        output_type = data["output_type"]
+        if output_type not in VALID_OUTPUT_TYPES:
+            errors.append(
+                f"{toml_file}: output_type must be 'library', 'executable', "
+                f"or 'both', got '{output_type}'"
+            )
 
     if missing:
         errors.append(f"{toml_file}: missing fields: {', '.join(missing)}")

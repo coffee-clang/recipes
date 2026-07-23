@@ -78,6 +78,7 @@ def load_recipes() -> dict[str, list[dict]]:
             "license": data.get("license", ""),
             "dependencies": deps,
             "recipe_url": data.get("recipe_url", ""),
+            "output_type": data.get("output_type", ""),
             "last_updated": get_last_updated(toml_file.parent),
         })
 
@@ -90,6 +91,8 @@ def generate_recipe_page(lib: dict, letter_lower: str) -> str:
         f"# {lib['title']}",
         "",
         f"**Canonical name:** `{lib['canonical_name']}`",
+        "",
+        f"**Output type:** {lib['output_type']}",
         "",
         "## Version",
         "",
