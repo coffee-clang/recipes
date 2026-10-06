@@ -1,0 +1,8 @@
+title = "GnuTLS"
+version = "3.8.9"
+description = "GnuTLS is a secure communications library implementing TLS, DTLS, and PKI, used by network daemons, mail clients, and other TLS consumers."
+license = "LGPL-2.1"
+canonical_name = "gnutls"
+recipe_url = "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.9.tar.xz"
+output_type = "library"
+[dependencies]

@@ -1,14 +1,16 @@
 #!/bin/bash
-set -e
+set -e -o pipefail -u
 
 SCRATCH="${1:-libxml2}"
 mkdir -p "$SCRATCH"
 
-URL="https://download.gnome.org/sources/libxml2/${VERSION%.*}/libxml2-2.12.9.tar.gz"
 VERSION="2.12.9"
+URL="https://download.gnome.org/sources/libxml2/${VERSION%.*}/libxml2-2.12.9.tar.gz"
 ARCHIVE="$(basename "$URL")"
 
-cd /tmp
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" -C "$SCRATCH"
+tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
 rm -f "$ARCHIVE"

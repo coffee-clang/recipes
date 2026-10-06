@@ -1,9 +1,9 @@
-name: Check TOML schema
+name: Check recipes
 
-on:
-  push:
-    branches-ignore: ["main"]
-  pull_request:
+# pull_request covers branch pushes that open a PR. The push trigger was
+# dropped because branches-ignore + pull_request ran the same checks twice for
+# the same commit.
+on: pull_request:
 
 jobs:
   check:
@@ -12,5 +12,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check TOML schema
+      - name: Check recipes
         run: make checks

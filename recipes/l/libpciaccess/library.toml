@@ -1,0 +1,12 @@
+title = "libpciaccess"
+version = "0.17"
+description = "libpciaccess is a portable library for direct access to PCI configuration space, used by libdrm and other graphics libraries to map device registers."
+license = "MIT"
+canonical_name = "libpciaccess"
+recipe_url = "https://gitlab.freedesktop.org/xorg/lib/libpciaccess/-/archive/libpciaccess-0.17/libpciaccess-0.17.tar.gz"
+output_type = "library"
+[dependencies]
+autoconf = ""
+automake = ""
+libtool = ""
+pkg-config = ""

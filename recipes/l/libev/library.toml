@@ -1,0 +1,9 @@
+title = "libev"
+version = "4.33"
+description = "libev is a high-performance event loop library offering the same facilities as libevent behind a smaller and faster API."
+license = "BSD-2-Clause"
+canonical_name = "libev"
+recipe_url = "https://dist.schmorp.de/libev/libev-4.33.tar.gz"
+output_type = "library"
+[dependencies]
+pkg-config = ""

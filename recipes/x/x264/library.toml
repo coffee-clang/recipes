@@ -1,0 +1,9 @@
+title = "x264"
+version = "r3222"
+description = "x264 is a free software library and encoder for H.264/MPEG-4 AVC video, the video encoder most often selected in FFmpeg and VLC builds."
+license = "GPL-2.0"
+canonical_name = "libx264"
+recipe_url = "https://code.videolan.org/videolan/x264/-/archive/b35605ace3ddf7c1a5d67a2eb553f034aef41d55/x264-b35605ace3ddf7c1a5d67a2eb553f034aef41d55.tar.gz"
+output_type = "library"
+[dependencies]
+nasm = ""

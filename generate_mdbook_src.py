@@ -11,72 +11,61 @@ Reads recipes/<letter>/<name>/library.toml + install.sh and generates:
 """
 
 import shutil
-import subprocess
-import tomllib
+import sys
 from pathlib import Path
-from datetime import datetime
 
-BASE_DIR = Path("recipes")
-SRC_DIR = Path("src")
-PAGE_SIZE = 50  # Recipes per letter-index page (pagination for large letters)
+from recipe_metadata import (
+    RECIPES_DIR,
+    REPO_ROOT,
+    get_last_updated,
+    load_recipe,
+    recipe_dependencies,
+    recipe_files,
+    recipe_letter,
+)
+
+SRC_DIR = REPO_ROOT / "src"
+
+# Copied verbatim into src/ as the book's front matter.
+FRONT_MATTER = ("index.md", "about.md")
 
 
-def parse_dependencies(dep: str | dict | None) -> dict[str, str]:
-    """Normalize dependencies to a dict: {pkg_name: version_constraint}.
+def escape_cell(value: str) -> str:
+    """Escape a value for use inside a Markdown table cell.
 
-    Accepts a TOML table (dict), a string, or None.
-    Empty string means 'any version is fine'.
+    Recipe metadata is free text, so a license or version containing a pipe
+    would split one table row into two and shift every column after it; a
+    newline would likewise break the row.
+
+    Only the three metadata columns of the letter table are escaped. The
+    Last Updated column is left alone: it is either an ISO date from git or an
+    empty string, never free text.
     """
-    if dep is None:
-        return {}
-    if isinstance(dep, dict):
-        return {str(k): str(v) for k, v in dep.items()}
-    s = dep.strip()
-    if not s or s.lower().startswith("none"):
-        return {}
-    parts = [p.strip() for p in s.replace(",", " ").split() if p.strip()]
-    result = {}
-    for part in parts:
-        name = part.split("(")[0].strip().rstrip(")")
-        if name:
-            result[name] = ""
-    return result
+    return (str(value).replace("|", "\\|")
+            .replace("\n", " ").replace("\r", " "))
 
 
-def get_last_updated(dir_path: Path) -> str:
-    """Get the last commit date for a recipe directory."""
-    try:
-        result = subprocess.run(
-            ["git", "-C", str(dir_path), "log", "-1", "--format=%cd",
-             "--date=format:%Y-%m-%d"],
-            capture_output=True, text=True, timeout=5,
-        )
-        return result.stdout.strip() or ""
-    except Exception:
-        return ""
+def load_recipes(recipes_dir: Path = RECIPES_DIR) -> dict[str, list[dict]]:
+    """Load all recipes, grouped by uppercase letter.
 
-
-def load_recipes() -> dict[str, list[dict]]:
-    """Load all recipes, grouped by letter."""
+    Each record carries its own toml_file so callers never re-derive a path from
+    the letter bucket and directory name.
+    """
     by_letter: dict[str, list[dict]] = {}
 
-    for toml_file in sorted(BASE_DIR.rglob("library.toml")):
-        letter = toml_file.parent.parent.name.upper()
+    for toml_file in recipe_files(recipes_dir):
+        data = load_recipe(toml_file)
         lib_name = toml_file.parent.name
 
-        with open(toml_file, "rb") as f:
-            data = tomllib.load(f)
-
-        deps = parse_dependencies(data.get("dependencies"))
-
-        by_letter.setdefault(letter, []).append({
+        by_letter.setdefault(recipe_letter(toml_file).upper(), []).append({
+            "toml_file": toml_file,
             "name": lib_name,
             "title": data.get("title", lib_name),
             "canonical_name": data.get("canonical_name", lib_name),
             "version": data.get("version", ""),
             "description": data.get("description", ""),
             "license": data.get("license", ""),
-            "dependencies": deps,
+            "dependencies": recipe_dependencies(toml_file, data),
             "recipe_url": data.get("recipe_url", ""),
             "output_type": data.get("output_type", ""),
             "last_updated": get_last_updated(toml_file.parent),
@@ -85,7 +74,7 @@ def load_recipes() -> dict[str, list[dict]]:
     return by_letter
 
 
-def generate_recipe_page(lib: dict, letter_lower: str) -> str:
+def generate_recipe_page(lib: dict) -> str:
     """Generate the markdown content for a single recipe page."""
     lines = [
         f"# {lib['title']}",
@@ -113,27 +102,25 @@ def generate_recipe_page(lib: dict, letter_lower: str) -> str:
             lines.append(f"- `{pkg}`{constraint_str}")
     else:
         lines.append("None")
-    lines.append("")
-    lines.append("## Recipe URL")
-    lines.append("")
-    lines.append(lib["recipe_url"] or "N/A")
-    lines.append("")
-    lines.append("## Install Script")
-    lines.append("")
-    lines.append(f"[Download install.sh](install.sh)")
-    lines.append("")
+    lines += [
+        "",
+        "## Recipe URL",
+        "",
+        lib["recipe_url"] or "N/A",
+        "",
+        "## Install Script",
+        "",
+        "[Download install.sh](install.sh)",
+        "",
+    ]
 
     if lib["last_updated"]:
-        lines.append("## Last Update")
-        lines.append("")
-        lines.append(lib["last_updated"])
-        lines.append("")
+        lines += ["## Last Update", "", lib["last_updated"], ""]
 
     return "\n".join(lines)
 
 
-def generate_letter_page(letter: str, libraries: list[dict],
-                         letter_lower: str) -> str:
+def generate_letter_page(letter: str, libraries: list[dict]) -> str:
     """Generate the markdown content for a letter index page."""
     lines = [
         f"# C Libraries — {letter}",
@@ -143,18 +130,18 @@ def generate_letter_page(letter: str, libraries: list[dict],
     ]
 
     for lib in libraries:
-        # Link to the recipe page's index.html (mdbook makes index.md -> index.html)
-        path = f"{lib['name']}/"
         lines.append(
-            f"| [{lib['name']}]({path}) "
-            f"| {lib['version']} "
-            f"| {lib['license']} "
+            f"| [{escape_cell(lib['name'])}]({lib['name']}/) "
+            f"| {escape_cell(lib['version'])} "
+            f"| {escape_cell(lib['license'])} "
             f"| {lib['last_updated']} |"
         )
 
-    lines.append("")
-    lines.append(f"**Total: {len(libraries)} packages starting with {letter}**")
-    lines.append("")
+    lines += [
+        "",
+        f"**Total: {len(libraries)} packages starting with {letter}**",
+        "",
+    ]
 
     return "\n".join(lines)
 
@@ -164,80 +151,82 @@ def generate_summary(by_letter: dict[str, list[dict]]) -> str:
     lines = ["# Summary", "", "[Home](index.md)", "[About](about.md)", "",
              "# Packages by Letter"]
 
-    for letter in sorted(by_letter.keys()):
+    for letter in sorted(by_letter):
         letter_lower = letter.lower()
         libraries = sorted(by_letter[letter], key=lambda x: x["name"])
-        lines.append("")
-        lines.append(f"- [{letter}]({letter_lower}/index.md)")
+        lines += ["", f"- [{letter}]({letter_lower}/index.md)"]
         for lib in libraries:
-            path = f"{letter_lower}/{lib['name']}/index.md"
-            lines.append(f"    - [{lib['name']}]({path})")
+            lines.append(
+                f"    - [{lib['name']}]"
+                f"({letter_lower}/{lib['name']}/index.md)"
+            )
 
     lines.append("")
     return "\n".join(lines)
 
 
-def main():
-    # Clean src directory (but keep theme/ if it exists)
-    if SRC_DIR.exists():
-        for item in SRC_DIR.iterdir():
-            if item.name != "theme":
-                if item.is_dir():
-                    shutil.rmtree(item)
-                else:
-                    item.unlink()
-    SRC_DIR.mkdir(parents=True, exist_ok=True)
+def clean_src_dir(src_dir: Path) -> None:
+    """Empty src/, keeping a theme directory if one is vendored there."""
+    if src_dir.exists():
+        for item in src_dir.iterdir():
+            if item.name == "theme":
+                continue
+            shutil.rmtree(item) if item.is_dir() else item.unlink()
+    src_dir.mkdir(parents=True, exist_ok=True)
 
-    by_letter = load_recipes()
 
-    # Copy index.md and about.md into src/
-    for page in ["index.md", "about.md"]:
-        if Path(page).exists():
-            shutil.copy2(page, SRC_DIR / page)
+def main(recipes_dir: Path = RECIPES_DIR, src_dir: Path = SRC_DIR) -> int:
+    try:
+        by_letter = load_recipes(recipes_dir)
+    except TypeError as exc:
+        # `make site` skips the checkers, so a malformed field can reach here
+        # directly. Report it the way the checkers do instead of raising.
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
+    clean_src_dir(src_dir)
+
+    for page in FRONT_MATTER:
+        source = REPO_ROOT / page
+        if source.exists():
+            shutil.copy2(source, src_dir / page)
             print(f"  Copied {page} -> src/{page}")
 
-    # No static assets to copy — CSS, logo loaded remotely from coffee-clang.github.io
+    # No static assets to copy — CSS and logo load remotely from
+    # coffee-clang.github.io, so the site has no local asset pipeline.
 
-    # Generate per-recipe and per-letter pages
-    for letter in sorted(by_letter.keys()):
+    for letter in sorted(by_letter):
         letter_lower = letter.lower()
         libraries = sorted(by_letter[letter], key=lambda x: x["name"])
 
-        # Create letter directory
-        letter_dir = SRC_DIR / letter_lower
+        letter_dir = src_dir / letter_lower
         letter_dir.mkdir(parents=True, exist_ok=True)
 
-        # Generate letter index page
-        letter_content = generate_letter_page(letter, libraries, letter_lower)
-        (letter_dir / "index.md").write_text(letter_content)
-        print(f"  Generated {letter_dir / 'index.md'} ({len(libraries)} recipes)")
+        letter_page = letter_dir / "index.md"
+        letter_page.write_text(generate_letter_page(letter, libraries))
+        print(f"  Generated {letter_page} ({len(libraries)} recipes)")
 
-        # Generate per-recipe pages
         for lib in libraries:
-            lib_name = lib["name"]
-            lib_dir = letter_dir / lib_name
+            lib_dir = letter_dir / lib["name"]
             lib_dir.mkdir(parents=True, exist_ok=True)
 
-            # Recipe markdown page
-            recipe_content = generate_recipe_page(lib, letter_lower)
-            (lib_dir / "index.md").write_text(recipe_content)
+            page = lib_dir / "index.md"
+            page.write_text(generate_recipe_page(lib))
+            print(f"  Generated {page}")
 
-            # Copy install.sh
-            src_install = BASE_DIR / letter_lower / lib_name / "install.sh"
-            dst_install = lib_dir / "install.sh"
-            if src_install.exists():
-                shutil.copy2(src_install, dst_install)
+            install = lib["toml_file"].parent / "install.sh"
+            if install.exists():
+                shutil.copy2(install, lib_dir / "install.sh")
 
-            print(f"  Generated {lib_dir / 'index.md'}")
+    summary = src_dir / "SUMMARY.md"
+    text = generate_summary(by_letter)
+    summary.write_text(text)
+    print(f"  Generated SUMMARY.md ({len(text)} chars)")
 
-    # Generate SUMMARY.md
-    summary = generate_summary(by_letter)
-    (SRC_DIR / "SUMMARY.md").write_text(summary)
-    print(f"  Generated SUMMARY.md ({len(summary)} chars)")
-
-    total_recipes = sum(len(v) for v in by_letter.values())
-    print(f"\nDone. {total_recipes} recipes across {len(by_letter)} letters.")
+    total = sum(len(v) for v in by_letter.values())
+    print(f"\nDone. {total} recipes across {len(by_letter)} letters.")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

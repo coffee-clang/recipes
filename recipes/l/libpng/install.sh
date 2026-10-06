@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -o pipefail -u
 
 SCRATCH="${1:-libpng}"
 mkdir -p "$SCRATCH"
@@ -8,7 +8,9 @@ URL="https://sourceforge.net/projects/libpng/files/libpng1.6.46/libpng-1.6.46.ta
 VERSION="1.6.46"
 ARCHIVE="$(basename "$URL")"
 
-cd /tmp
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" -C "$SCRATCH"
+tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
 rm -f "$ARCHIVE"

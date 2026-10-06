@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -o pipefail -u
 
 PACKAGE="quickjs"
 URL="https://bellard.org/quickjs/quickjs-2025-09-13-2.tar.xz"
@@ -10,7 +10,9 @@ ARCHIVE="$(basename "$URL")"
 COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
 PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
 mkdir -p "$PREFIX"
-cd /tmp
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+cd "$WORK"
 wget -q "$URL"
-tar xf "$ARCHIVE" -C "$PREFIX"
+tar xf "$ARCHIVE" --no-same-owner -C "$PREFIX"
 rm -f "$ARCHIVE"

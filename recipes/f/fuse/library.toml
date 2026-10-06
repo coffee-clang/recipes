@@ -6,4 +6,3 @@ canonical_name = "fuse"
 recipe_url = "https://github.com/libfuse/libfuse/releases/download/fuse-3.16.2/fuse-3.16.2.tar.gz"
 output_type = "library"
 [dependencies]
-libtool = ""

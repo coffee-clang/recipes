@@ -1,0 +1,9 @@
+title = "libgpg-error"
+version = "1.55"
+description = "libgpg-error defines the error codes used across the GnuPG project and provides a thread-safe errno replacement shared by libgcrypt and libassuan."
+license = "LGPL-2.1"
+canonical_name = "libgpg_error"
+recipe_url = "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.55.tar.bz2"
+output_type = "library"
+[dependencies]
+pkg-config = ""

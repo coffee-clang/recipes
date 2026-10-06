@@ -1,0 +1,8 @@
+title = "xorgproto"
+version = "2024.1"
+description = "xorgproto carries the core X11 protocol headers and extension definitions needed to build any X client library such as libX11 or libxcb."
+license = "MIT"
+canonical_name = "xorgproto"
+recipe_url = "https://www.x.org/releases/individual/proto/xorgproto-2024.1.tar.gz"
+output_type = "library"
+[dependencies]

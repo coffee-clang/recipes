@@ -6,4 +6,3 @@ canonical_name = "gmp"
 recipe_url = "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.gz"
 output_type = "library"
 [dependencies]
-m4 = ""

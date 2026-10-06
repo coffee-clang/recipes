@@ -6,4 +6,4 @@ canonical_name = "sdl2"
 recipe_url = "https://github.com/libsdl-org/SDL/releases/download/release-2.30.10/SDL2-2.30.10.tar.gz"
 output_type = "library"
 [dependencies]
-libpulse = ""
+pulseaudio = ""

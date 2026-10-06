@@ -1,0 +1,10 @@
+title = "libxcb"
+version = "1.17.0"
+description = "libxcb is the X Window System protocol C binding library, the base client library under the X11 clients built by Qt, GTK, and SDL."
+license = "MIT"
+canonical_name = "libxcb"
+recipe_url = "https://x.org/archive/individual/lib/libxcb-1.17.0.tar.xz"
+output_type = "library"
+[dependencies]
+pkg-config = ""
+xorgproto = ""

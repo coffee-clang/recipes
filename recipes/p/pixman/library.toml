@@ -6,6 +6,3 @@ canonical_name = "pixman"
 recipe_url = "https://cairographics.org/releases/pixman-0.44.2.tar.gz"
 output_type = "library"
 [dependencies]
-autoconf = ""
-meson = ""
-or = ""

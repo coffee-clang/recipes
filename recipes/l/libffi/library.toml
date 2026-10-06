@@ -1,0 +1,10 @@
+title = "libffi"
+version = "3.4.6"
+description = "libffi is a portable foreign function interface library that lets C code call functions implemented in another language, bridging the gap to machine-level callbacks used by scripting runtimes and JIT compilers."
+license = "MIT"
+canonical_name = "libffi"
+recipe_url = "https://github.com/libffi/libffi/releases/download/v3.4.6/libffi-3.4.6.tar.gz"
+output_type = "library"
+[dependencies]
+cmake = ""
+pkg-config = ""

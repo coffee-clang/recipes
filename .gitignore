@@ -1,4 +1,5 @@
 /src/
 /docs/
 .worktrees/
-logo.svg
+.ruff_cache/
+__pycache__/

@@ -2,7 +2,7 @@ title = "hello-world"
 version = "1.0"
 description = "A trivial hello world C library for testing purposes"
 license = "MIT"
-canonical_name = "coffee-hello-world"
+canonical_name = "coffee_hello_world"
 recipe_url = "https://github.com/coffee-clang/hello-world/archive/refs/tags/1.0.tar.gz"
 output_type = "library"
 [dependencies]

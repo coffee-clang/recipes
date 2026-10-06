@@ -6,4 +6,3 @@ canonical_name = "mesa"
 recipe_url = "https://archive.mesa3d.org/mesa-24.3.4.tar.xz"
 output_type = "library"
 [dependencies]
-llvm = ""

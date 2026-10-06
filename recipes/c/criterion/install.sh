@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -o pipefail -u
 
 PACKAGE="criterion"
 VERSION="2.4.3"
@@ -10,9 +10,11 @@ COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
 PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
 mkdir -p "$PREFIX"
 
-cd /tmp
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" -C "$PREFIX"
+tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
 rm -f "$ARCHIVE"
 
 cd "$PREFIX/Criterion-${VERSION}"

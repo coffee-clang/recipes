@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -o pipefail -u
 
 PACKAGE="unity"
 VERSION="2.6.1"
@@ -10,7 +10,9 @@ ARCHIVE="Unity-${VERSION}.tar.gz"
 COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
 PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
 mkdir -p "$PREFIX"
-cd /tmp
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+cd "$WORK"
 wget -q "$URL" -O "$ARCHIVE"
-tar xzf "$ARCHIVE" -C "$PREFIX"
+tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
 rm -f "$ARCHIVE"

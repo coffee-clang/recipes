@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -o pipefail -u
 
 PACKAGE="hello-world"
 URL="https://github.com/coffee-clang/hello-world/archive/refs/tags/1.0.tar.gz"
@@ -10,9 +10,11 @@ ARCHIVE="hello-world-${VERSION}.tar.gz"
 COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
 PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
 mkdir -p "$PREFIX"
-cd /tmp
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+cd "$WORK"
 wget -q "$URL" -O "$ARCHIVE"
-tar xf "$ARCHIVE" -C "$PREFIX"
+tar xf "$ARCHIVE" --no-same-owner -C "$PREFIX"
 rm -f "$ARCHIVE"
 cd "$PREFIX/hello-world-${VERSION}"
 make
