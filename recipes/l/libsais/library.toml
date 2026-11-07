@@ -1,0 +1,9 @@
+title = "libsais"
+version = "2.12.1"
+description = "libsais is a C library for fast linear-time construction of suffix arrays, LCP arrays, and the Burrows-Wheeler transform using induced sorting."
+license = "Apache-2.0"
+canonical_name = "libsais"
+recipe_url = "https://github.com/IlyaGrebnov/libsais/archive/refs/tags/v2.12.1.tar.gz"
+output_type = "library"
+[dependencies]
+cmake = ""

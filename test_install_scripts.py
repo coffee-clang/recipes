@@ -970,6 +970,21 @@ class TestSharedLibraries(unittest.TestCase):
         self.assertIn("--enable-pic", text)
         self.assertNotIn("--disable-shared", text)
 
+    def test_libsais_enables_shared(self):
+        # libsais' CMakeLists defaults LIBSAIS_BUILD_SHARED_LIB to OFF.
+        libsais = RECIPES_DIR / "l" / "libsais" / "install.sh"
+        self.assertTrue(libsais.exists(), "recipes/l/libsais/install.sh missing")
+        self.assertIn("-DLIBSAIS_BUILD_SHARED_LIB=ON", libsais.read_text())
+
+    def test_argparse_installs_header_and_shared_library(self):
+        # argparse's Makefile has no install target, so the script copies the
+        # artifacts itself.
+        argparse = RECIPES_DIR / "a" / "argparse" / "install.sh"
+        self.assertTrue(argparse.exists(), "recipes/a/argparse/install.sh missing")
+        text = argparse.read_text()
+        self.assertIn("argparse.h", text)
+        self.assertIn("libargparse.so", text)
+
     def test_static_by_default_set_is_exactly_x264(self):
         # A second static-only recipe must be handled explicitly instead of
         # being skipped by the guard below.
