@@ -985,6 +985,15 @@ class TestSharedLibraries(unittest.TestCase):
         self.assertIn("argparse.h", text)
         self.assertIn("libargparse.so", text)
 
+    def test_wuffs_installs_single_file_library(self):
+        # wuffs ships as one amalgamated C file with no build system for C
+        # users, so the script copies it into include/.
+        wuffs = RECIPES_DIR / "w" / "wuffs" / "install.sh"
+        self.assertTrue(wuffs.exists(), "recipes/w/wuffs/install.sh missing")
+        text = wuffs.read_text()
+        self.assertIn("release/c/wuffs-v0.3.c", text)
+        self.assertIn('"$PREFIX/include"', text)
+
     def test_static_by_default_set_is_exactly_x264(self):
         # A second static-only recipe must be handled explicitly instead of
         # being skipped by the guard below.

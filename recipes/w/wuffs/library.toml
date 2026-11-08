@@ -1,0 +1,8 @@
+title = "wuffs"
+version = "0.3.6"
+description = "Wuffs (Wrangling Untrusted File Formats Safely) is a memory-safe library for decoding images, audio and compressed data, shipped as a single C file."
+license = "Apache-2.0"
+canonical_name = "wuffs"
+recipe_url = "https://github.com/google/wuffs/archive/refs/tags/v0.3.6.tar.gz"
+output_type = "library"
+[dependencies]
