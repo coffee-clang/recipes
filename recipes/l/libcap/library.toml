@@ -1,0 +1,9 @@
+title = "libcap"
+version = "2.78"
+description = "libcap provides an interface to the POSIX 1003.1e capabilities available in Linux kernels, plus the libpsx thread helper."
+license = "BSD-3-Clause OR GPL-2.0-only"
+canonical_name = "libcap"
+recipe_url = "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.78.tar.xz"
+output_type = "library"
+libname = ["cap", "psx"]
+[dependencies]

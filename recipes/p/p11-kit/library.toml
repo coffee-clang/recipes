@@ -1,0 +1,17 @@
+title = "p11-kit"
+version = "0.26.5"
+description = "p11-kit loads and enumerates PKCS#11 modules and provides a standard configuration for sharing them between applications."
+license = "BSD-3-Clause"
+canonical_name = "p11_kit"
+recipe_url = "https://github.com/p11-glue/p11-kit/releases/download/0.26.5/p11-kit-0.26.5.tar.xz"
+output_type = "library"
+libname = "p11-kit"
+include_dir = "include/p11-kit-1"
+[dependencies]
+libtasn1 = ""
+libffi = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

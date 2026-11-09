@@ -1,0 +1,12 @@
+title = "xtrans"
+version = "1.6.0"
+description = "xtrans is the X Window System network transport abstraction, shipped as C source and headers that libX11 and X servers compile in."
+license = "MIT"
+canonical_name = "xtrans"
+recipe_url = "https://www.x.org/releases/individual/lib/xtrans-1.6.0.tar.xz"
+output_type = "library"
+header_only = true
+[dependencies]
+
+[build-dependencies]
+pkg-config = ""

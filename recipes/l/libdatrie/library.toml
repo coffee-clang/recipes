@@ -1,0 +1,9 @@
+title = "libdatrie"
+version = "0.2.14"
+description = "libdatrie is an implementation of the double-array trie structure, used by libthai for Thai word-break dictionaries."
+license = "LGPL-2.1-or-later"
+canonical_name = "libdatrie"
+recipe_url = "https://github.com/tlwg/libdatrie/releases/download/v0.2.14/libdatrie-0.2.14.tar.xz"
+output_type = "both"
+libname = "datrie"
+[dependencies]

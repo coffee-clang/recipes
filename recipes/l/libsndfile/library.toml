@@ -1,0 +1,16 @@
+title = "libsndfile"
+version = "1.2.2"
+description = "libsndfile is a C library for reading and writing sampled audio files such as WAV, AIFF, FLAC, Ogg Vorbis and Opus."
+license = "LGPL-2.1-or-later"
+canonical_name = "libsndfile"
+recipe_url = "https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz"
+output_type = "library"
+libname = "sndfile"
+[dependencies]
+libogg = ""
+libvorbis = ""
+flac = ""
+opus = ""
+
+[build-dependencies]
+pkg-config = ""

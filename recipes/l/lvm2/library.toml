@@ -1,0 +1,12 @@
+title = "LVM2"
+version = "2.03.44"
+description = "LVM2 is the Linux logical volume manager. This recipe builds only its device-mapper library, libdevmapper, and dmsetup."
+license = "LGPL-2.1-only"
+canonical_name = "lvm2"
+recipe_url = "https://sourceware.org/pub/lvm2/LVM2.2.03.44.tgz"
+output_type = "library"
+libname = "devmapper"
+[dependencies]
+
+[build-dependencies]
+pkg-config = ""

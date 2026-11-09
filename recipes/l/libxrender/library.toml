@@ -1,0 +1,14 @@
+title = "libXrender"
+version = "0.9.13"
+description = "libXrender is the client library for the X Render extension, providing anti-aliased, alpha-composited 2D drawing primitives."
+license = "MIT"
+canonical_name = "libxrender"
+recipe_url = "https://www.x.org/releases/individual/lib/libXrender-0.9.13.tar.xz"
+output_type = "library"
+libname = "Xrender"
+[dependencies]
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

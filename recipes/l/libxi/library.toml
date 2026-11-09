@@ -1,0 +1,16 @@
+title = "libXi"
+version = "1.8.4"
+description = "libXi is the client library for the X Input extension, providing multi-device and multi-touch input events to X11 applications."
+license = "MIT"
+canonical_name = "libxi"
+recipe_url = "https://www.x.org/releases/individual/lib/libXi-1.8.4.tar.xz"
+output_type = "library"
+libname = "Xi"
+[dependencies]
+libxext = ""
+libxfixes = ""
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

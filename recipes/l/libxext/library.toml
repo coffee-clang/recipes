@@ -1,0 +1,14 @@
+title = "libXext"
+version = "1.3.7"
+description = "libXext is the client library for miscellaneous X11 protocol extensions such as SHAPE, MIT-SHM, SYNC and DPMS."
+license = "MIT"
+canonical_name = "libxext"
+recipe_url = "https://www.x.org/releases/individual/lib/libXext-1.3.7.tar.xz"
+output_type = "library"
+libname = "Xext"
+[dependencies]
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

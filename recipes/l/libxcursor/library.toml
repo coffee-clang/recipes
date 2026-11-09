@@ -1,0 +1,16 @@
+title = "libXcursor"
+version = "1.2.3"
+description = "libXcursor loads and displays themed, animated, alpha-blended cursor images for X11 applications."
+license = "MIT"
+canonical_name = "libxcursor"
+recipe_url = "https://www.x.org/releases/individual/lib/libXcursor-1.2.3.tar.xz"
+output_type = "library"
+libname = "Xcursor"
+[dependencies]
+libxfixes = ""
+libxrender = ""
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

@@ -1,0 +1,15 @@
+title = "libXcomposite"
+version = "0.4.7"
+description = "libXcomposite is the client library for the Composite extension, which redirects window rendering to offscreen buffers for compositing managers."
+license = "MIT"
+canonical_name = "libxcomposite"
+recipe_url = "https://www.x.org/releases/individual/lib/libXcomposite-0.4.7.tar.xz"
+output_type = "library"
+libname = "Xcomposite"
+[dependencies]
+libxfixes = ""
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

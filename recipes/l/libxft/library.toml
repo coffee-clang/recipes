@@ -1,0 +1,17 @@
+title = "libXft"
+version = "2.3.9"
+description = "libXft is the X FreeType interface library, drawing anti-aliased text on X11 with fonts found through Fontconfig and rendered by FreeType."
+license = "HPND-sell-variant"
+canonical_name = "libxft"
+recipe_url = "https://www.x.org/releases/individual/lib/libXft-2.3.9.tar.xz"
+output_type = "library"
+libname = "Xft"
+[dependencies]
+fontconfig = ""
+freetype = ""
+libxrender = ""
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

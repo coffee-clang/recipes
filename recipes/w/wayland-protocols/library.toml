@@ -1,0 +1,12 @@
+title = "wayland-protocols"
+version = "1.50"
+description = "wayland-protocols contains the XML definitions of Wayland protocols that extend the core protocol, used by compositors and clients."
+license = "MIT"
+canonical_name = "wayland_protocols"
+recipe_url = "https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.50/downloads/wayland-protocols-1.50.tar.xz"
+output_type = "data"
+[dependencies]
+
+[build-dependencies]
+meson = ""
+ninja = ""

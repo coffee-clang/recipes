@@ -1,0 +1,20 @@
+title = "gdk-pixbuf"
+version = "2.42.12"
+description = "GdkPixbuf is a GObject-based library for loading, saving and scaling raster images, with loaders for PNG, JPEG, GIF and TIFF."
+license = "LGPL-2.1-or-later"
+canonical_name = "gdk_pixbuf"
+recipe_url = "https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.12.tar.xz"
+output_type = "both"
+libname = "gdk_pixbuf-2.0"
+include_dir = "include/gdk-pixbuf-2.0"
+[dependencies]
+glib = ""
+libpng = ""
+libjpeg-turbo = ""
+tiff = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""
+python3 = ""

@@ -1,0 +1,13 @@
+title = "libXdmcp"
+version = "1.1.5"
+description = "libXdmcp implements the X Display Manager Control Protocol, used by X clients and display managers to negotiate remote sessions."
+license = "MIT"
+canonical_name = "libxdmcp"
+recipe_url = "https://www.x.org/releases/individual/lib/libXdmcp-1.1.5.tar.xz"
+output_type = "library"
+libname = "Xdmcp"
+[dependencies]
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

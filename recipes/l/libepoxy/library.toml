@@ -1,0 +1,17 @@
+title = "libepoxy"
+version = "1.5.10"
+description = "libepoxy is an OpenGL function pointer management library that resolves GL and GLX entry points at runtime."
+license = "MIT"
+canonical_name = "libepoxy"
+recipe_url = "https://download.gnome.org/sources/libepoxy/1.5/libepoxy-1.5.10.tar.xz"
+output_type = "library"
+libname = "epoxy"
+notes = "Built with GLX only: EGL support needs Mesa's EGL headers, which the registry cannot build here. libGL is loaded at runtime, not linked."
+[dependencies]
+x11 = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""
+python3 = ""

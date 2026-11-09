@@ -1,0 +1,13 @@
+title = "libxshmfence"
+version = "1.3.3"
+description = "libxshmfence is a shared-memory fence library used by the X server and Mesa's DRI3 code to synchronise rendering between processes."
+license = "HPND-sell-variant"
+canonical_name = "libxshmfence"
+recipe_url = "https://www.x.org/releases/individual/lib/libxshmfence-1.3.3.tar.xz"
+output_type = "library"
+libname = "xshmfence"
+[dependencies]
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

@@ -1,0 +1,13 @@
+title = "libXau"
+version = "1.0.12"
+description = "libXau implements the X11 authorization protocol, reading and writing the .Xauthority files used to authenticate X clients."
+license = "MIT"
+canonical_name = "libxau"
+recipe_url = "https://www.x.org/releases/individual/lib/libXau-1.0.12.tar.xz"
+output_type = "library"
+libname = "Xau"
+[dependencies]
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

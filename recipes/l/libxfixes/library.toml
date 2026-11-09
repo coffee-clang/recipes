@@ -1,0 +1,14 @@
+title = "libXfixes"
+version = "6.0.2"
+description = "libXfixes is the client library for the XFIXES extension, which adds cursor, region and selection-tracking fixes to the core X11 protocol."
+license = "MIT"
+canonical_name = "libxfixes"
+recipe_url = "https://www.x.org/releases/individual/lib/libXfixes-6.0.2.tar.xz"
+output_type = "library"
+libname = "Xfixes"
+[dependencies]
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""

@@ -1,0 +1,12 @@
+title = "xcb-proto"
+version = "1.17.0"
+description = "xcb-proto provides the XML descriptions of the X11 protocol and the xcbgen Python module that libxcb uses to generate its C bindings."
+license = "MIT"
+canonical_name = "xcb_proto"
+recipe_url = "https://www.x.org/releases/individual/proto/xcb-proto-1.17.0.tar.xz"
+output_type = "data"
+[dependencies]
+
+[build-dependencies]
+pkg-config = ""
+python3 = ""

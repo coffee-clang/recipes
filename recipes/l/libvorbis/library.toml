@@ -1,0 +1,13 @@
+title = "libvorbis"
+version = "1.3.7"
+description = "libvorbis is the reference implementation of the Ogg Vorbis lossy audio codec, with encoder and file-level helper libraries."
+license = "BSD-3-Clause"
+canonical_name = "libvorbis"
+recipe_url = "https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz"
+output_type = "library"
+libname = ["vorbis", "vorbisenc", "vorbisfile"]
+[dependencies]
+libogg = ""
+
+[build-dependencies]
+pkg-config = ""

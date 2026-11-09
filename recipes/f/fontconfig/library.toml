@@ -1,0 +1,18 @@
+title = "fontconfig"
+version = "2.18.3"
+description = "Fontconfig is a library for configuring and customizing font access: it discovers, matches and caches the fonts installed on a system."
+license = "HPND-sell-variant"
+canonical_name = "fontconfig"
+recipe_url = "https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.3/fontconfig-2.18.3.tar.xz"
+output_type = "both"
+libname = "fontconfig"
+[dependencies]
+freetype = ""
+expat = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""
+gperf = ""
+python3 = ""

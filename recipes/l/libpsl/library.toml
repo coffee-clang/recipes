@@ -1,0 +1,15 @@
+title = "libpsl"
+version = "0.23.3"
+description = "libpsl is a C library for the Public Suffix List, used to check domains against cookie and certificate rules."
+license = "MIT"
+canonical_name = "libpsl"
+recipe_url = "https://github.com/rockdaboot/libpsl/releases/download/0.23.3/libpsl-0.23.3.tar.gz"
+output_type = "library"
+libname = "psl"
+[dependencies]
+libidn2 = ""
+libunistring = ""
+
+[build-dependencies]
+pkg-config = ""
+python3 = ""

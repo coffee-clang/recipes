@@ -1,0 +1,9 @@
+title = "libtasn1"
+version = "4.21.0"
+description = "GNU Libtasn1 is a library for Abstract Syntax Notation One (ASN.1) and DER encoding and decoding, used by GnuTLS and p11-kit."
+license = "LGPL-2.1"
+canonical_name = "libtasn1"
+recipe_url = "https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.21.0.tar.gz"
+output_type = "library"
+libname = "tasn1"
+[dependencies]

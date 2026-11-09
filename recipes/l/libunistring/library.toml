@@ -1,0 +1,9 @@
+title = "libunistring"
+version = "1.5"
+description = "GNU libunistring provides functions for manipulating Unicode strings and C strings according to the Unicode standard."
+license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
+canonical_name = "libunistring"
+recipe_url = "https://ftp.gnu.org/gnu/libunistring/libunistring-1.5.tar.xz"
+output_type = "library"
+libname = "unistring"
+[dependencies]

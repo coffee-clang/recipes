@@ -1,0 +1,15 @@
+title = "libXinerama"
+version = "1.1.6"
+description = "libXinerama is the client library for the Xinerama extension, which reports how a logical X screen spans multiple monitors."
+license = "MIT"
+canonical_name = "libxinerama"
+recipe_url = "https://www.x.org/releases/individual/lib/libXinerama-1.1.6.tar.xz"
+output_type = "library"
+libname = "Xinerama"
+[dependencies]
+libxext = ""
+x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+pkg-config = ""
