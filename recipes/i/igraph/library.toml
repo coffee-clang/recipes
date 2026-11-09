@@ -5,4 +5,12 @@ license = "GPL-2.0"
 canonical_name = "igraph"
 recipe_url = "https://github.com/igraph/igraph/releases/download/0.10.15/igraph-0.10.15.tar.gz"
 output_type = "library"
+libname = "igraph"
+include_dir = "include/igraph"
 [dependencies]
+blas = ""
+gmp = ""
+libxml2 = ""
+
+[build-dependencies]
+cmake = ""

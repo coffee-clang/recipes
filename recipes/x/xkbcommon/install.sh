@@ -1,18 +1,10 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="xkbcommon"
-URL="https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-1.5.0.tar.gz"
-VERSION="1.5.0"
 ARCHIVE="$(basename "$URL")"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "libxkbcommon-xkbcommon-$VERSION"
+meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release -Denable-docs=false -Denable-tools=false -Denable-wayland=false -Denable-x11=true -Denable-xkbregistry=false
+meson compile -C build -j"$(nproc)"
+meson install -C build

@@ -5,5 +5,8 @@ license = "Apache-2.0"
 canonical_name = "libsais"
 recipe_url = "https://github.com/IlyaGrebnov/libsais/archive/refs/tags/v2.12.1.tar.gz"
 output_type = "library"
+libname = "sais"
 [dependencies]
+
+[build-dependencies]
 cmake = ""

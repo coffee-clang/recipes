@@ -3,7 +3,10 @@ version = "1.34.4"
 description = "c-ares is a C library for asynchronous DNS requests and name resolution. It provides non-blocking DNS lookups and is used by curl, Apache Mesos, and many other projects requiring asynchronous name resolution."
 license = "MIT"
 canonical_name = "c_ares"
-recipe_url = "https://c-ares.org/download/c-ares-1.34.4.tar.gz"
+recipe_url = "https://github.com/c-ares/c-ares/releases/download/v1.34.4/c-ares-1.34.4.tar.gz"
 output_type = "library"
+libname = "cares"
 [dependencies]
+
+[build-dependencies]
 cmake = ""

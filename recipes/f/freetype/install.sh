@@ -1,16 +1,13 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-freetype}"
-mkdir -p "$SCRATCH"
-
-URL="https://download.savannah.nongnu.org/releases/freetype/freetype-2.13.3.tar.gz"
-VERSION="2.13.3"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "freetype-$VERSION"
+# HarfBuzz depends on FreeType, so linking it back would be circular. The other
+# optional codecs are left out so only the declared zlib is used.
+./configure --prefix="$PREFIX" --with-zlib=yes --with-harfbuzz=no \
+    --with-png=no --with-bzip2=no --with-brotli=no
+make -j"$(nproc)"
+make install

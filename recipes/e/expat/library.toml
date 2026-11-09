@@ -5,4 +5,5 @@ license = "MIT"
 canonical_name = "expat"
 recipe_url = "https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.gz"
 output_type = "library"
+libname = "expat"
 [dependencies]

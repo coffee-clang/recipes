@@ -1,16 +1,12 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-tiff}"
-mkdir -p "$SCRATCH"
-
-URL="https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz"
-VERSION="4.7.0"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "tiff-$VERSION"
+./configure --prefix="$PREFIX" --disable-docs --enable-zlib --enable-zstd \
+    --enable-lzma --disable-libdeflate --disable-jbig --disable-lerc \
+    --disable-webp
+make -j"$(nproc)"
+make install

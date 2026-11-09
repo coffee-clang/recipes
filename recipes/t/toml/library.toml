@@ -5,4 +5,5 @@ license = "MIT"
 canonical_name = "toml"
 recipe_url = "https://github.com/cktan/tomlc17/archive/refs/tags/R260414.tar.gz"
 output_type = "library"
+libname = "tomlc17"
 [dependencies]

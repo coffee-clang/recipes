@@ -5,4 +5,5 @@ license = "MIT"
 canonical_name = "ncurses"
 recipe_url = "https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz"
 output_type = "library"
+libname = ["ncursesw", "formw", "menuw", "panelw"]
 [dependencies]

@@ -5,6 +5,5 @@ license = "MIT"
 canonical_name = "nghttp2"
 recipe_url = "https://github.com/nghttp2/nghttp2/releases/download/v1.62.1/nghttp2-1.62.1.tar.gz"
 output_type = "library"
+libname = "nghttp2"
 [dependencies]
-libev = ""
-openssl = ""

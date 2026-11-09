@@ -5,4 +5,9 @@ license = "MIT"
 canonical_name = "unity"
 recipe_url = "https://github.com/ThrowTheSwitch/Unity/archive/refs/tags/v2.6.1.tar.gz"
 output_type = "library"
+libname = "unity"
+include_dir = "include/unity"
 [dependencies]
+
+[build-dependencies]
+cmake = ""

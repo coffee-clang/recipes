@@ -1,16 +1,11 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-pixman}"
-mkdir -p "$SCRATCH"
-
-URL="https://cairographics.org/releases/pixman-0.44.2.tar.gz"
-VERSION="0.44.2"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "pixman-$VERSION"
+meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release \
+    -Dtests=disabled -Ddemos=disabled -Dgtk=disabled -Dlibpng=disabled
+meson compile -C build
+meson install -C build

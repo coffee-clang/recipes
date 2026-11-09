@@ -5,4 +5,5 @@ license = "BSD-2-Clause"
 canonical_name = "berkeley_db"
 recipe_url = "https://download.oracle.com/berkeley-db/db-6.2.32.tar.gz"
 output_type = "library"
+libname = "db"
 [dependencies]

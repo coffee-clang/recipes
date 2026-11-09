@@ -1,18 +1,10 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="jansson"
-URL="https://github.com/akheron/jansson/releases/download/v2.14/jansson-2.14.tar.gz"
-VERSION="2.14"
 ARCHIVE="$(basename "$URL")"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "jansson-$VERSION"
+./configure --prefix="$PREFIX" --libdir="$PREFIX/lib"
+make -j"$(nproc)"
+make install

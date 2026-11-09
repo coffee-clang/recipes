@@ -1,16 +1,13 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-atk}"
-mkdir -p "$SCRATCH"
-
-VERSION="2.52.0"
-URL="https://download.gnome.org/sources/atk/${VERSION%.*}/atk-2.52.0.tar.xz"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xJf "$ARCHIVE" --no-same-owner
+# Since 2.46 ATK ships inside at-spi2-core, together with the atk-bridge that
+# GTK links against. Building the whole module keeps the two in step.
+cd "at-spi2-core-$VERSION"
+meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release \
+    -Dintrospection=disabled -Ddocs=false -Dx11=disabled
+meson compile -C build
+meson install -C build

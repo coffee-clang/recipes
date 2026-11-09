@@ -1,16 +1,12 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-json-c}"
-mkdir -p "$SCRATCH"
-
-URL="https://s3.amazonaws.com/json-c_releases/releases/json-c-0.18.tar.gz"
-VERSION="0.18"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "json-c-$VERSION"
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF -DBUILD_APPS=OFF
+cmake --build build -j"$(nproc)"
+cmake --install build

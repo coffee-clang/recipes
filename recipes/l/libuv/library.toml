@@ -5,5 +5,8 @@ license = "MIT"
 canonical_name = "libuv"
 recipe_url = "https://dist.libuv.org/dist/v1.49.2/libuv-v1.49.2.tar.gz"
 output_type = "library"
+libname = "uv"
 [dependencies]
+
+[build-dependencies]
 cmake = ""

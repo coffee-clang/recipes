@@ -5,4 +5,7 @@ license = "MIT"
 canonical_name = "quickjs"
 recipe_url = "https://bellard.org/quickjs/quickjs-2025-09-13-2.tar.xz"
 output_type = "library"
+libname = "quickjs"
+include_dir = "include/quickjs"
+lib_dir = "lib/quickjs"
 [dependencies]

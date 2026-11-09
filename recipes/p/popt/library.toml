@@ -3,6 +3,7 @@ version = "1.19"
 description = "popt is a command-line option parsing library for C. It provides a convenient interface for parsing command-line arguments and is used by many applications including rpm and wget."
 license = "MIT"
 canonical_name = "popt"
-recipe_url = "https://github.com/rpm-software-management/popt/releases/download/popt-1.19/popt-1.19.tar.gz"
+recipe_url = "https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/popt-1.19.tar.gz"
 output_type = "library"
+libname = "popt"
 [dependencies]

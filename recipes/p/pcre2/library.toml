@@ -5,5 +5,11 @@ license = "BSD"
 canonical_name = "pcre2"
 recipe_url = "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.44/pcre2-10.44.tar.gz"
 output_type = "library"
+libname = "pcre2-8"
 [dependencies]
+readline = ""
+zlib = ""
+bzip2 = ""
+
+[build-dependencies]
 cmake = ""

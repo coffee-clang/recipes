@@ -5,5 +5,6 @@ license = "LGPL-2.1"
 canonical_name = "acl"
 recipe_url = "https://download.savannah.nongnu.org/releases/acl/acl-2.3.2.tar.gz"
 output_type = "library"
+libname = "acl"
 [dependencies]
 attr = ""

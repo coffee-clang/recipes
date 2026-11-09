@@ -3,7 +3,15 @@ version = "2.7.5"
 description = "cryptsetup is a library for setting up encrypted disk volumes using LUKS (Linux Unified Key Setup). It provides high-level API for block device encryption and is the foundation for Linux full-disk encryption."
 license = "GPL-2.0"
 canonical_name = "cryptsetup"
-recipe_url = "https://gitlab.com/cryptsetup/cryptsetup/-/archive/v2.7.5/cryptsetup-v2.7.5.tar.gz"
+recipe_url = "https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/cryptsetup-2.7.5.tar.xz"
 output_type = "library"
+libname = "cryptsetup"
 [dependencies]
 libgcrypt = ""
+json-c = ""
+popt = ""
+util-linux = ""
+lvm2 = ""
+
+[build-dependencies]
+pkg-config = ""

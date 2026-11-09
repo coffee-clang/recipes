@@ -1,16 +1,13 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-blas}"
-mkdir -p "$SCRATCH"
-
-URL="https://www.netlib.org/blas/blas-3.12.0.tar.gz"
-VERSION="3.12.0"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "lapack-$VERSION"
+# Reference BLAS has no C header: CBLAS provides cblas.h.
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON -DCBLAS=ON -DLAPACKE=OFF -DBUILD_TESTING=OFF
+cmake --build build -j"$(nproc)"
+cmake --install build

@@ -5,4 +5,23 @@ license = "MIT"
 canonical_name = "mesa"
 recipe_url = "https://archive.mesa3d.org/mesa-24.3.4.tar.xz"
 output_type = "library"
+libname = ["GL", "EGL", "gbm"]
 [dependencies]
+drm = ""
+expat = ""
+libxcb = ""
+libxext = ""
+libxfixes = ""
+libxshmfence = ""
+libxxf86vm = ""
+x11 = ""
+xorgproto = ""
+zlib = ""
+
+[build-dependencies]
+bison = ""
+flex = ""
+meson = ""
+ninja = ""
+pkg-config = ""
+python3 = ""

@@ -5,4 +5,8 @@ license = "Apache-2.0"
 canonical_name = "cmocka"
 recipe_url = "https://git.cryptomilk.org/projects/cmocka.git/snapshot/cmocka-1.1.7.tar.gz"
 output_type = "library"
+libname = "cmocka"
 [dependencies]
+
+[build-dependencies]
+cmake = ""

@@ -1,16 +1,17 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-gtk}"
-mkdir -p "$SCRATCH"
-
-VERSION="3.24.47"
-URL="https://download.gnome.org/sources/gtk+/${VERSION%.*}/gtk+-3.24.47.tar.xz"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xJf "$ARCHIVE" --no-same-owner
+cd "gtk-$VERSION"
+# X11 only: the Wayland backend requires xkbcommon, which cannot be built here.
+# The cups print backend and colord would link host libraries with no recipe.
+meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nofallback \
+    -Dx11_backend=true -Dwayland_backend=false -Dbroadway_backend=false \
+    -Dxinerama=yes -Dprint_backends=file,lpr -Dcolord=no -Dcloudproviders=false \
+    -Dtracker3=false -Dprofiler=false \
+    -Dintrospection=false -Ddemos=false -Dexamples=false -Dtests=false \
+    -Dinstalled_tests=false -Dgtk_doc=false -Dman=false
+meson compile -C build
+meson install -C build

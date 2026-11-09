@@ -1,18 +1,16 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="util-linux"
-URL="https://github.com/karelzak/util-linux/archive/refs/tags/v2.40.2.tar.gz"
-VERSION="2.40.2"
 ARCHIVE="$(basename "$URL")"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
+tar xJf "$ARCHIVE" --no-same-owner
+cd "util-linux-$VERSION"
+# Libraries only: the programs need root to install (setuid, chown, udev).
+./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" \
+    --disable-all-programs --enable-libuuid --enable-libblkid \
+    --enable-libmount --enable-libsmartcols --enable-libfdisk \
+    --disable-bash-completion --disable-makeinstall-chown \
+    --disable-makeinstall-setuid --without-systemd --without-udev \
+    --without-python --disable-nls
+make -j"$(nproc)"
+make install

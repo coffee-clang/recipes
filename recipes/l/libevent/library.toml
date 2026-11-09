@@ -1,9 +1,10 @@
 title = "libevent"
-version = "2.1.13"
+version = "2.1.12"
 description = "libevent is an event notification library for developing scalable network servers. It provides a mechanism to execute a callback function when a specific event occurs on a file descriptor or after a timeout."
 license = "MIT"
 canonical_name = "libevent"
-recipe_url = "https://github.com/libevent/libevent/releases/download/release-2.1.13/libevent-2.1.13.tar.gz"
+recipe_url = "https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz"
 output_type = "library"
+libname = ["event", "event_openssl", "event_pthreads"]
 [dependencies]
 openssl = ""

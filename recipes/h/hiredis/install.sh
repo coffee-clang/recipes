@@ -1,19 +1,14 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="hiredis"
-URL="https://github.com/redis/hiredis/archive/refs/tags/v1.2.0.tar.gz"
-VERSION="1.2.0"
 ARCHIVE="$(basename "$URL")"
-
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
-cd "$PREFIX/hiredis-${VERSION}"
-make
+tar xzf "$ARCHIVE" --no-same-owner
+cd "hiredis-$VERSION"
+# The Makefile reads its install paths with ?= and bakes them into hiredis.pc
+# at build time, so a value exported by the user's shell would redirect the
+# install. Pin them on both commands.
+make -j"$(nproc)" USE_SSL=1 PREFIX="$PREFIX" LIBRARY_PATH=lib \
+    INCLUDE_PATH=include/hiredis PKGCONF_PATH=pkgconfig
+make install USE_SSL=1 PREFIX="$PREFIX" LIBRARY_PATH=lib \
+    INCLUDE_PATH=include/hiredis PKGCONF_PATH=pkgconfig

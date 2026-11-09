@@ -5,5 +5,8 @@ license = "LGPL-2.1"
 canonical_name = "attr"
 recipe_url = "https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.gz"
 output_type = "library"
+libname = "attr"
 [dependencies]
+
+[build-dependencies]
 gettext = ""

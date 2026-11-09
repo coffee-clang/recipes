@@ -5,4 +5,5 @@ license = "zlib"
 canonical_name = "zlib"
 recipe_url = "https://github.com/madler/zlib/archive/refs/tags/v1.3.1.tar.gz"
 output_type = "library"
+libname = "z"
 [dependencies]

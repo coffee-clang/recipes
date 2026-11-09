@@ -5,6 +5,5 @@ license = "MIT"
 canonical_name = "libffi"
 recipe_url = "https://github.com/libffi/libffi/releases/download/v3.4.6/libffi-3.4.6.tar.gz"
 output_type = "library"
+libname = "ffi"
 [dependencies]
-cmake = ""
-pkg-config = ""

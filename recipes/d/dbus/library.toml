@@ -3,7 +3,15 @@ version = "1.16.0"
 description = "D-Bus is a message bus system for inter-process communication in Linux desktop environments. It provides a simple way for applications to communicate with each other and the system, used by systemd, GNOME, and KDE."
 license = "GPL-2.0"
 canonical_name = "dbus"
-recipe_url = "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.0.tar.gz"
+recipe_url = "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.0.tar.xz"
 output_type = "library"
+libname = "dbus-1"
+include_dir = "include/dbus-1.0"
+notes = "Also add -I$PREFIX/lib/dbus-1.0/include, where dbus-arch-deps.h is installed."
 [dependencies]
 expat = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

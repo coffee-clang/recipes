@@ -5,5 +5,15 @@ license = "curl"
 canonical_name = "curl"
 recipe_url = "https://curl.se/download/curl-8.11.1.tar.gz"
 output_type = "library"
+libname = "curl"
 [dependencies]
 openssl = ""
+zlib = ""
+zstd = ""
+brotli = ""
+nghttp2 = ""
+libidn2 = ""
+libpsl = ""
+
+[build-dependencies]
+pkg-config = ""

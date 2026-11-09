@@ -5,5 +5,10 @@ license = "GPL-3.0"
 canonical_name = "ffmpeg"
 recipe_url = "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz"
 output_type = "library"
+libname = ["avcodec", "avformat", "avutil", "avfilter", "avdevice", "swscale", "swresample", "postproc"]
 [dependencies]
 libx264 = ""
+
+[build-dependencies]
+nasm = ""
+pkg-config = ""

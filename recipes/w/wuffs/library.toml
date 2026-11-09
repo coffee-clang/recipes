@@ -5,4 +5,6 @@ license = "Apache-2.0"
 canonical_name = "wuffs"
 recipe_url = "https://github.com/google/wuffs/archive/refs/tags/v0.3.6.tar.gz"
 output_type = "library"
+header_only = true
+notes = "wuffs-v0.3.c is both header and implementation: #define WUFFS_IMPLEMENTATION in exactly one .c file before including it."
 [dependencies]

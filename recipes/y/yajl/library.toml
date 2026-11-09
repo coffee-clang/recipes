@@ -5,5 +5,8 @@ license = "MIT"
 canonical_name = "yajl"
 recipe_url = "https://github.com/lloyd/yajl/archive/refs/tags/2.1.0.tar.gz"
 output_type = "library"
+libname = "yajl"
 [dependencies]
+
+[build-dependencies]
 cmake = ""

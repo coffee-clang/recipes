@@ -5,5 +5,9 @@ license = "LGPL-2.1"
 canonical_name = "microhttpd"
 recipe_url = "https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-1.0.0.tar.gz"
 output_type = "library"
+libname = "microhttpd"
 [dependencies]
 gnutls = ""
+
+[build-dependencies]
+pkg-config = ""

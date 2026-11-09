@@ -5,5 +5,5 @@ license = "LGPL-3.0"
 canonical_name = "zeromq"
 recipe_url = "https://github.com/zeromq/libzmq/releases/download/v4.3.5/zeromq-4.3.5.tar.gz"
 output_type = "library"
+libname = "zmq"
 [dependencies]
-cmake = ""

@@ -5,4 +5,9 @@ license = "BSD-3-Clause"
 canonical_name = "libpcap"
 recipe_url = "https://www.tcpdump.org/release/libpcap-1.10.5.tar.gz"
 output_type = "library"
+libname = "pcap"
 [dependencies]
+
+[build-dependencies]
+bison = ""
+flex = ""

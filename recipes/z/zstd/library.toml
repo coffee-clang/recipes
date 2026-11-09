@@ -5,5 +5,5 @@ license = "BSD-3-Clause"
 canonical_name = "zstd"
 recipe_url = "https://github.com/facebook/zstd.git"
 output_type = "library"
+libname = "zstd"
 [dependencies]
-cmake = ""

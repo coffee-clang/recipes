@@ -5,5 +5,21 @@ license = "LGPL-2.1"
 canonical_name = "pango"
 recipe_url = "https://download.gnome.org/sources/pango/1.54/pango-1.54.0.tar.xz"
 output_type = "library"
+libname = ["pango-1.0", "pangocairo-1.0", "pangoft2-1.0", "pangoxft-1.0"]
+include_dir = "include/pango-1.0"
 [dependencies]
 glib = ""
+harfbuzz = ""
+fribidi = ""
+cairo = ""
+freetype = ""
+fontconfig = ""
+libthai = ""
+libxft = ""
+libxrender = ""
+x11 = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

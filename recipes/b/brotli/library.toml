@@ -5,5 +5,8 @@ license = "BSD-3-Clause"
 canonical_name = "brotli"
 recipe_url = "https://github.com/google/brotli.git"
 output_type = "library"
+libname = ["brotlienc", "brotlidec", "brotlicommon"]
 [dependencies]
+
+[build-dependencies]
 cmake = ""

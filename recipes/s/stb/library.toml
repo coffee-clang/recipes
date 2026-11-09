@@ -3,6 +3,8 @@ version = "2024-12-01"
 description = "stb is a collection of single-file C libraries by Sean Barrett for image loading, font rendering, audio playback and more. Each library is a single .h or .c file with zero dependencies."
 license = "PublicDomain"
 canonical_name = "stb"
-recipe_url = "https://github.com/nothings/stb/archive/refs/heads/master.tar.gz"
+recipe_url = "https://github.com/nothings/stb/archive/5c205738c191bcb0abc65c4febfa9bd25ff35234.tar.gz"
 output_type = "library"
+header_only = true
+notes = "Each stb_*.h is a single-file library: in exactly one .c file, define its implementation macro before including it, e.g. #define STB_DS_IMPLEMENTATION then #include \"stb_ds.h\"."
 [dependencies]

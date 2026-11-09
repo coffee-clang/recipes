@@ -5,6 +5,6 @@ license = "LGPL-2.1"
 canonical_name = "libgcrypt"
 recipe_url = "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.1.tar.bz2"
 output_type = "library"
+libname = "gcrypt"
 [dependencies]
 libgpg-error = ""
-pkg-config = ""

@@ -1,9 +1,15 @@
 title = "avahi"
-version = "0.9"
+version = "0.8"
 description = "Avahi is a free, LGPL implementation of DNS Service Discovery (DNS-SD) for Linux. It allows applications to discover services on the local network without configuration, commonly used for printer and file sharing discovery."
 license = "LGPL-2.1"
 canonical_name = "avahi"
-recipe_url = "https://github.com/lathiat/avahi/releases/download/v0.9/avahi-0.9.tar.gz"
+recipe_url = "https://github.com/avahi/avahi/releases/download/v0.8/avahi-0.8.tar.gz"
 output_type = "library"
+libname = ["avahi-client", "avahi-common"]
 [dependencies]
 glib = ""
+dbus = ""
+expat = ""
+
+[build-dependencies]
+pkg-config = ""

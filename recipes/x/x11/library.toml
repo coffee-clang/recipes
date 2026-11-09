@@ -5,5 +5,11 @@ license = "MIT"
 canonical_name = "x11"
 recipe_url = "https://x.org/archive/individual/lib/libX11-1.8.9.tar.xz"
 output_type = "library"
+libname = "X11"
 [dependencies]
+libxcb = ""
 xorgproto = ""
+xtrans = ""
+
+[build-dependencies]
+pkg-config = ""

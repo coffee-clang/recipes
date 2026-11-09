@@ -1,16 +1,11 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-nettle}"
-mkdir -p "$SCRATCH"
-
-URL="https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz"
-VERSION="3.10"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "nettle-$VERSION"
+# nettle defaults to lib64 on 64-bit hosts.
+./configure --prefix="$PREFIX" --libdir="$PREFIX/lib" --disable-documentation
+make -j"$(nproc)"
+make install

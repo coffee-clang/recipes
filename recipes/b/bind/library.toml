@@ -3,7 +3,18 @@ version = "9.18.28"
 description = "BIND (Berkeley Internet Name Domain) is the most widely used DNS server software on the Internet. The libdns library provides DNS protocol handling, resolution, and zone management capabilities."
 license = "MPL-2.0"
 canonical_name = "bind"
-recipe_url = "https://downloads.isc.org/isc/bind9/9.18.28/bind-9.18.28.tar.gz"
+recipe_url = "https://downloads.isc.org/isc/bind9/9.18.28/bind-9.18.28.tar.xz"
 output_type = "library"
+libname = ["dns", "isc"]
 [dependencies]
+libuv = ""
 openssl = ""
+json-c = ""
+readline = ""
+zlib = ""
+libxml2 = ""
+lmdb = ""
+libcap = ""
+
+[build-dependencies]
+pkg-config = ""

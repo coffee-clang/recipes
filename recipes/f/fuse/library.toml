@@ -5,4 +5,11 @@ license = "GPL-2.0"
 canonical_name = "fuse"
 recipe_url = "https://github.com/libfuse/libfuse/releases/download/fuse-3.16.2/fuse-3.16.2.tar.gz"
 output_type = "library"
+libname = "fuse3"
+include_dir = "include/fuse3"
 [dependencies]
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

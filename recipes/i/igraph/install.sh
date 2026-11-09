@@ -1,18 +1,12 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="igraph"
-URL="https://github.com/igraph/igraph/releases/download/0.10.15/igraph-0.10.15.tar.gz"
-VERSION="0.10.15"
 ARCHIVE="$(basename "$URL")"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "igraph-$VERSION"
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF
+cmake --build build -j"$(nproc)"
+cmake --install build

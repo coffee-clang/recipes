@@ -1,16 +1,13 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-pango}"
-mkdir -p "$SCRATCH"
-
-VERSION="1.54.0"
-URL="https://download.gnome.org/sources/pango/${VERSION%.*}/pango-1.54.0.tar.xz"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xJf "$ARCHIVE" --no-same-owner
+cd "pango-$VERSION"
+meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nofallback \
+    -Dintrospection=disabled -Dbuild-testsuite=false -Dbuild-examples=false \
+    -Dcairo=enabled -Dfreetype=enabled -Dfontconfig=enabled -Dxft=enabled \
+    -Dlibthai=enabled -Dsysprof=disabled -Ddocumentation=false
+meson compile -C build
+meson install -C build

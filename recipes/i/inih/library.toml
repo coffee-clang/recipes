@@ -5,4 +5,9 @@ license = "BSD-3-Clause"
 canonical_name = "inih"
 recipe_url = "https://github.com/benhoyt/inih/archive/refs/tags/r56.tar.gz"
 output_type = "library"
+libname = "inih"
 [dependencies]
+
+[build-dependencies]
+meson = ""
+ninja = ""

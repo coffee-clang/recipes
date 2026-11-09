@@ -5,5 +5,16 @@ license = "Zlib"
 canonical_name = "glfw"
 recipe_url = "https://github.com/glfw/glfw/archive/refs/tags/3.4.tar.gz"
 output_type = "library"
+libname = "glfw"
 [dependencies]
+libxcursor = ""
+libxext = ""
+libxi = ""
+libxinerama = ""
+libxrandr = ""
+libxrender = ""
 x11 = ""
+xorgproto = ""
+
+[build-dependencies]
+cmake = ""

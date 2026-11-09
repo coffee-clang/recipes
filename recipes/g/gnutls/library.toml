@@ -5,4 +5,14 @@ license = "LGPL-2.1"
 canonical_name = "gnutls"
 recipe_url = "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.9.tar.xz"
 output_type = "library"
+libname = "gnutls"
 [dependencies]
+nettle = ""
+gmp = ""
+libtasn1 = ""
+libunistring = ""
+p11-kit = ""
+libidn2 = ""
+
+[build-dependencies]
+pkg-config = ""

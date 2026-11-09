@@ -1,16 +1,11 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-berkeley-db}"
-mkdir -p "$SCRATCH"
-
-URL="https://download.oracle.com/berkeley-db/db-6.2.32.tar.gz"
-VERSION="6.2.32"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "db-$VERSION/build_unix"
+# Pre-C23 code: GCC 15 defaults to C23, where int (*)() means int (*)(void).
+../dist/configure --prefix="$PREFIX" --libdir="$PREFIX/lib" CFLAGS="-O2 -std=gnu17"
+make -j"$(nproc)"
+make install

@@ -3,8 +3,12 @@ version = "1.0.16"
 description = "FriBidi is a free implementation of the Unicode Bidirectional Algorithm. It is used for rendering text in right-to-left languages (Arabic, Hebrew) and is required for proper text display in many applications."
 license = "LGPL-2.1"
 canonical_name = "fribidi"
-recipe_url = "https://github.com/fribidi/fribidi/releases/download/v1.0.16/fribidi-1.0.16.tar.gz"
+recipe_url = "https://github.com/fribidi/fribidi/releases/download/v1.0.16/fribidi-1.0.16.tar.xz"
 output_type = "library"
+libname = "fribidi"
+include_dir = "include/fribidi"
 [dependencies]
-cmake = ""
+
+[build-dependencies]
 meson = ""
+ninja = ""

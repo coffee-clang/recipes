@@ -1,16 +1,13 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-gmp}"
-mkdir -p "$SCRATCH"
-
-URL="https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.gz"
-VERSION="6.3.0"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "gmp-$VERSION"
+# GMP 6.3.0's configure probes are not valid C23 (GCC 15's default), so
+# every compiler candidate is rejected. Pin the dialect via CC, which keeps
+# the CFLAGS GMP picks for the host CPU.
+./configure --prefix="$PREFIX" CC="${CC:-cc} -std=gnu17"
+make -j"$(nproc)"
+make install

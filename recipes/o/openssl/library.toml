@@ -5,4 +5,8 @@ license = "Apache-2.0"
 canonical_name = "openssl"
 recipe_url = "https://github.com/openssl/openssl/releases/download/openssl-3.4.1/openssl-3.4.1.tar.gz"
 output_type = "library"
+libname = ["ssl", "crypto"]
 [dependencies]
+
+[build-dependencies]
+perl = ""

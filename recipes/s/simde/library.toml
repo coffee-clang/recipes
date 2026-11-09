@@ -5,4 +5,5 @@ license = "MIT"
 canonical_name = "simde"
 recipe_url = "https://github.com/simd-everywhere/simde/archive/refs/tags/v0.8.2.tar.gz"
 output_type = "library"
+header_only = true
 [dependencies]

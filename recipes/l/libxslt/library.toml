@@ -3,7 +3,11 @@ version = "1.1.42"
 description = "libxslt is the XSLT C library for XML transformation. It implements XSLT version 1.0 and EXSLT extensions, providing stylesheet processing for converting XML documents to other formats."
 license = "MIT"
 canonical_name = "libxslt"
-recipe_url = "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.gz"
+recipe_url = "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz"
 output_type = "library"
+libname = ["xslt", "exslt"]
 [dependencies]
 libxml2 = ""
+
+[build-dependencies]
+pkg-config = ""

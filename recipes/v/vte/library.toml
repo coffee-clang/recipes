@@ -5,6 +5,18 @@ license = "LGPL-2.1"
 canonical_name = "vte"
 recipe_url = "https://gitlab.gnome.org/GNOME/vte/-/archive/0.76.3/vte-0.76.3.tar.gz"
 output_type = "library"
+libname = "vte-2.91"
+include_dir = "include/vte-2.91"
 [dependencies]
 gtk = ""
+glib = ""
+pango = ""
+cairo = ""
 pcre2 = ""
+fribidi = ""
+lz4 = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

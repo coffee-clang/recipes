@@ -5,5 +5,9 @@ license = "LGPL-2.1"
 canonical_name = "qrencode"
 recipe_url = "https://github.com/fukuchi/libqrencode/archive/refs/tags/v4.1.1.tar.gz"
 output_type = "library"
+libname = "qrencode"
 [dependencies]
 libpng = ""
+
+[build-dependencies]
+cmake = ""

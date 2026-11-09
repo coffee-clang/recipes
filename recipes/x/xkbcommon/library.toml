@@ -5,5 +5,12 @@ license = "MIT"
 canonical_name = "xkbcommon"
 recipe_url = "https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-1.5.0.tar.gz"
 output_type = "library"
+libname = ["xkbcommon", "xkbcommon-x11"]
 [dependencies]
 libxcb = ""
+
+[build-dependencies]
+bison = ""
+meson = ""
+ninja = ""
+pkg-config = ""

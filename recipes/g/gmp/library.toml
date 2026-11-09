@@ -5,4 +5,8 @@ license = "LGPL-3.0"
 canonical_name = "gmp"
 recipe_url = "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.gz"
 output_type = "library"
+libname = "gmp"
 [dependencies]
+
+[build-dependencies]
+m4 = ""

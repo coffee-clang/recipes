@@ -5,5 +5,9 @@ license = "MIT"
 canonical_name = "json_c"
 recipe_url = "https://s3.amazonaws.com/json-c_releases/releases/json-c-0.18.tar.gz"
 output_type = "library"
+libname = "json-c"
+include_dir = "include/json-c"
 [dependencies]
+
+[build-dependencies]
 cmake = ""

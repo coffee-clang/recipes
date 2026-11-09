@@ -1,18 +1,15 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="avahi"
-URL="https://github.com/lathiat/avahi/releases/download/v0.9/avahi-0.9.tar.gz"
-VERSION="0.9"
 ARCHIVE="$(basename "$URL")"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "avahi-$VERSION"
+# Only the client libraries: language bindings, GUI tools and docs are off so
+# the build needs no extra host packages.
+./configure --prefix="$PREFIX" --with-distro=none --disable-qt5 --disable-gtk3 \
+    --disable-mono --disable-monodoc --disable-python --disable-pygobject \
+    --disable-manpages --disable-xmltoman --disable-doxygen-doc --disable-gdbm \
+    --disable-libdaemon --disable-libevent --disable-tests
+make -j"$(nproc)"
+make install

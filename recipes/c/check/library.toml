@@ -5,4 +5,5 @@ license = "LGPL-2.1"
 canonical_name = "check"
 recipe_url = "https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz"
 output_type = "library"
+libname = "check"
 [dependencies]

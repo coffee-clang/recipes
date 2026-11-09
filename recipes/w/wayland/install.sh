@@ -1,16 +1,11 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-wayland}"
-mkdir -p "$SCRATCH"
-
-URL="https://wayland.freedesktop.org/releases/wayland-1.23.0.tar.xz"
-VERSION="1.23.0"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xJf "$ARCHIVE" --no-same-owner
+cd "wayland-$VERSION"
+meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release \
+    -Ddocumentation=false -Dtests=false -Ddtd_validation=false
+meson compile -C build
+meson install -C build

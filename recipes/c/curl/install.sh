@@ -1,16 +1,14 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-curl}"
-mkdir -p "$SCRATCH"
-
-URL="https://curl.se/download/curl-8.11.1.tar.gz"
-VERSION="8.11.1"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "curl-$VERSION"
+./configure --prefix="$PREFIX" --with-openssl --with-zlib --with-zstd \
+    --with-brotli --with-nghttp2 --with-libidn2 --with-libpsl \
+    --without-libssh2 --without-libssh --without-libgsasl --without-librtmp \
+    --without-gssapi --without-nghttp3 --without-ngtcp2 --without-quiche \
+    --without-msh3 --disable-ldap --disable-ldaps --disable-docs
+make -j"$(nproc)"
+make install

@@ -3,7 +3,16 @@ version = "2.52.0"
 description = "ATK (Accessibility Toolkit) provides an interface for accessibility support. It is used by assistive technologies to interact with GTK and other GNOME applications, enabling screen readers and other accessibility tools."
 license = "LGPL-2.1"
 canonical_name = "atk"
-recipe_url = "https://download.gnome.org/sources/atk/2.52/atk-2.52.0.tar.xz"
+recipe_url = "https://download.gnome.org/sources/at-spi2-core/2.52/at-spi2-core-2.52.0.tar.xz"
 output_type = "library"
+libname = ["atk-1.0", "atk-bridge-2.0", "atspi"]
+include_dir = "include/atk-1.0"
 [dependencies]
 glib = ""
+dbus = ""
+libxml2 = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

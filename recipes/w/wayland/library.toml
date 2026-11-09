@@ -3,7 +3,14 @@ version = "1.23.0"
 description = "Wayland is a display server protocol and library implementation. It provides the communication between display server and clients, serving as the modern replacement for X11 on Linux desktops."
 license = "MIT"
 canonical_name = "wayland"
-recipe_url = "https://wayland.freedesktop.org/releases/wayland-1.23.0.tar.xz"
+recipe_url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.23.0/downloads/wayland-1.23.0.tar.xz"
 output_type = "library"
+libname = ["wayland-client", "wayland-server"]
 [dependencies]
 libffi = ""
+expat = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

@@ -1,17 +1,8 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="brotli"
-GITURL="https://github.com/google/brotli.git"
-VERSION="1.1.0"
-BRANCH="v1.1.0"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
-git clone --depth 1 --branch "$BRANCH" "$GITURL" "$PACKAGE"
-rm -rf "$PREFIX"
-mv "$PACKAGE" "$PREFIX"
+git clone --depth 1 --branch "v$VERSION" "$URL" "$PACKAGE"
+cd "$PACKAGE"
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBROTLI_DISABLE_TESTS=ON
+cmake --build build -j"$(nproc)"
+cmake --install build

@@ -5,4 +5,9 @@ license = "Apache-2.0"
 canonical_name = "cpu_features"
 recipe_url = "https://github.com/google/cpu_features/archive/refs/tags/v0.9.0.tar.gz"
 output_type = "library"
+libname = "cpu_features"
+include_dir = "include/cpu_features"
 [dependencies]
+
+[build-dependencies]
+cmake = ""

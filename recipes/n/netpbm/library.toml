@@ -1,9 +1,10 @@
 title = "netpbm"
-version = "11.0.0"
+version = "10.86.51"
 description = "Netpbm is a toolkit for manipulation of graphic images including conversion between over 100 formats. It provides utilities for image conversion, editing, and analysis used by many graphics applications."
 license = "BSD-3-Clause"
 canonical_name = "netpbm"
-recipe_url = "https://sourceforge.net/projects/netpbm/advanced/11.0.0/netpbm-11.0.0.tgz"
+recipe_url = "https://downloads.sourceforge.net/project/netpbm/super_stable/10.86.51/netpbm-10.86.51.tgz"
 output_type = "library"
+libname = "netpbm"
 [dependencies]
 libjpeg-turbo = ""

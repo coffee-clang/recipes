@@ -3,7 +3,11 @@ version = "2.40.2"
 description = "util-linux is a collection of essential Linux system utilities including mount, umount, fdisk, mkfs, and many other fundamental command-line tools. Many of these are essential for system administration."
 license = "GPL-2.0"
 canonical_name = "util_linux"
-recipe_url = "https://github.com/karelzak/util-linux/archive/refs/tags/v2.40.2.tar.gz"
+recipe_url = "https://www.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz"
 output_type = "library"
+libname = ["uuid", "blkid", "mount", "smartcols", "fdisk"]
+notes = "Headers live in per-library subdirectories of include: #include <uuid/uuid.h>, <blkid/blkid.h>, <libmount/libmount.h>, <libsmartcols/libsmartcols.h>, <libfdisk/libfdisk.h>."
 [dependencies]
-ncurses = ""
+
+[build-dependencies]
+pkg-config = ""

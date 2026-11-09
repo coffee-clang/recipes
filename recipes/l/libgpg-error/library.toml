@@ -5,5 +5,5 @@ license = "LGPL-2.1"
 canonical_name = "libgpg_error"
 recipe_url = "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.55.tar.bz2"
 output_type = "library"
+libname = "gpg-error"
 [dependencies]
-pkg-config = ""

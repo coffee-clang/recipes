@@ -5,5 +5,13 @@ license = "LGPL-2.1"
 canonical_name = "pulseaudio"
 recipe_url = "https://freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz"
 output_type = "library"
+libname = ["pulse", "pulse-simple"]
 [dependencies]
 glib = ""
+dbus = ""
+libsndfile = ""
+
+[build-dependencies]
+meson = ""
+ninja = ""
+pkg-config = ""

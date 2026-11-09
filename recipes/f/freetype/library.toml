@@ -5,5 +5,10 @@ license = "FreeType"
 canonical_name = "freetype"
 recipe_url = "https://download.savannah.nongnu.org/releases/freetype/freetype-2.13.3.tar.gz"
 output_type = "library"
+libname = "freetype"
+include_dir = "include/freetype2"
 [dependencies]
 zlib = ""
+
+[build-dependencies]
+pkg-config = ""

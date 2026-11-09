@@ -5,4 +5,9 @@ license = "BSD-3-Clause"
 canonical_name = "capstone"
 recipe_url = "https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.3.tar.gz"
 output_type = "library"
+libname = "capstone"
+include_dir = "include/capstone"
 [dependencies]
+
+[build-dependencies]
+cmake = ""

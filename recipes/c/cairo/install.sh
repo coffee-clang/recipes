@@ -1,16 +1,15 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-SCRATCH="${1:-cairo}"
-mkdir -p "$SCRATCH"
-
-URL="https://www.cairographics.org/releases/cairo-1.18.2.tar.xz"
-VERSION="1.18.2"
 ARCHIVE="$(basename "$URL")"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xf "$ARCHIVE" --no-same-owner -C "$SCRATCH"
-rm -f "$ARCHIVE"
+tar xJf "$ARCHIVE" --no-same-owner
+cd "cairo-$VERSION"
+# LZO is probed with no option to turn it off, and the registry has no recipe.
+sed -i "s/dependency('lzo2', required: false)/dependency('', required: false)/" meson.build
+meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nofallback \
+    -Dtests=disabled -Dgtk_doc=false -Dpng=enabled -Dfreetype=enabled \
+    -Dfontconfig=enabled -Dzlib=enabled -Dglib=enabled -Dxlib=enabled -Dxcb=enabled \
+    -Dxlib-xcb=disabled -Dspectre=disabled -Dsymbol-lookup=disabled
+meson compile -C build
+meson install -C build

@@ -5,5 +5,12 @@ license = "GPL-2.0"
 canonical_name = "udev"
 recipe_url = "https://github.com/systemd/systemd/archive/refs/tags/v257.4.tar.gz"
 output_type = "library"
+libname = "udev"
 [dependencies]
-glib = ""
+
+[build-dependencies]
+gperf = ""
+meson = ""
+ninja = ""
+pkg-config = ""
+python3 = ""

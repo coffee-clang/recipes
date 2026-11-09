@@ -1,23 +1,13 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="criterion"
-VERSION="2.4.3"
-URL="https://github.com/Snaipe/Criterion/archive/refs/tags/v${VERSION}.tar.gz"
 ARCHIVE="$(basename "$URL")"
-
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
-
-cd "$PREFIX/Criterion-${VERSION}"
-meson setup build --prefix="$PREFIX"
-ninja -C build
+tar xJf "$ARCHIVE" --no-same-owner
+cd "criterion-$VERSION"
+# The release tarball vendors debugbreak, klib, boxfort, nanomsg and nanopb,
+# which have no recipes. nodownload builds those from the tarball but never
+# fetches anything; libgit2 and libffi come from the registry.
+meson setup build --wrap-mode=nodownload --prefix="$PREFIX" --libdir=lib --buildtype=release
+meson compile -C build
 meson install -C build

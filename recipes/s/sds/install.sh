@@ -1,18 +1,15 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-PACKAGE="sds"
-URL="https://github.com/antirez/sds/archive/refs/tags/2.0.0.tar.gz"
-VERSION="2.0.0"
 ARCHIVE="$(basename "$URL")"
-
-# Github package
-COFFEE_HOME="${COFFEE_HOME:-$HOME/.coffee}"
-PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"
-mkdir -p "$PREFIX"
-WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
 wget -q "$URL"
-tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"
-rm -f "$ARCHIVE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "sds-$VERSION"
+# Upstream ships no library build or install target.
+cc -O2 -fPIC -c sds.c -o sds.o
+cc -shared -o libsds.so sds.o
+ar rcs libsds.a sds.o
+install -D -m 644 sds.h "$PREFIX/include/sds.h"
+install -D -m 644 sdsalloc.h "$PREFIX/include/sdsalloc.h"
+install -D -m 755 libsds.so "$PREFIX/lib/libsds.so"
+install -D -m 644 libsds.a "$PREFIX/lib/libsds.a"
