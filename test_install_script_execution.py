@@ -26,32 +26,22 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from recipe_script import header_assignments
+from recipe_metadata import load_recipe
+from recipe_script import (
+    TEMPLATE_PREAMBLE,
+    header_assignments,
+    render_install_script,
+)
 
-# The hardened preamble every real recipe shares. The invariants below are
-# asserted against this fixture *and* against every real recipe by
-# TestRealRecipesAreExecutable.test_preamble_invariants_hold, so drift fails
-# both. Line *order* is deliberately not asserted: recipes legitimately put
-# ARCHIVE= before or after `mkdir -p "$SCRATCH"`.
-PREAMBLE = [
-    "#!/bin/bash",
-    "set -e -o pipefail -u",
-    "",
-    'PACKAGE="fixture"',
-    'VERSION="1.0.0"',
-    'URL="{url}"',
-    'ARCHIVE="$(basename "$URL")"',
-    "",
-    'COFFEE_HOME="${{COFFEE_HOME:-$HOME/.coffee}}"',
-    'PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"',
-    'mkdir -p "$PREFIX"',
-    'WORK="$(mktemp -d)"',
-    "trap 'rm -rf \"$WORK\"' EXIT",
-    'cd "$WORK"',
-    'wget -q "$URL"',
-    'tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"',
-    'rm -f "$ARCHIVE"',
-]
+# A template in the same shape as a real recipe: everything above the body
+# (prefix, scratch directory, trap) comes from the generated header, so the
+# behaviours below exercise the header every published script shares.
+FIXTURE_TEMPLATE = TEMPLATE_PREAMBLE + """\
+wget -q "$URL"
+tar xzf "$(basename "$URL")" --no-same-owner
+mkdir -p "$PREFIX"
+cp payload.txt "$PREFIX/"
+"""
 
 # wget does not speak file://, and these tests must not reach the network, so a
 # shim earlier on PATH serves a local tarball instead. Only the fetch is
@@ -80,7 +70,23 @@ cp "$src" "$out"
 
 
 def build_fixture_script(url: str) -> str:
-    return "\n".join(line.format(url=url) for line in PREAMBLE) + "\n"
+    return render_install_script(FIXTURE_TEMPLATE, {
+        "canonical_name": "fixture", "version": "1.0.0", "recipe_url": url,
+    })
+
+
+def rendered_recipes(directory: Path):
+    """Yield (name, path) for every real recipe's published install.sh."""
+    from recipe_metadata import RECIPES_DIR, recipe_files
+
+    for toml_file in recipe_files(RECIPES_DIR):
+        template = toml_file.parent / "install.sh"
+        if not template.exists():
+            continue
+        path = directory / f"{toml_file.parent.name}.sh"
+        path.write_text(render_install_script(template.read_text(),
+                                              load_recipe(toml_file)))
+        yield toml_file.parent.name, path
 
 
 def make_tarball(directory: Path, payload: str = "hello",
@@ -236,7 +242,8 @@ class InstallScriptExecutionTest(unittest.TestCase):
         # malformed URL, which is what six recipes once did.
         archive = make_tarball(self.root)
         body = build_fixture_script(f"file://{archive}").replace(
-            'PREFIX="$COFFEE_HOME/$PACKAGE/$VERSION"', 'echo "$UNSET_VAR"',
+            'PREFIX="${1:-$COFFEE_HOME/$PACKAGE/$VERSION}"',
+            'echo "$UNSET_VAR"',
         )
         script = self.root / "install.sh"
         script.write_text(body)
@@ -269,11 +276,10 @@ class TestRealRecipesAreExecutable(unittest.TestCase):
         if shutil.which("bash") is None:
             self.skipTest("bash is not installed")
 
-        from recipe_metadata import RECIPES_DIR, recipe_files
-
         failures = []
-        for toml_file in recipe_files(RECIPES_DIR):
-            script = toml_file.parent / "install.sh"
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        for _, script in rendered_recipes(Path(tmp.name)):
             header = header_assignments(script)
             if not header:
                 # A recipe with no collectable assignments would otherwise be
@@ -301,12 +307,11 @@ class TestRealRecipesAreExecutable(unittest.TestCase):
         ARCHIVE= before or after `mkdir -p "$SCRATCH"`, so requiring an exact
         sequence would flag a legitimate variance as drift.
         """
-        from recipe_metadata import RECIPES_DIR, recipe_files
-
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
         sources = [("fixture", build_fixture_script("file:///nonexistent"))]
-        sources += [(p.parent.name, (p.parent / "install.sh").read_text())
-                    for p in recipe_files(RECIPES_DIR)
-                    if (p.parent / "install.sh").exists()]
+        sources += [(name, path.read_text())
+                    for name, path in rendered_recipes(Path(tmp.name))]
 
         for name, text in sources:
             lines = text.splitlines()

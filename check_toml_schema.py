@@ -1,7 +1,13 @@
 import sys
 import tomllib
+from pathlib import PurePosixPath
 
-from recipe_metadata import RECIPES_DIR, dependencies_type_error, recipe_files
+from recipe_metadata import (
+    BUILD_DEPENDENCIES_FIELD,
+    RECIPES_DIR,
+    dependencies_type_error,
+    recipe_files,
+)
 
 MANDATORY_FIELDS = (
     "title",
@@ -14,7 +20,15 @@ MANDATORY_FIELDS = (
     "dependencies",
 )
 DEPENDENCIES_FIELD = "dependencies"
-VALID_OUTPUT_TYPES = frozenset({"library", "executable", "both"})
+# "data" installs files other builds read, such as protocol descriptions.
+VALID_OUTPUT_TYPES = frozenset({"library", "executable", "both", "data"})
+
+# Output types a consumer links against, so they must say how: a libname for
+# -l<libname>, or header_only = true.
+LINKABLE_OUTPUT_TYPES = frozenset({"library", "both"})
+
+# Optional subdirectories of the install prefix, defaulting to include and lib.
+PREFIX_DIR_FIELDS = ("include_dir", "lib_dir")
 
 # The title becomes a filename in generate_packages.py, so it may not contain a
 # path separator or a component that is not a plain file name.
@@ -39,7 +53,7 @@ def check_recipe(toml_file, data) -> list[str]:
     if "output_type" in data and data["output_type"] not in VALID_OUTPUT_TYPES:
         errors.append(
             f"{name}: output_type must be 'library', 'executable', "
-            f"or 'both', got '{data['output_type']}'"
+            f"'both' or 'data', got '{data['output_type']}'"
         )
 
     title = data.get("title")
@@ -56,6 +70,53 @@ def check_recipe(toml_file, data) -> list[str]:
         # whitespace, which read "None" as three packages named None, of these.
         errors.append(f"{name}: {dependencies_type_error(dependencies)}")
 
+    build_dependencies = data.get(BUILD_DEPENDENCIES_FIELD)
+    if build_dependencies is not None and not isinstance(build_dependencies,
+                                                         dict):
+        message = dependencies_type_error(build_dependencies,
+                                          BUILD_DEPENDENCIES_FIELD)
+        errors.append(f"{name}: {message}")
+
+    errors.extend(f"{name}: {e}" for e in usage_errors(data))
+    return errors
+
+
+def is_libname(value) -> bool:
+    """A libname is a non-empty string, or a non-empty list of them."""
+    values = value if isinstance(value, list) else [value]
+    return bool(values) and all(isinstance(v, str) and v.strip()
+                                for v in values)
+
+
+def usage_errors(data) -> list[str]:
+    """Return errors in the fields that say how to use the installed library."""
+    errors = []
+    libname = data.get("libname")
+    header_only = data.get("header_only", False)
+
+    if libname is not None and not is_libname(libname):
+        errors.append("libname must be a non-empty string or list of strings")
+    if not isinstance(header_only, bool):
+        errors.append("header_only must be true or false")
+    elif header_only and libname is not None:
+        errors.append("header_only = true contradicts libname: a header-only "
+                      "library has nothing to link")
+    elif (not header_only and libname is None
+          and data.get("output_type") in LINKABLE_OUTPUT_TYPES):
+        errors.append("a library must set libname or header_only = true")
+
+    for field in PREFIX_DIR_FIELDS:
+        value = data.get(field)
+        if value is None:
+            continue
+        path = PurePosixPath(value) if isinstance(value, str) else None
+        if (path is None or not value.strip() or path.is_absolute()
+                or ".." in path.parts):
+            errors.append(f"{field} must be a relative path inside the "
+                          f"prefix, got {value!r}")
+
+    if "notes" in data and not isinstance(data["notes"], str):
+        errors.append("notes must be a string")
     return errors
 
 

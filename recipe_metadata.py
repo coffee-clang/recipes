@@ -67,16 +67,20 @@ def recipe_names(toml_file: Path, data: dict) -> set[str]:
 # One wording for the type error, shared by every module that raises it. The
 # schema checker and this parser used to phrase the same failure differently,
 # which sent the reader from one file to the other to learn the same thing.
-_DEPENDENCIES_TYPE_ERROR = ("dependencies must be a [dependencies] table, "
-                            "not a {}")
+_DEPENDENCIES_TYPE_ERROR = "{0} must be a [{0}] table, not a {1}"
+
+# Libraries from the registry, and host tools needed only to build. Kept apart
+# so a consumer never mistakes cmake for a package it should fetch.
+DEPENDENCIES_FIELD = "dependencies"
+BUILD_DEPENDENCIES_FIELD = "build-dependencies"
 
 
-def dependencies_type_error(raw) -> str:
+def dependencies_type_error(raw, field: str = DEPENDENCIES_FIELD) -> str:
     """Return the canonical message for a non-table dependencies field."""
-    return _DEPENDENCIES_TYPE_ERROR.format(type(raw).__name__)
+    return _DEPENDENCIES_TYPE_ERROR.format(field, type(raw).__name__)
 
 
-def parse_dependencies(raw) -> dict[str, str]:
+def parse_dependencies(raw, field: str = DEPENDENCIES_FIELD) -> dict[str, str]:
     """Normalize the dependency table to {name: constraint}.
 
     The schema requires a ``[dependencies]`` table, possibly empty, so a
@@ -92,7 +96,7 @@ def parse_dependencies(raw) -> dict[str, str]:
         return {}
     if isinstance(raw, dict):
         return {str(k): str(v) for k, v in raw.items()}
-    raise TypeError(dependencies_type_error(raw))
+    raise TypeError(dependencies_type_error(raw, field))
 
 
 def recipe_dependencies(toml_file: Path, data: dict) -> dict[str, str]:
@@ -102,10 +106,35 @@ def recipe_dependencies(toml_file: Path, data: dict) -> dict[str, str]:
     directly, so a field error always says which recipe is at fault rather than
     leaving the reader to search the tree for it.
     """
+    return _recipe_table(toml_file, data, DEPENDENCIES_FIELD)
+
+
+def recipe_build_dependencies(toml_file: Path, data: dict) -> dict[str, str]:
+    """Return one recipe's host build tools, from [build-dependencies]."""
+    return _recipe_table(toml_file, data, BUILD_DEPENDENCIES_FIELD)
+
+
+def _recipe_table(toml_file: Path, data: dict, field: str) -> dict[str, str]:
     try:
-        return parse_dependencies(data.get("dependencies"))
+        return parse_dependencies(data.get(field), field)
     except TypeError as exc:
         raise TypeError(f"{toml_file.parent.name}: {exc}") from None
+
+
+def recipe_usage(data: dict) -> dict:
+    """Return how a consumer uses the installed library, with defaults filled.
+
+    libname is always a list (one recipe can install several libraries), and
+    the directories are relative to the install prefix.
+    """
+    libname = data.get("libname", [])
+    return {
+        "libname": [libname] if isinstance(libname, str) else list(libname),
+        "header_only": data.get("header_only", False),
+        "include_dir": data.get("include_dir", "include"),
+        "lib_dir": data.get("lib_dir", "lib"),
+        "notes": data.get("notes", ""),
+    }
 
 
 @lru_cache(maxsize=None)

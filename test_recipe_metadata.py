@@ -20,6 +20,7 @@ from recipe_metadata import (
     get_last_updated,
     load_recipe,
     parse_dependencies,
+    recipe_build_dependencies,
     recipe_dependencies,
     recipe_files,
     recipe_letter,
@@ -95,6 +96,32 @@ class TestParseDependencies(unittest.TestCase):
         with self.assertRaises(TypeError) as caught:
             parse_dependencies("zlib")
         self.assertNotIn("check_toml_schema.py", str(caught.exception))
+
+
+class TestBuildDependencies(unittest.TestCase):
+    """[build-dependencies] holds host tools, kept apart from libraries.
+
+    A tool listed under [dependencies] (zstd's cmake = "") reads to coffee as
+    a registry package to fetch, which does not exist.
+    """
+
+    TOML = Path("recipes/z/zstd/library.toml")
+
+    def test_reads_the_build_dependencies_table(self):
+        data = {"build-dependencies": {"cmake": ""}, "dependencies": {}}
+        self.assertEqual(recipe_build_dependencies(self.TOML, data),
+                         {"cmake": ""})
+
+    def test_absent_table_is_empty(self):
+        self.assertEqual(recipe_build_dependencies(self.TOML, {}), {})
+
+    def test_does_not_read_the_library_table(self):
+        data = {"dependencies": {"zlib": ""}}
+        self.assertEqual(recipe_build_dependencies(self.TOML, data), {})
+
+    def test_string_form_is_rejected_naming_the_table(self):
+        with self.assertRaisesRegex(TypeError, r"zstd: .*\[build-dependencies\]"):
+            recipe_build_dependencies(self.TOML, {"build-dependencies": "cmake"})
 
 
 class TestConsumersAgree(unittest.TestCase):

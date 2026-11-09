@@ -15,9 +15,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import shutil
+import stat
+import subprocess
+
 import generate_mdbook_src
 import generate_packages
-from recipe_metadata import RECIPES_DIR, recipe_files
+from recipe_metadata import RECIPES_DIR, recipe_files, recipe_usage
+from recipe_script import TEMPLATE_PREAMBLE, render_install_script
 
 LIB = {
     "title": "Zlib",
@@ -47,6 +52,8 @@ class TestRecipePage(unittest.TestCase):
             "recipe_url": "https://example.com/zlib.tar.gz",
             "output_type": "library",
             "last_updated": "2024-01-01",
+            "build_dependencies": {},
+            "usage": recipe_usage({"libname": "z"}),
         }
         entry.update(overrides)
         return generate_mdbook_src.generate_recipe_page(entry)
@@ -79,6 +86,30 @@ class TestRecipePage(unittest.TestCase):
 
     def test_missing_recipe_url_is_reported_as_not_available(self):
         self.assertIn("N/A", self.page(recipe_url=""))
+
+    def test_build_dependencies_are_listed_apart_from_libraries(self):
+        text = self.page(dependencies={"zlib": ""},
+                         build_dependencies={"cmake": ""})
+        self.assertIn("## Build Dependencies\n\n- `cmake`", text)
+        self.assertNotIn("- `cmake`", text.split("## Build Dependencies")[0])
+
+    def test_usage_names_the_link_flags_and_directories(self):
+        text = self.page(usage=recipe_usage(
+            {"libname": ["avcodec", "avutil"], "include_dir": "include/ff"}))
+        self.assertIn("## Usage", text)
+        self.assertIn("`-lavcodec -lavutil`", text)
+        self.assertIn("`include/ff`", text)
+        self.assertIn("`lib`", text)
+
+    def test_usage_of_a_header_only_library_has_no_link_flags(self):
+        text = self.page(usage=recipe_usage({"header_only": True}))
+        self.assertIn("Header-only", text)
+        self.assertNotIn("`-l", text)
+
+    def test_usage_notes_are_rendered(self):
+        text = self.page(usage=recipe_usage(
+            {"header_only": True, "notes": "Define STB_DS_IMPLEMENTATION."}))
+        self.assertIn("Define STB_DS_IMPLEMENTATION.", text)
 
 
 class TestLetterPage(unittest.TestCase):
@@ -167,8 +198,35 @@ class TestPackages(unittest.TestCase):
         self.assertEqual(
             set(data),
             {"version", "canonical_name", "description", "license",
-             "dependencies", "recipe_url", "output_type", "last_updated"},
+             "dependencies", "build_dependencies", "recipe_url",
+             "output_type", "last_updated", "libname", "header_only",
+             "include_dir", "lib_dir", "notes"},
         )
+        self.assertEqual(data["dependencies"], {})
+
+    def test_version_data_normalizes_the_usage_fields(self):
+        data = generate_packages.version_data(
+            RECIPES_DIR / "z" / "zlib" / "library.toml", lib(libname="z"))
+        self.assertEqual(data["libname"], ["z"])
+        self.assertIs(data["header_only"], False)
+        self.assertEqual(data["include_dir"], "include")
+        self.assertEqual(data["lib_dir"], "lib")
+        self.assertEqual(data["notes"], "")
+
+    def test_version_data_keeps_explicit_usage_fields(self):
+        data = generate_packages.version_data(
+            RECIPES_DIR / "z" / "zlib" / "library.toml",
+            lib(header_only=True, include_dir="include/stb", notes="n"))
+        self.assertEqual(data["libname"], [])
+        self.assertIs(data["header_only"], True)
+        self.assertEqual(data["include_dir"], "include/stb")
+        self.assertEqual(data["notes"], "n")
+
+    def test_version_data_separates_build_dependencies(self):
+        data = generate_packages.version_data(
+            RECIPES_DIR / "z" / "zstd" / "library.toml",
+            lib(**{"build-dependencies": {"cmake": ""}}))
+        self.assertEqual(data["build_dependencies"], {"cmake": ""})
         self.assertEqual(data["dependencies"], {})
 
     def test_version_data_normalizes_dependencies(self):
@@ -219,6 +277,95 @@ class TestPackages(unittest.TestCase):
             finally:
                 os.chdir(origin)
         self.assertEqual(leftovers, [])
+
+
+TEMPLATE = TEMPLATE_PREAMBLE + 'echo "$PACKAGE|$VERSION|$URL|$PREFIX"\n'
+
+
+class TestInstallScriptRendering(unittest.TestCase):
+    """The published install.sh is the repo template plus a generated header.
+
+    library.toml is the one place that names the version and URL; the template
+    only reads $PACKAGE, $VERSION, $URL and $PREFIX.
+    """
+
+    def setUp(self):
+        if shutil.which("bash") is None:
+            self.skipTest("bash is not installed")
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.root = Path(self._tmp.name)
+
+    def run_rendered(self, data, *args, template=TEMPLATE):
+        script = self.root / "install.sh"
+        script.write_text(render_install_script(template, data))
+        env = {**os.environ, "COFFEE_HOME": str(self.root / "coffee"),
+               "TMPDIR": str(self.root)}
+        return subprocess.run(["bash", str(script), *args], cwd=self.root,
+                              capture_output=True, text=True, env=env)
+
+    def test_header_takes_name_version_and_url_from_the_recipe(self):
+        result = self.run_rendered(lib())
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(
+            result.stdout.strip(),
+            f"zlib|1.3.1|https://example.com/zlib.tar.gz|"
+            f"{self.root}/coffee/zlib/1.3.1",
+        )
+
+    def test_package_is_the_canonical_name_not_the_title(self):
+        result = self.run_rendered(lib(title="Zlib", canonical_name="z_lib"))
+        self.assertTrue(result.stdout.startswith("z_lib|"), result.stdout)
+
+    def test_first_argument_overrides_the_prefix(self):
+        result = self.run_rendered(lib(), "/opt/zlib")
+        self.assertTrue(result.stdout.strip().endswith("|/opt/zlib"))
+
+    def test_a_relative_prefix_is_made_absolute(self):
+        # The body runs in a scratch directory, so a relative prefix would
+        # otherwise install into it and be deleted on exit.
+        result = self.run_rendered(lib(), "relative/dir")
+        self.assertTrue(
+            result.stdout.strip().endswith(f"|{self.root}/relative/dir"),
+            result.stdout)
+
+    def test_body_runs_in_a_scratch_directory_removed_on_exit(self):
+        result = self.run_rendered(
+            lib(), template=TEMPLATE_PREAMBLE + "pwd\n")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        scratch = Path(result.stdout.strip())
+        self.assertNotEqual(scratch, self.root)
+        self.assertTrue(scratch.is_relative_to(self.root))
+        self.assertFalse(scratch.exists())
+
+    def test_metadata_is_quoted_not_executed(self):
+        evil = 'x"; touch pwned; echo "'
+        result = self.run_rendered(lib(version=evil, recipe_url="$(id)"))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(f"|{evil}|$(id)|", result.stdout)
+        self.assertFalse((self.root / "pwned").exists())
+
+    def test_template_must_start_with_the_preamble(self):
+        with self.assertRaisesRegex(ValueError, "set -e -o pipefail -u"):
+            render_install_script("#!/bin/bash\necho hi\n", lib())
+
+    def test_template_may_not_assign_a_header_variable(self):
+        for var in ("PACKAGE", "VERSION", "URL", "PREFIX", "COFFEE_HOME",
+                    "WORK"):
+            with self.subTest(var=var):
+                with self.assertRaisesRegex(ValueError, var):
+                    render_install_script(
+                        TEMPLATE_PREAMBLE + f'{var}="x"\n', lib())
+
+    def test_main_publishes_the_rendered_script_executable(self):
+        out = self.root / "src"
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(generate_mdbook_src.main(src_dir=out), 0)
+        published = out / "z" / "zlib" / "install.sh"
+        text = published.read_text()
+        self.assertIn("\nVERSION=", text)
+        self.assertIn("\nURL=", text)
+        self.assertTrue(published.stat().st_mode & stat.S_IXUSR)
 
 
 class TestGeneratorPathsAreAbsolute(unittest.TestCase):
@@ -297,6 +444,21 @@ class TestMalformedRecipeFailsCleanly(unittest.TestCase):
                 recipes_dir=RECIPES_DIR, docs_dir=Path(out),
             )
         self.assertEqual(status, 0)
+
+    def test_mdbook_generator_reports_a_bad_template_without_a_traceback(self):
+        (self.bad / "library.toml").write_text(
+            (self.bad / "library.toml").read_text()
+            .replace('dependencies = "None"', 'libname = "z"\n[dependencies]'))
+        (self.bad / "install.sh").write_text(
+            '#!/bin/bash\nset -e -o pipefail -u\nVERSION="1"\n')
+        with tempfile.TemporaryDirectory() as out:
+            status, err = self.run_quietly(
+                generate_mdbook_src.main, recipes_dir=self.root,
+                src_dir=Path(out) / "src")
+        self.assertEqual(status, 1)
+        self.assertNotIn("Traceback", err)
+        self.assertIn("zlib", err)
+        self.assertIn("VERSION", err)
 
     def make_syntax_bad_recipe(self):
         (self.bad / "library.toml").write_text('title = "unterminated\n')

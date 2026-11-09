@@ -18,6 +18,7 @@ from pathlib import Path
 from recipe_metadata import (
     RECIPES_DIR,
     load_recipe,
+    recipe_build_dependencies,
     recipe_dependencies,
     recipe_files,
     recipe_names,
@@ -31,9 +32,12 @@ from recipe_metadata import (
 HOST_TOOLS = frozenset({
     "autoconf",
     "automake",
+    "bison",
     "cmake",
+    "flex",
     "gettext",
     "gfortran",
+    "gperf",
     "java",
     "libtool",
     "m4",
@@ -71,8 +75,37 @@ def resolve(dep: str, recipes: dict[str, dict]) -> bool:
       A dependency written as ``libjpeg-turbo`` against a recipe stored as
       ``jpegdir`` would be reported as resolved when nothing provides it. A typo
       should fail the check, not be quietly normalized into a pass.
+
+    Host tools resolve only from [build-dependencies]; see check_entry.
     """
-    return dep in recipes or dep in HOST_TOOLS
+    return dep in recipes
+
+
+def check_entry(entry: dict, recipes: dict[str, dict]) -> list[str]:
+    """Return the resolution errors for one recipe's two dependency tables.
+
+    [dependencies] names registry libraries, which coffee fetches, so each must
+    be a recipe. [build-dependencies] names host tools, which are checked on
+    the host and never fetched, so each must be in HOST_TOOLS.
+    """
+    path = entry["path"]
+    errors = []
+    for dep in entry["deps"]:
+        if dep in entry["names"]:
+            errors.append(f"{path}: '{dep}' depends on itself")
+        elif dep in HOST_TOOLS:
+            errors.append(
+                f"{path}: '{dep}' is a host tool; move it to "
+                f"[build-dependencies]"
+            )
+        elif not resolve(dep, recipes):
+            errors.append(f"{path}: dependency '{dep}' has no recipe")
+    for tool in entry["build_deps"]:
+        if tool not in HOST_TOOLS:
+            errors.append(
+                f"{path}: build dependency '{tool}' is not a known host tool"
+            )
+    return errors
 
 
 def collect_entries(base_dir: Path) -> list[dict]:
@@ -92,6 +125,7 @@ def collect_entries(base_dir: Path) -> list[dict]:
             "path": toml_file,
             "names": recipe_names(toml_file, data),
             "deps": recipe_dependencies(toml_file, data),
+            "build_deps": recipe_build_dependencies(toml_file, data),
         })
 
     return entries
@@ -127,14 +161,7 @@ def _check_dependencies(base_dir: Path) -> tuple[list[str], int]:
     errors: list[str] = []
 
     for entry in entries:
-        for dep in entry["deps"]:
-            if dep in entry["names"]:
-                errors.append(f"{entry['path']}: '{dep}' depends on itself")
-            elif not resolve(dep, recipes):
-                errors.append(
-                    f"{entry['path']}: dependency '{dep}' has no recipe "
-                    f"and is not a known host tool"
-                )
+        errors.extend(check_entry(entry, recipes))
 
     if not entries:
         errors.append(

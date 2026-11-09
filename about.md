@@ -13,7 +13,7 @@ This project aims to make it easy to build and install C libraries from source o
 To add a new recipe, create a new directory under `recipes/<letter>/<library-name>/` with:
 
 - `library.toml` - Metadata (title, version, license, dependencies, recipe_url)
-- `install.sh` - Installation script
+- `install.sh` - Build-and-install script, published with a header generated from `library.toml`
 
 ## License
 

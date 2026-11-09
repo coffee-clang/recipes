@@ -27,7 +27,8 @@ from recipe_metadata import (
 REPO_ROOT = Path(__file__).resolve().parent
 
 
-def make_recipe(root, name, canonical_name, deps, output_type="library"):
+def make_recipe(root, name, canonical_name, deps, output_type="library",
+                build_deps=None):
     """Write a minimal recipe whose directory name is `name`."""
     d = root / name[0] / name
     d.mkdir(parents=True)
@@ -44,6 +45,9 @@ def make_recipe(root, name, canonical_name, deps, output_type="library"):
         lines.append("[dependencies]")
         for dep in deps:
             lines.append(f'{dep} = ""')
+    if build_deps is not None:
+        lines.append("[build-dependencies]")
+        lines += [f'{tool} = ""' for tool in build_deps]
     (d / "library.toml").write_text("\n".join(lines) + "\n")
     (d / "install.sh").write_text("#!/bin/bash\n")
     return d
@@ -130,14 +134,34 @@ class TestCheckDependencies(unittest.TestCase):
         self.assertIn("curl", errors[0])
         self.assertIn("zlib", errors[0])
 
-    def test_host_tool_resolves_without_a_recipe(self):
-        # No recipe shadows the host tool, so this can only pass via HOST_TOOLS.
+    def test_host_tool_in_dependencies_fails(self):
+        # [dependencies] lists registry libraries. A tool there is something
+        # coffee would try to fetch, and there is no cmake recipe to fetch.
         make_recipe(self.root, "zeromq", "zeromq", ["cmake"])
-        recipes = collect_recipes(self.root)
-        names = {Path(e["path"]).parent.name for e in recipes.values()}
-        self.assertNotIn("cmake", names)
+        errors = check_dependencies(self.root)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("cmake", errors[0])
+        self.assertIn("[build-dependencies]", errors[0])
+
+    def test_host_tool_in_build_dependencies_passes(self):
         self.assertIn("cmake", HOST_TOOLS)
+        make_recipe(self.root, "zeromq", "zeromq", [], build_deps=["cmake"])
         self.assertEqual(check_dependencies(self.root), [])
+
+    def test_unknown_build_tool_fails(self):
+        make_recipe(self.root, "zeromq", "zeromq", [], build_deps=["nosuchtool"])
+        errors = check_dependencies(self.root)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("nosuchtool", errors[0])
+
+    def test_library_in_build_dependencies_fails(self):
+        # A registry library is linked against, so it belongs in
+        # [dependencies], where coffee fetches it.
+        make_recipe(self.root, "zlib", "zlib", [])
+        make_recipe(self.root, "curl", "curl", [], build_deps=["zlib"])
+        errors = check_dependencies(self.root)
+        self.assertEqual(len(errors), 1)
+        self.assertIn("zlib", errors[0])
 
     def test_unknown_host_tool_fails(self):
         make_recipe(self.root, "zeromq", "zeromq", ["nosuchtool"])

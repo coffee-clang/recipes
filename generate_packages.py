@@ -20,9 +20,11 @@ from recipe_metadata import (
     REPO_ROOT,
     get_last_updated,
     load_recipe,
+    recipe_build_dependencies,
     recipe_dependencies,
     recipe_files,
     recipe_letter,
+    recipe_usage,
 )
 
 DOCS_DIR = REPO_ROOT / "docs"
@@ -43,9 +45,11 @@ def version_data(toml_file: Path, data: dict) -> dict:
         "description": data.get("description", ""),
         "license": data.get("license", ""),
         "dependencies": recipe_dependencies(toml_file, data),
+        "build_dependencies": recipe_build_dependencies(toml_file, data),
         "recipe_url": data.get("recipe_url", ""),
         "output_type": data.get("output_type", ""),
         "last_updated": get_last_updated(toml_file.parent),
+        **recipe_usage(data),
     }
 
 

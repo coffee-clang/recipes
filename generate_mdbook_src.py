@@ -19,10 +19,13 @@ from recipe_metadata import (
     REPO_ROOT,
     get_last_updated,
     load_recipe,
+    recipe_build_dependencies,
     recipe_dependencies,
     recipe_files,
     recipe_letter,
+    recipe_usage,
 )
+from recipe_script import render_install_script
 
 SRC_DIR = REPO_ROOT / "src"
 
@@ -43,6 +46,21 @@ def escape_cell(value: str) -> str:
     """
     return (str(value).replace("|", "\\|")
             .replace("\n", " ").replace("\r", " "))
+
+
+def published_script(toml_file: Path, data: dict) -> str | None:
+    """Return the install.sh users download, or None if the recipe has none.
+
+    Rendered while loading, so a bad template stops the build before src/ is
+    emptied, and the error names the recipe.
+    """
+    template = toml_file.parent / "install.sh"
+    if not template.exists():
+        return None
+    try:
+        return render_install_script(template.read_text(), data)
+    except ValueError as exc:
+        raise ValueError(f"{toml_file.parent.name}: {exc}") from None
 
 
 def load_recipes(recipes_dir: Path = RECIPES_DIR) -> dict[str, list[dict]]:
@@ -66,12 +84,37 @@ def load_recipes(recipes_dir: Path = RECIPES_DIR) -> dict[str, list[dict]]:
             "description": data.get("description", ""),
             "license": data.get("license", ""),
             "dependencies": recipe_dependencies(toml_file, data),
+            "build_dependencies": recipe_build_dependencies(toml_file, data),
+            "usage": recipe_usage(data),
+            "install_script": published_script(toml_file, data),
             "recipe_url": data.get("recipe_url", ""),
             "output_type": data.get("output_type", ""),
             "last_updated": get_last_updated(toml_file.parent),
         })
 
     return by_letter
+
+
+def dependency_list(deps: dict[str, str]) -> list[str]:
+    """Return a sorted Markdown list of dependencies, or "None"."""
+    if not deps:
+        return ["None"]
+    return [f"- `{pkg}`" + (f" ({constraint})" if constraint else "")
+            for pkg, constraint in sorted(deps.items())]
+
+
+def usage_lines(usage: dict) -> list[str]:
+    """Return the Markdown that tells a consumer how to use the library."""
+    if usage["header_only"]:
+        lines = ["- Header-only: nothing to link"]
+    else:
+        flags = " ".join(f"-l{name}" for name in usage["libname"])
+        lines = [f"- Link flags: `{flags}`"] if flags else []
+        lines.append(f"- Library directory: `{usage['lib_dir']}`")
+    lines.append(f"- Include directory: `{usage['include_dir']}`")
+    if usage["notes"]:
+        lines += ["", usage["notes"]]
+    return lines
 
 
 def generate_recipe_page(lib: dict) -> str:
@@ -95,13 +138,11 @@ def generate_recipe_page(lib: dict) -> str:
         "",
     ]
 
-    deps = lib["dependencies"]
-    if deps:
-        for pkg, constraint in sorted(deps.items()):
-            constraint_str = f" ({constraint})" if constraint else ""
-            lines.append(f"- `{pkg}`{constraint_str}")
-    else:
-        lines.append("None")
+    lines += dependency_list(lib["dependencies"])
+    lines += ["", "## Build Dependencies", ""]
+    lines += dependency_list(lib["build_dependencies"])
+    lines += ["", "## Usage", ""]
+    lines += usage_lines(lib["usage"])
     lines += [
         "",
         "## Recipe URL",
@@ -178,9 +219,9 @@ def clean_src_dir(src_dir: Path) -> None:
 def main(recipes_dir: Path = RECIPES_DIR, src_dir: Path = SRC_DIR) -> int:
     try:
         by_letter = load_recipes(recipes_dir)
-    except TypeError as exc:
-        # `make site` skips the checkers, so a malformed field can reach here
-        # directly. Report it the way the checkers do instead of raising.
+    except (TypeError, ValueError) as exc:
+        # `make site` skips the checkers, so a malformed field or template can
+        # reach here directly. Report it the way the checkers do.
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
@@ -214,9 +255,10 @@ def main(recipes_dir: Path = RECIPES_DIR, src_dir: Path = SRC_DIR) -> int:
             page.write_text(generate_recipe_page(lib))
             print(f"  Generated {page}")
 
-            install = lib["toml_file"].parent / "install.sh"
-            if install.exists():
-                shutil.copy2(install, lib_dir / "install.sh")
+            if lib["install_script"] is not None:
+                published = lib_dir / "install.sh"
+                published.write_text(lib["install_script"])
+                published.chmod(0o755)
 
     summary = src_dir / "SUMMARY.md"
     text = generate_summary(by_letter)

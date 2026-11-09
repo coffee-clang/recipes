@@ -13,12 +13,17 @@ import string
 import subprocess
 import tempfile
 import unittest
+from functools import lru_cache
 from pathlib import Path
 
-from check_dependencies import HOST_TOOLS
-from recipe_metadata import RECIPES_DIR, load_recipe, recipe_files
+from recipe_metadata import (
+    RECIPES_DIR,
+    load_recipe,
+    recipe_build_dependencies,
+    recipe_files,
+)
 import recipe_script
-from recipe_script import header_assignments
+from recipe_script import header_assignments, render_install_script
 
 # Branch and channel names that are not versions. A recipe pinned to one of
 # these is not reproducible and must name a tag, release, or commit.
@@ -32,17 +37,6 @@ BASE_TOOLS = frozenset({
     "bash", "sh", "cd", "mkdir", "rm", "cp", "mv", "ls", "cat", "echo", "test",
     "wget", "curl", "tar", "unzip", "git", "make", "install", "basename",
     "dirname", "sed", "grep", "awk", "true", "false", "chmod", "nproc",
-})
-
-# Recipes that only download sources yet still declare build tools they never
-# invoke. This is metadata debt, enumerated rather than skipped: a recipe
-# leaving the set (because it was fixed) or joining it (because a new one was
-# copied from an old recipe) fails EXPECTED_FETCH_ONLY_WITH_BUILD_DEPS below, so
-# the debt can neither grow nor shrink unnoticed.
-EXPECTED_FETCH_ONLY_WITH_BUILD_DEPS = frozenset({
-    "attr", "blas", "brotli", "c-ares", "fribidi", "jansson", "json-c",
-    "libjpeg-turbo", "libuv", "lz4", "opus", "pcre2", "wavpack", "yajl",
-    "zeromq", "zstd",
 })
 
 # Recipes whose build system defaults to a static-only build, so they must opt
@@ -114,12 +108,38 @@ def unquoted_expansions(line: str) -> list[str]:
     return [m.group() for m in EXPANSION.finditer(strip_quoted(line))]
 
 
-def install_scripts(base_dir=RECIPES_DIR):
-    """Yield (toml_file, script_path) for every recipe that ships a script."""
+def install_templates(base_dir=RECIPES_DIR):
+    """Yield (toml_file, template_path) for every install.sh in the repo."""
     for toml_file in recipe_files(base_dir):
         script = toml_file.parent / "install.sh"
         if script.exists():
             yield toml_file, script
+
+
+# Rendered once per run into a private tree that mirrors <name>/install.sh, so
+# script.parent.name still names the recipe. Removed when the process exits.
+_RENDERED = tempfile.TemporaryDirectory(prefix="rendered-install-")
+
+
+@lru_cache(maxsize=None)
+def _rendered_scripts():
+    rendered = []
+    for toml_file, template in install_templates():
+        path = Path(_RENDERED.name) / toml_file.parent.name / "install.sh"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(render_install_script(template.read_text(),
+                                              load_recipe(toml_file)))
+        rendered.append((toml_file, path))
+    return tuple(rendered)
+
+
+def install_scripts():
+    """Yield (toml_file, script_path) for every published install.sh.
+
+    The lints run on what users download: the template with the header that
+    generate_mdbook_src.py renders in front of it.
+    """
+    yield from _rendered_scripts()
 
 
 # The letter after `x` in an operation cluster names the decompressor, so a
@@ -896,49 +916,152 @@ class TestDeclaredDependencies(unittest.TestCase):
         return {tool for pattern, tool in self.BUILD_COMMANDS.items()
                 if re.search(pattern, text, re.M)}
 
-    def test_build_tools_are_declared_or_host_provided(self):
+    def declared_tools(self, toml_file):
+        return set(recipe_build_dependencies(toml_file, load_recipe(toml_file)))
+
+    def test_build_tools_are_declared(self):
+        # Declared, not merely known: toolcheck verifies [build-dependencies]
+        # on the user's host, so an undeclared tool is a failure mid-build.
         for toml_file, script in install_scripts():
             used = self.build_tools_used(script.read_text())
-            declared = set(load_recipe(toml_file).get("dependencies") or {})
+            declared = self.declared_tools(toml_file)
             for tool in sorted(used):
                 with self.subTest(script=script.parent.name, tool=tool):
-                    self.assertTrue(
-                        tool in declared or tool in HOST_TOOLS,
-                        f"{script} runs a {tool} build but does not declare it",
+                    self.assertIn(
+                        tool, declared,
+                        f"{script} runs a {tool} build but does not list it "
+                        f"in [build-dependencies]",
                     )
 
-    def fetch_only_with_build_deps(self):
-        """Return the fetch-only recipes that declare unused build tools."""
-        offenders = {}
-        for toml_file, script in install_scripts():
-            text = script.read_text()
-            if self.build_tools_used(text) or re.search(r"^make$", text, re.M):
-                continue
-            declared = set(load_recipe(toml_file).get("dependencies") or {})
-            if declared & HOST_TOOLS:
-                offenders[script.parent.name] = declared & HOST_TOOLS
-        return offenders
 
-    def test_fetch_only_scripts_declare_no_build_tools(self):
-        # A script that only downloads must not advertise build dependencies it
-        # never uses, which is what made the GnuTLS recipe look buildable.
-        for recipe, tools in sorted(self.fetch_only_with_build_deps().items()):
-            if recipe in EXPECTED_FETCH_ONLY_WITH_BUILD_DEPS:
-                continue
-            with self.subTest(script=recipe):
-                self.fail(
-                    f"{recipe} fetches only but declares {sorted(tools)}; add "
-                    f"it to EXPECTED_FETCH_ONLY_WITH_BUILD_DEPS only if the "
-                    f"script is genuinely unfinished"
+# A command that puts files under the prefix: a build system's install target,
+# or install(1)/cp for packages without one.
+INSTALL_STEP = re.compile(
+    r"^\s*(?:make\b.*\binstall\b|cmake --install\b|meson install\b"
+    r"|ninja\b.*\binstall\b|install\s.*\$PREFIX|cp\s.*\$PREFIX)",
+    re.M,
+)
+
+# The pre-contract shapes: unpacking or moving a source tree into the prefix,
+# which left it at $PREFIX/<pkg>-<ver>/ with nothing built.
+SOURCE_INTO_PREFIX = re.compile(
+    r'^\s*(?:tar\s.*-C\s*"\$PREFIX"|mv\s.*"\$PREFIX"\s*$)', re.M)
+
+
+class TestInstallContract(unittest.TestCase):
+    """What every template must do: build, then install into $PREFIX.
+
+    The contract: install.sh takes the prefix as $1 (default
+    $COFFEE_HOME/<canonical_name>/<version>), builds in a scratch directory, and
+    leaves include/ and lib/ directly under the prefix.
+    """
+
+    def test_every_template_renders(self):
+        for toml_file, template in install_templates():
+            with self.subTest(recipe=template.parent.name):
+                render_install_script(template.read_text(),
+                                      load_recipe(toml_file))
+
+    def test_every_template_installs_into_the_prefix(self):
+        for _, template in install_templates():
+            with self.subTest(recipe=template.parent.name):
+                self.assertRegex(
+                    template.read_text(), INSTALL_STEP,
+                    f"{template} fetches sources but never installs them",
                 )
 
-    def test_fetch_only_debt_matches_the_enumerated_set(self):
-        # The inversion: the debt is asserted rather than skipped, so neither a
-        # fix nor a new offender passes unnoticed.
-        self.assertEqual(
-            set(self.fetch_only_with_build_deps()),
-            set(EXPECTED_FETCH_ONLY_WITH_BUILD_DEPS),
-        )
+    def test_no_template_unpacks_sources_into_the_prefix(self):
+        for _, template in install_templates():
+            with self.subTest(recipe=template.parent.name):
+                self.assertNotRegex(template.read_text(), SOURCE_INTO_PREFIX)
+
+    def test_no_template_deletes_the_prefix(self):
+        # $1 may be any directory the user names, such as /usr/local.
+        for _, template in install_templates():
+            with self.subTest(recipe=template.parent.name):
+                self.assertNotIn('rm -rf "$PREFIX', template.read_text())
+
+    def test_build_systems_install_into_lib_not_lib64(self):
+        # coffee looks in $PREFIX/<lib_dir>, which defaults to lib. CMake's
+        # GNUInstallDirs and Meson pick lib64 or a multiarch path otherwise.
+        pins = {
+            r"^\s*cmake\s+(?!--)": "-DCMAKE_INSTALL_LIBDIR=lib",
+            r"^\s*meson\s+setup\b": "--libdir=lib",
+        }
+        for _, template in install_templates():
+            text = template.read_text()
+            for pattern, pin in pins.items():
+                for line in re.findall(pattern + r".*", text, re.M):
+                    with self.subTest(recipe=template.parent.name, line=line):
+                        self.assertIn(pin, line)
+
+
+# Wrap modes under which Meson never downloads a subproject.
+NO_DOWNLOAD_WRAP_MODE = re.compile(r"--wrap-mode=(?:nofallback|nodownload)\b")
+
+
+def meson_setup_commands(text: str) -> list[str]:
+    """Return each `meson setup` command, joined across \\ continuations."""
+    joined = re.sub(r"\\\n", " ", text)
+    return re.findall(r"^\s*meson\s+setup\b.*$", joined, re.M)
+
+
+class TestMesonUsesRegistryDependencies(unittest.TestCase):
+    """Meson falls back to a bundled or downloaded copy of a missing dependency.
+
+    fontconfig's gperf wrap clones an unpinned git branch, so a fallback is an
+    unverified download outside $URL as well as a silent replacement for a
+    registry library. Every setup must refuse it.
+    """
+
+    def test_every_meson_setup_refuses_downloads(self):
+        for _, template in install_templates():
+            for command in meson_setup_commands(template.read_text()):
+                with self.subTest(recipe=template.parent.name):
+                    self.assertRegex(command, NO_DOWNLOAD_WRAP_MODE)
+
+    def test_wrap_modes(self):
+        # nodownload still builds subprojects whose sources ship inside the
+        # release tarball (criterion vendors all of its own), but never fetches.
+        self.assertRegex("meson setup b --wrap-mode=nofallback",
+                         NO_DOWNLOAD_WRAP_MODE)
+        self.assertRegex("meson setup b --wrap-mode=nodownload",
+                         NO_DOWNLOAD_WRAP_MODE)
+        self.assertNotRegex("meson setup b --wrap-mode=default",
+                            NO_DOWNLOAD_WRAP_MODE)
+        self.assertNotRegex("meson setup b", NO_DOWNLOAD_WRAP_MODE)
+
+    def test_continuation_lines_are_joined(self):
+        text = 'meson setup build \\\n    --wrap-mode=nofallback\n'
+        self.assertEqual(len(meson_setup_commands(text)), 1)
+        self.assertIn("--wrap-mode=nofallback", meson_setup_commands(text)[0])
+
+
+class TestInstallContractPatterns(unittest.TestCase):
+    """The contract regexes themselves, so they cannot quietly match nothing."""
+
+    def test_install_step_forms(self):
+        for line in ("make install", 'make -C src PREFIX="$PREFIX" install',
+                     'cmake --install build', "meson install -C build",
+                     "ninja -C build install",
+                     'install -D -m 644 a.h "$PREFIX/include/a.h"',
+                     'cp src/*.h "$PREFIX/include/"'):
+            with self.subTest(line=line):
+                self.assertRegex(line, INSTALL_STEP)
+
+    def test_fetch_only_is_not_an_install_step(self):
+        for line in ('wget -q "$URL"', 'tar xzf "$ARCHIVE" --no-same-owner',
+                     "# make install", 'cp a.h build/'):
+            with self.subTest(line=line):
+                self.assertNotRegex(line, INSTALL_STEP)
+
+    def test_source_into_prefix_forms(self):
+        for line in ('tar xzf "$ARCHIVE" --no-same-owner -C "$PREFIX"',
+                     'mv "$PACKAGE" "$PREFIX"'):
+            with self.subTest(line=line):
+                self.assertRegex(line, SOURCE_INTO_PREFIX)
+        self.assertNotRegex('tar xzf "$ARCHIVE" --no-same-owner',
+                            SOURCE_INTO_PREFIX)
 
 
 class TestVersions(unittest.TestCase):

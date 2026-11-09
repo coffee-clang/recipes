@@ -5,7 +5,7 @@ PYTHON := python3
 # Everything a generated page depends on. SCRIPTS matters as much as TOMLS:
 # without it an edited install.sh leaves src/SUMMARY.md newer than its inputs,
 # make skips the generator, and mdbook republishes the stale script.
-GEN_DEPS := generate_mdbook_src.py recipe_metadata.py $(TOMLS) $(SCRIPTS)
+GEN_DEPS := generate_mdbook_src.py recipe_metadata.py recipe_script.py $(TOMLS) $(SCRIPTS)
 
 # A failed generator must not leave a half-written SUMMARY.md behind looking
 # up to date, or the next build republishes it.

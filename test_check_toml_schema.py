@@ -39,6 +39,7 @@ def write_toml(root, name, *, output_type="library", omit=(), extra=""):
         "recipe_url": '"https://example.com/x.git"',
         "canonical_name": f'"{name}"',
         "output_type": f'"{output_type}"',
+        "libname": f'"{name}"',
     }
     # `extra` goes before the [dependencies] header: in TOML, a key written
     # after a table header belongs to that table, not to the root.
@@ -75,6 +76,110 @@ class TestValidRecipes(unittest.TestCase):
     def test_all_three_output_types_pass(self):
         for i, output_type in enumerate(("library", "executable", "both")):
             write_toml(self.root, f"pkg{i}", output_type=output_type)
+        self.assertEqual(check_toml_schemas(self.root), [])
+
+
+class TestUsageFields(unittest.TestCase):
+    """How a consumer uses the installed library (R4).
+
+    coffee links with -l<libname> and adds include_dir / lib_dir under the
+    prefix, so a library recipe that leaves both libname and header_only unset
+    gives it nothing to link.
+    """
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        self.addCleanup(self._tmp.cleanup)
+
+    def errors(self, extra, omit=(), output_type="library"):
+        write_toml(self.root, "zlib", extra=extra, omit=omit,
+                   output_type=output_type)
+        return check_toml_schemas(self.root)
+
+    def test_all_usage_fields_pass(self):
+        self.assertEqual(self.errors(
+            'include_dir = "include/zlib"\nlib_dir = "lib"\n'
+            'notes = "Link with -lz."\n'), [])
+
+    def test_libname_may_be_a_list(self):
+        self.assertEqual(self.errors('libname = ["avcodec", "avutil"]\n',
+                                     omit=("libname",)), [])
+
+    def test_libname_must_be_a_string_or_list_of_strings(self):
+        for value in ("1", "[]", '["z", 1]', '[""]', "true"):
+            with self.subTest(value=value):
+                tree = self.root / f"t{len(list(self.root.iterdir()))}"
+                tree.mkdir()
+                write_toml(tree, "zlib", omit=("libname",),
+                           extra=f"libname = {value}\n")
+                errors = check_toml_schemas(tree)
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("libname", errors[0])
+
+    def test_header_only_passes_without_libname(self):
+        self.assertEqual(self.errors("header_only = true\n",
+                                     omit=("libname",)), [])
+
+    def test_header_only_must_be_a_boolean(self):
+        errors = self.errors('header_only = "yes"\n', omit=("libname",))
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("header_only", errors[0])
+
+    def test_header_only_contradicts_libname(self):
+        errors = self.errors("header_only = true\n")
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("header_only", errors[0])
+        self.assertIn("libname", errors[0])
+
+    def test_library_needs_libname_or_header_only(self):
+        for output_type in ("library", "both"):
+            with self.subTest(output_type=output_type):
+                tree = self.root / output_type
+                tree.mkdir()
+                write_toml(tree, "zlib", omit=("libname",),
+                           output_type=output_type)
+                errors = check_toml_schemas(tree)
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("libname", errors[0])
+
+    def test_data_package_needs_neither(self):
+        # Protocol descriptions (xcb-proto, wayland-protocols) install files
+        # other builds read, with nothing to link or include.
+        self.assertEqual(self.errors("", omit=("libname",),
+                                     output_type="data"), [])
+
+    def test_executable_needs_neither(self):
+        self.assertEqual(self.errors("", omit=("libname",),
+                                     output_type="executable"), [])
+
+    def test_directories_must_be_relative_paths_inside_the_prefix(self):
+        for field in ("include_dir", "lib_dir"):
+            for value in ('"/usr/include"', '"../include"', '""', "1"):
+                with self.subTest(field=field, value=value):
+                    tree = self.root / f"t{len(list(self.root.iterdir()))}"
+                    tree.mkdir()
+                    write_toml(tree, "zlib", extra=f"{field} = {value}\n")
+                    errors = check_toml_schemas(tree)
+                    self.assertEqual(len(errors), 1, errors)
+                    self.assertIn(field, errors[0])
+
+    def test_notes_must_be_a_string(self):
+        errors = self.errors("notes = 1\n")
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("notes", errors[0])
+
+    def test_build_dependencies_must_be_a_table(self):
+        write_toml(self.root, "zstd",
+                   extra='"build-dependencies" = "cmake"\n')
+        errors = check_toml_schemas(self.root)
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("[build-dependencies]", errors[0])
+
+    def test_build_dependencies_table_passes(self):
+        d = write_toml(self.root, "zstd")
+        toml = d / "library.toml"
+        toml.write_text(toml.read_text() + '[build-dependencies]\ncmake = ""\n')
         self.assertEqual(check_toml_schemas(self.root), [])
 
 
