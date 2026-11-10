@@ -28,3 +28,10 @@ one place.
 - To link against an installed recipe, use `-I$PREFIX/<include_dir>`,
   `-L$PREFIX/<lib_dir>` and `-l<name>` for each `libname`. A `header_only`
   recipe has nothing to link; read its `notes` for any implementation macro.
+
+## Verifying recipes
+
+`python3 verify_recipes.py NAME...` builds recipes for real under `verify/` and
+checks what they install, what they link, and that `-l<libname>` links and
+runs. `--all` builds the whole registry; `--changed-since REF` builds what a
+branch changed plus its dependents. CI runs it on pull requests and weekly.

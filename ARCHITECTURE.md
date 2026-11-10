@@ -76,7 +76,8 @@ refusals rather than by accident:
   some script invokes, never a library.
 
 A green `make checks` means *no metadata is malformed and no dependency is a
-typo*. It does not mean any recipe builds.
+typo*. It does not mean any recipe builds; `verify_recipes.py` (see *Verifying
+builds*) is the check for that.
 
 ## Data flow: install.sh
 
@@ -167,12 +168,37 @@ Signatures are checked once, when a digest is recorded, not at install time:
 users need only `sha256sum`. When bumping a version, re-derive the digest from
 the strongest source available and update `sha256_source` to match.
 
+## Verifying builds
+
+`verify_recipes.py` builds recipes for real: it renders and runs each
+published script with `COFFEE_HOME` under `verify/` (gitignored), after the
+recipe's registry dependencies, exposed the way coffee exposes them
+(`PKG_CONFIG_PATH`, `CMAKE_PREFIX_PATH`, `CPPFLAGS`, `LDFLAGS`). A recipe
+passes when:
+
+- its prefix honours the contract (headers, `lib<libname>`, `bin/`, data)
+- every library an installed ELF file needs directly (`DT_NEEDED`) comes from
+  the recipe, a declared dependency, or the toolchain; anything else is
+  reported as `UNDECLARED` (a recipe provides it but it is not declared) or
+  `HOST` (no recipe provides it)
+- an empty program linked with every `-l<libname>`, using only `include_dir`
+  and `lib_dir`, builds and runs
+
+`.github/workflows/verify.yml` runs it in a `debian:testing` container with
+every host tool installed: on pull requests for the changed recipes and their
+dependents (plus a small canary set when the header or harness changes), and
+weekly for the whole registry.
+
+Known limits: libraries loaded with `dlopen` at runtime (SDL2's PulseAudio,
+GLFW's and libepoxy's libGL) and headers taken from the host without a library
+are invisible to the linkage audit.
+
 ## Current state
 
 - Every template builds and installs into the prefix, and every download is
-  checked against a pinned sha256. Whether each one builds on a given host
-  still depends on that host's toolchain and system libraries, which the
-  unit tests cannot see.
+  checked against a pinned sha256. `verify_recipes.py` and its CI workflow
+  check real builds; a developer machine may lack host tools some recipes
+  declare (bison, flex, gperf, nasm, python3-mako), which CI installs.
 - `book.toml` sets `create-missing = false`, so a `SUMMARY.md` entry without a
   corresponding page fails the build rather than silently emitting an empty one.
 

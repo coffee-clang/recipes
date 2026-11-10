@@ -1,0 +1,62 @@
+name: Verify recipe builds
+
+# Builds recipes for real with verify_recipes.py: the published install.sh is
+# run, then the prefix, the linkage and a link probe are checked.
+# - pull requests: the recipes they change, plus everything depending on them;
+#   a change to the shared header or the harness also builds a small canary set
+# - weekly and on demand: the whole registry
+on:
+  pull_request:
+    paths:
+      - "recipes/**"
+      - "recipe_script.py"
+      - "recipe_metadata.py"
+      - "verify_recipes.py"
+      - ".github/workflows/verify.yml"
+  schedule:
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    # The toolchain the recipes were verified with: GCC 15, CMake 4, recent
+    # Meson. The host tools recipes declare in [build-dependencies] are
+    # installed here, including those a developer machine may lack.
+    container: debian:testing
+    timeout-minutes: 360
+    steps:
+      - name: Install toolchain and host tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential gfortran binutils file git ca-certificates \
+            wget xz-utils bzip2 python3 python3-mako python3-packaging \
+            cmake meson ninja-build pkg-config autoconf automake libtool \
+            gettext autopoint m4 perl bison flex gperf nasm
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify changed recipes
+        if: github.event_name == 'pull_request'
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          base="origin/${{ github.base_ref }}"
+          python3 verify_recipes.py --changed-since "$base"
+          if git diff --name-only "$base...HEAD" | grep -qE '^(recipe_script|recipe_metadata|verify_recipes)\.py$'; then
+            python3 verify_recipes.py zlib zstd xz bzip2 uthash cjson
+          fi
+
+      - name: Verify the whole registry
+        if: github.event_name != 'pull_request'
+        run: python3 verify_recipes.py --all
+
+      - name: Upload build logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-logs
+          path: verify/logs/
