@@ -4,6 +4,9 @@ description = "GNU Scientific Library (GSL) is a numerical library for C and C++
 license = "GPL-3.0"
 canonical_name = "gsl"
 recipe_url = "https://ftp.gnu.org/gnu/gsl/gsl-2.8.tar.gz"
+# sha256 evidence: https://ftp.gnu.org/gnu/gsl/gsl-2.8.tar.gz.sig; good sig Patrick Alken DD61B7FC02790F978360F399245FB74BAE05B3E9; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190"
+sha256_source = "signature"
 output_type = "library"
 libname = ["gsl", "gslcblas"]
 [dependencies]

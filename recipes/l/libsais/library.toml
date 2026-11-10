@@ -4,6 +4,9 @@ description = "libsais is a C library for fast linear-time construction of suffi
 license = "Apache-2.0"
 canonical_name = "libsais"
 recipe_url = "https://github.com/IlyaGrebnov/libsais/archive/refs/tags/v2.12.1.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "d3779d60976f1e7112c1cba711250a88b731d3c5e0611592cafb8954c71b32e5"
+sha256_source = "tofu"
 output_type = "library"
 libname = "sais"
 [dependencies]

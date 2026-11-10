@@ -4,6 +4,9 @@ description = "libxcb is the X Window System protocol C binding library, the bas
 license = "MIT"
 canonical_name = "libxcb"
 recipe_url = "https://x.org/archive/individual/lib/libxcb-1.17.0.tar.xz"
+# sha256 evidence: SHA256 in https://lists.x.org/archives/xorg-announce/2024-April/003507.html; .sig good by subkey 16238A7D92448B02B7B10344B6B1CEAE5103DB07 of 3BB639E56F861FA2E86505690FDD682D974CA72A but key only via WKD mattst88@gentoo.org (not project domain)
+sha256 = "599ebf9996710fea71622e6e184f3a8ad5b43d0e5fa8c4e407123c88a59a6d55"
+sha256_source = "upstream"
 output_type = "library"
 libname = "xcb"
 [dependencies]

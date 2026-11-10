@@ -4,6 +4,9 @@ description = "xtrans is the X Window System network transport abstraction, ship
 license = "MIT"
 canonical_name = "xtrans"
 recipe_url = "https://www.x.org/releases/individual/lib/xtrans-1.6.0.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/xtrans-1.6.0.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2025-March/003588.html
+sha256 = "faafea166bf2451a173d9d593352940ec6404145c5d1da5c213423ce4d359e92"
+sha256_source = "signature"
 output_type = "library"
 header_only = true
 [dependencies]

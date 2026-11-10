@@ -4,6 +4,9 @@ description = "libxshmfence is a shared-memory fence library used by the X serve
 license = "HPND-sell-variant"
 canonical_name = "libxshmfence"
 recipe_url = "https://www.x.org/releases/individual/lib/libxshmfence-1.3.3.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libxshmfence-1.3.3.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-December/003572.html
+sha256 = "d4a4df096aba96fea02c029ee3a44e11a47eb7f7213c1a729be83e85ec3fde10"
+sha256_source = "signature"
 output_type = "library"
 libname = "xshmfence"
 [dependencies]

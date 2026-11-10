@@ -4,6 +4,9 @@ description = "libjpeg-turbo is a JPEG image codec that uses SIMD instructions t
 license = "BSD-3-Clause"
 canonical_name = "libjpeg_turbo"
 recipe_url = "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.4/libjpeg-turbo-3.0.4.tar.gz"
+# sha256 evidence: gpg sig https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.4/libjpeg-turbo-3.0.4.tar.gz.sig; key 0338C8D8D9FDA62CF9C421BD7EC2DBB6F4DBF434 from https://raw.githubusercontent.com/libjpeg-turbo/repo/main/LJT-GPG-KEY (linked from https://libjpeg-turbo.org/Downloads/DigitalSignatures)
+sha256 = "99130559e7d62e8d695f2c0eaeef912c5828d5b84a0537dcb24c9678c9d5b76b"
+sha256_source = "signature"
 output_type = "library"
 libname = ["jpeg", "turbojpeg"]
 [dependencies]

@@ -4,6 +4,9 @@ description = "FreeType is a freely available software library for rendering fon
 license = "FreeType"
 canonical_name = "freetype"
 recipe_url = "https://download.savannah.nongnu.org/releases/freetype/freetype-2.13.3.tar.gz"
+# sha256 evidence: sha256 in the upstream 2.13.3 announcement (signing key only on a keyserver: https://download.savannah.nongnu.org/releases/freetype/freetype-2.13.3.tar.gz.sig; good sig Werner Lemberg E30674707856409FF1948010BE6C3AAC63AD8E3F; key id BE6C3AAC63AD8E3F named in upstream announcement https://lists.nongnu.org/archive/html/freetype-announce/2024-08/msg00000.html, key fetched from keyserver.ubuntu.com; same announcement lists the sha256 (matches))
+sha256 = "5c3a8e78f7b24c20b25b54ee575d6daa40007a5f4eea2845861c3409b3021747"
+sha256_source = "upstream"
 output_type = "library"
 libname = "freetype"
 include_dir = "include/freetype2"

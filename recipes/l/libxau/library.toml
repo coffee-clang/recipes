@@ -4,6 +4,9 @@ description = "libXau implements the X11 authorization protocol, reading and wri
 license = "MIT"
 canonical_name = "libxau"
 recipe_url = "https://www.x.org/releases/individual/lib/libXau-1.0.12.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libXau-1.0.12.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-December/003570.html
+sha256 = "74d0e4dfa3d39ad8939e99bda37f5967aba528211076828464d2777d477fc0fb"
+sha256_source = "signature"
 output_type = "library"
 libname = "Xau"
 [dependencies]

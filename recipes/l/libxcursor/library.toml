@@ -4,6 +4,9 @@ description = "libXcursor loads and displays themed, animated, alpha-blended cur
 license = "MIT"
 canonical_name = "libxcursor"
 recipe_url = "https://www.x.org/releases/individual/lib/libXcursor-1.2.3.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libXcursor-1.2.3.tar.xz.sig; good sig by 19882D92DDA4C400C22C0D56CC2AF4472167BE03; key from https://gitlab.freedesktop.org/dickey.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-November/003549.html
+sha256 = "fde9402dd4cfe79da71e2d96bb980afc5e6ff4f8a7d74c159e1966afb2b2c2c0"
+sha256_source = "signature"
 output_type = "library"
 libname = "Xcursor"
 [dependencies]

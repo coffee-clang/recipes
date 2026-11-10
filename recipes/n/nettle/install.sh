@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "nettle-$VERSION"
 # nettle defaults to lib64 on 64-bit hosts.

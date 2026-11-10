@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "SDL2-$VERSION"
 # X11 and ALSA are linked, not dlopen()ed, so they resolve to the registry's

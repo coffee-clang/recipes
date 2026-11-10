@@ -3,7 +3,10 @@ version = "1.10.0"
 description = "LZ4 is a lossless compression algorithm focusing on speed. It provides extremely fast compression and decompression, making it ideal for scenarios where speed is more important than maximum compression ratio."
 license = "BSD-2-Clause"
 canonical_name = "lz4"
-recipe_url = "https://github.com/lz4/lz4.git"
+recipe_url = "https://github.com/lz4/lz4/releases/download/v1.10.0/lz4-1.10.0.tar.gz"
+# sha256 evidence: https://github.com/lz4/lz4/releases/download/v1.10.0/lz4-1.10.0.tar.gz.sha256
+sha256 = "537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b"
+sha256_source = "upstream"
 output_type = "library"
 libname = "lz4"
 [dependencies]

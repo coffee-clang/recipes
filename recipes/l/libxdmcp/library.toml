@@ -4,6 +4,9 @@ description = "libXdmcp implements the X Display Manager Control Protocol, used 
 license = "MIT"
 canonical_name = "libxdmcp"
 recipe_url = "https://www.x.org/releases/individual/lib/libXdmcp-1.1.5.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libXdmcp-1.1.5.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-March/003467.html
+sha256 = "d8a5222828c3adab70adf69a5583f1d32eb5ece04304f7f8392b6a353aa2228c"
+sha256_source = "signature"
 output_type = "library"
 libname = "Xdmcp"
 [dependencies]

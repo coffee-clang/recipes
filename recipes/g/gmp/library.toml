@@ -4,6 +4,9 @@ description = "GMP (GNU Multiple Precision Arithmetic Library) is a free library
 license = "LGPL-3.0"
 canonical_name = "gmp"
 recipe_url = "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.gz"
+# sha256 evidence: https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.gz.sig; good sig 343C2FF0FBEE5EC2EDBEF399F3599FF828C67298 (Niels Moller); key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "e56fd59d76810932a0555aa15a14b61c16bed66110d3c75cc2ac49ddaa9ab24c"
+sha256_source = "signature"
 output_type = "library"
 libname = "gmp"
 [dependencies]

@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xJf "$ARCHIVE" --no-same-owner
 cd "glib-$VERSION"
 meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release \

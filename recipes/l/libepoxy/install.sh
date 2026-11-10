@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xJf "$ARCHIVE" --no-same-owner
 cd "libepoxy-$VERSION"
 # libGL is dlopen()ed at runtime, so epoxy.pc must not require a host gl.pc.

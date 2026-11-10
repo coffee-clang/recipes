@@ -4,6 +4,9 @@ description = "cpu_features is a C library for runtime CPU feature detection. It
 license = "Apache-2.0"
 canonical_name = "cpu_features"
 recipe_url = "https://github.com/google/cpu_features/archive/refs/tags/v0.9.0.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "bdb3484de8297c49b59955c3b22dba834401bc2df984ef5cfc17acbe69c5018e"
+sha256_source = "tofu"
 output_type = "library"
 libname = "cpu_features"
 include_dir = "include/cpu_features"

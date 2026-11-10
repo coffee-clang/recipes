@@ -4,6 +4,9 @@ description = "libXxf86vm is the client library for the XFree86-VidModeExtension
 license = "MIT"
 canonical_name = "libxxf86vm"
 recipe_url = "https://www.x.org/releases/individual/lib/libXxf86vm-1.1.6.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libXxf86vm-1.1.6.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-December/003574.html
+sha256 = "96af414c73ce1d5449ad04be7f9f27fa8330f844b6dda843ef22e3e1befb3ee3"
+sha256_source = "signature"
 output_type = "library"
 libname = "Xxf86vm"
 [dependencies]

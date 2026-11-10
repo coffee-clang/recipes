@@ -4,6 +4,9 @@ description = "The kmod library provides tools for managing Linux kernel modules
 license = "GPL-2.0"
 canonical_name = "kmod"
 recipe_url = "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.gz"
+# sha256 evidence: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.sign (over uncompressed tar); good sig Lucas De Marchi EAB33C9690013C733916AC839BA2A5A630CBEA53; key: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/9BA2A5A630CBEA53.asc
+sha256 = "d7c59c76bb3dd0eeeecdb1302365cf4bd5cb54e977be43a00efa2c96c519c1dc"
+sha256_source = "signature"
 output_type = "library"
 libname = "kmod"
 [dependencies]

@@ -4,6 +4,9 @@ description = "QuickJS is a small and embeddable Javascript engine supporting ES
 license = "MIT"
 canonical_name = "quickjs"
 recipe_url = "https://bellard.org/quickjs/quickjs-2025-09-13-2.tar.xz"
+# sha256 evidence: no checksum or signature on https://bellard.org/quickjs/
+sha256 = "996c6b5018fc955ad4d06426d0e9cb713685a00c825aa5c0418bd53f7df8b0b4"
+sha256_source = "tofu"
 output_type = "library"
 libname = "quickjs"
 include_dir = "include/quickjs"

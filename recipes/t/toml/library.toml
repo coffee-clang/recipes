@@ -4,6 +4,9 @@ description = "TOML parser in C17 - a lightweight TOML configuration file parser
 license = "MIT"
 canonical_name = "toml"
 recipe_url = "https://github.com/cktan/tomlc17/archive/refs/tags/R260414.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "cb981a9c072cef3b6cf5cc0e498f20ca8e8b914d08968829ba69255076a74584"
+sha256_source = "tofu"
 output_type = "library"
 libname = "tomlc17"
 [dependencies]

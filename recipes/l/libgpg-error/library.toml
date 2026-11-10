@@ -4,6 +4,9 @@ description = "libgpg-error defines the error codes used across the GnuPG projec
 license = "LGPL-2.1"
 canonical_name = "libgpg_error"
 recipe_url = "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.55.tar.bz2"
+# sha256 evidence: https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.55.tar.bz2.sig; good sig Werner Koch (dist signing 2020) 6DAA6E64A76D2840571B4902528897B826403ADA; key: https://gnupg.org/signature_key.asc
+sha256 = "95b178148863f07d45df0cea67e880a79b9ef71f5d230baddc0071128516ef78"
+sha256_source = "signature"
 output_type = "library"
 libname = "gpg-error"
 [dependencies]

@@ -4,6 +4,9 @@ description = "cryptsetup is a library for setting up encrypted disk volumes usi
 license = "GPL-2.0"
 canonical_name = "cryptsetup"
 recipe_url = "https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/cryptsetup-2.7.5.tar.xz"
+# sha256 evidence: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/cryptsetup-2.7.5.tar.sign (over uncompressed tar); good sig Milan Broz 2A2918243FDE46648D0686F9D9B0577BD93E98FC; key: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/D9B0577BD93E98FC.asc; also listed in signed https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/sha256sums.asc (kernel.org autosigner B8868C80BA62A1FFFAF5FDA9632D3A06589DA6B1)
+sha256 = "d2be4395b8f503b0ebf4b2d81db90c35a97050a358ee21fe62a0dfb66e5d5522"
+sha256_source = "signature"
 output_type = "library"
 libname = "cryptsetup"
 [dependencies]

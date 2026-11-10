@@ -4,6 +4,9 @@ description = "LibThai is a set of Thai language support routines: word breaking
 license = "LGPL-2.1-or-later"
 canonical_name = "libthai"
 recipe_url = "https://github.com/tlwg/libthai/releases/download/v0.1.30/libthai-0.1.30.tar.xz"
+# sha256 evidence: GitHub release-asset digest field (shown on releases/expanded_assets page)
+sha256 = "ddba8b53dfe584c3253766030218a88825488a51a7deef041d096e715af64bdd"
+sha256_source = "upstream"
 output_type = "library"
 libname = "thai"
 [dependencies]

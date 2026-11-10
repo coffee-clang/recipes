@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "fuse-$VERSION"
 # Library only: the utilities install a setuid fusermount3 and udev rules.

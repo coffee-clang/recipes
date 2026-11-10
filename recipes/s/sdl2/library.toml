@@ -4,6 +4,9 @@ description = "SDL (Simple DirectMedia Layer) is a cross-platform library for mu
 license = "Zlib"
 canonical_name = "sdl2"
 recipe_url = "https://github.com/libsdl-org/SDL/releases/download/release-2.30.10/SDL2-2.30.10.tar.gz"
+# sha256 evidence: signed (.sig, key 1528635D8053A57F77D1E08630A59377A7763BE6) but no upstream-controlled key source found (no WKD on libsdl.org, none on GitHub); sig verifies GOOD only with keyserver.ubuntu.com copy (not counted)
+sha256 = "f59adf36a0fcf4c94198e7d3d776c1b3824211ab7aeebeb31fe19836661196aa"
+sha256_source = "tofu"
 output_type = "library"
 libname = "SDL2"
 include_dir = "include/SDL2"

@@ -4,6 +4,9 @@ description = "Wuffs (Wrangling Untrusted File Formats Safely) is a memory-safe 
 license = "Apache-2.0"
 canonical_name = "wuffs"
 recipe_url = "https://github.com/google/wuffs/archive/refs/tags/v0.3.6.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "e669099e0f67123efa1d24f88f4ec26ef9875bc7d8957e0d4d9df9803ff5c039"
+sha256_source = "tofu"
 output_type = "library"
 header_only = true
 notes = "wuffs-v0.3.c is both header and implementation: #define WUFFS_IMPLEMENTATION in exactly one .c file before including it."

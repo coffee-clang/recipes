@@ -17,6 +17,7 @@ shape as recipes/l/libffi/install.sh so the shared invariants are what get
 exercised.
 """
 
+import hashlib
 import os
 import re
 import shutil
@@ -37,8 +38,7 @@ from recipe_script import (
 # (prefix, scratch directory, trap) comes from the generated header, so the
 # behaviours below exercise the header every published script shares.
 FIXTURE_TEMPLATE = TEMPLATE_PREAMBLE + """\
-wget -q "$URL"
-tar xzf "$(basename "$URL")" --no-same-owner
+tar xzf "$ARCHIVE" --no-same-owner
 mkdir -p "$PREFIX"
 cp payload.txt "$PREFIX/"
 """
@@ -70,8 +70,17 @@ cp "$src" "$out"
 
 
 def build_fixture_script(url: str) -> str:
+    """Render the fixture, pinning the digest of the archive url names.
+
+    A url naming no file gets a digest that matches nothing, which the tests
+    for a failed download never reach.
+    """
+    source = Path(url.removeprefix("file://"))
+    digest = (hashlib.sha256(source.read_bytes()).hexdigest()
+              if source.is_file() else "0" * 64)
     return render_install_script(FIXTURE_TEMPLATE, {
         "canonical_name": "fixture", "version": "1.0.0", "recipe_url": url,
+        "sha256": digest,
     })
 
 
@@ -251,6 +260,20 @@ class InstallScriptExecutionTest(unittest.TestCase):
         result = self.run_script(script)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("UNSET_VAR", result.stderr)
+
+    def test_a_tampered_archive_is_not_extracted(self):
+        # The digest is pinned for the original archive; replacing the file
+        # behind the URL afterwards must stop the script before tar runs.
+        archive = make_tarball(self.root)
+        script = self.root / "install.sh"
+        script.write_text(build_fixture_script(f"file://{archive}"))
+        archive.write_bytes(archive.read_bytes() + b"tampered")
+
+        result = self.run_script(script)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("checksum", result.stderr)
+        self.assertFalse(self.extracted().exists())
+        self.assertEqual(self.scratch_contents(), [])
 
     def test_missing_download_fails_rather_than_extracting_nothing(self):
         # `set -e` must stop the script at the failed fetch, not carry on to

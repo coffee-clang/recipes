@@ -4,6 +4,9 @@ description = "c-ares is a C library for asynchronous DNS requests and name reso
 license = "MIT"
 canonical_name = "c_ares"
 recipe_url = "https://github.com/c-ares/c-ares/releases/download/v1.34.4/c-ares-1.34.4.tar.gz"
+# sha256 evidence: gpg sig https://github.com/c-ares/c-ares/releases/download/v1.34.4/c-ares-1.34.4.tar.gz.asc; key 75EB6CA0E63E90C4FF2C868FC1D15611B2E4720B (Brad House, maintainer) from https://github.com/bradh352.gpg
+sha256 = "fa38dbed659ee4cc5a32df5e27deda575fa6852c79a72ba1af85de35a6ae222f"
+sha256_source = "signature"
 output_type = "library"
 libname = "cares"
 [dependencies]

@@ -4,6 +4,9 @@ description = "liblzma provides LZMA compression and decompression functionality
 license = "PublicDomain"
 canonical_name = "liblzma"
 recipe_url = "https://tukaani.org/xz/xz-5.6.3.tar.gz"
+# sha256 evidence: https://tukaani.org/xz/xz-5.6.3.tar.gz.sig; good sig Lasse Collin 3690C240CE51B4670D30AD1C38EE757D69184620; key: https://tukaani.org/misc/lasse_collin_pubkey.txt
+sha256 = "b1d45295d3f71f25a4c9101bd7c8d16cb56348bbef3bbc738da0351e17c73317"
+sha256_source = "signature"
 output_type = "library"
 libname = "lzma"
 [dependencies]

@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "freetype-$VERSION"
 # HarfBuzz depends on FreeType, so linking it back would be circular. The other

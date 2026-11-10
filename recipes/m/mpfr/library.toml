@@ -4,6 +4,9 @@ description = "MPFR (Multiple Precision Floating-Point Rounding) is a C library 
 license = "LGPL-3.0"
 canonical_name = "mpfr"
 recipe_url = "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.gz"
+# sha256 evidence: https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.gz.sig; good sig Vincent Lefevre A534BE3F83E241D918280AEB5831D11A0D4DB02A; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "116715552bd966c85b417c424db1bbdf639f53836eb361549d1f8d6ded5cb4c6"
+sha256_source = "signature"
 output_type = "library"
 libname = "mpfr"
 [dependencies]

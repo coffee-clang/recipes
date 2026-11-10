@@ -40,6 +40,8 @@ def write_toml(root, name, *, output_type="library", omit=(), extra=""):
         "canonical_name": f'"{name}"',
         "output_type": f'"{output_type}"',
         "libname": f'"{name}"',
+        "sha256": f'"{"ab" * 32}"',
+        "sha256_source": '"upstream"',
     }
     # `extra` goes before the [dependencies] header: in TOML, a key written
     # after a table header belongs to that table, not to the root.
@@ -183,6 +185,40 @@ class TestUsageFields(unittest.TestCase):
         self.assertEqual(check_toml_schemas(self.root), [])
 
 
+class TestDigestFields(unittest.TestCase):
+    """The published script verifies the download against sha256."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        self.addCleanup(self._tmp.cleanup)
+
+    def errors(self, field, value):
+        tree = self.root / f"t{len(list(self.root.iterdir()))}"
+        tree.mkdir()
+        write_toml(tree, "zlib", omit=(field,), extra=f"{field} = {value}\n")
+        return check_toml_schemas(tree)
+
+    def test_sha256_must_be_64_lowercase_hex_digits(self):
+        for value in ('"abc"', f'"{"AB" * 32}"', f'"{"zz" * 32}"',
+                      f'"{"ab" * 32}0"', "1"):
+            with self.subTest(value=value):
+                errors = self.errors("sha256", value)
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("sha256", errors[0])
+
+    def test_every_digest_source_is_accepted(self):
+        for value in ("upstream", "signature", "tofu"):
+            with self.subTest(value=value):
+                self.assertEqual(self.errors("sha256_source", f'"{value}"'),
+                                 [])
+
+    def test_unknown_digest_source_is_rejected(self):
+        errors = self.errors("sha256_source", '"guess"')
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn("sha256_source", errors[0])
+
+
 class TestMissingFields(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -192,7 +228,7 @@ class TestMissingFields(unittest.TestCase):
     def test_every_mandatory_field_is_required(self):
         for field in ("title", "version", "description", "license",
                       "recipe_url", "canonical_name", "output_type",
-                      "dependencies"):
+                      "dependencies", "sha256", "sha256_source"):
             with self.subTest(field=field):
                 # A per-field tree, so one field's omission is the only error.
                 tree = self.root / field

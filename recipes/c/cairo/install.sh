@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xJf "$ARCHIVE" --no-same-owner
 cd "cairo-$VERSION"
 # LZO is probed with no option to turn it off, and the registry has no recipe.

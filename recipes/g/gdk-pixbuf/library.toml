@@ -4,6 +4,9 @@ description = "GdkPixbuf is a GObject-based library for loading, saving and scal
 license = "LGPL-2.1-or-later"
 canonical_name = "gdk_pixbuf"
 recipe_url = "https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.12.tar.xz"
+# sha256 evidence: https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.12.sha256sum
+sha256 = "b9505b3445b9a7e48ced34760c3bcb73e966df3ac94c95a148cb669ab748e3c7"
+sha256_source = "upstream"
 output_type = "both"
 libname = "gdk_pixbuf-2.0"
 include_dir = "include/gdk-pixbuf-2.0"

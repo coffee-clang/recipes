@@ -4,6 +4,9 @@ description = "util-linux is a collection of essential Linux system utilities in
 license = "GPL-2.0"
 canonical_name = "util_linux"
 recipe_url = "https://www.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz"
+# sha256 evidence: https://www.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.sign (over uncompressed tar); good sig Karel Zak B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284; key: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/E4B71D5EEC39C284.asc
+sha256 = "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3"
+sha256_source = "signature"
 output_type = "library"
 libname = ["uuid", "blkid", "mount", "smartcols", "fdisk"]
 notes = "Headers live in per-library subdirectories of include: #include <uuid/uuid.h>, <blkid/blkid.h>, <libmount/libmount.h>, <libsmartcols/libsmartcols.h>, <libfdisk/libfdisk.h>."

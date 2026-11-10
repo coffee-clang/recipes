@@ -4,6 +4,9 @@ description = "The acl library provides utilities for manipulating Access Contro
 license = "LGPL-2.1"
 canonical_name = "acl"
 recipe_url = "https://download.savannah.nongnu.org/releases/acl/acl-2.3.2.tar.gz"
+# sha256 evidence: https://download.savannah.nongnu.org/releases/acl/acl-2.3.2.tar.gz.sig; good sig Mike Frysinger B902B5271325F892AC251AD441633B9FE837F581; key: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/41633B9FE837F581.asc (savannah group release keyring empty)
+sha256 = "5f2bdbad629707aa7d85c623f994aa8a1d2dec55a73de5205bac0bf6058a2f7c"
+sha256_source = "signature"
 output_type = "library"
 libname = "acl"
 [dependencies]

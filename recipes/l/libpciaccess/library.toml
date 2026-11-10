@@ -4,6 +4,9 @@ description = "libpciaccess is a portable library for direct access to PCI confi
 license = "MIT"
 canonical_name = "libpciaccess"
 recipe_url = "https://www.x.org/releases/individual/lib/libpciaccess-0.17.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libpciaccess-0.17.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2022-October/003226.html
+sha256 = "74283ba3c974913029e7a547496a29145b07ec51732bbb5b5c58d5025ad95b73"
+sha256_source = "signature"
 output_type = "library"
 libname = "pciaccess"
 [dependencies]

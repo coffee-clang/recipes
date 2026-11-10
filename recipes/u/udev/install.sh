@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "systemd-$VERSION"
 # Only libudev is wanted: configure systemd with optional features off, build

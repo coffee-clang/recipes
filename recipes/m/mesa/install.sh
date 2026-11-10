@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xJf "$ARCHIVE" --no-same-owner
 cd "mesa-$VERSION"
 # Minimal software-rendering build: softpipe, no LLVM, no Vulkan drivers.

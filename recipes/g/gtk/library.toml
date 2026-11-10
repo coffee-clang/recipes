@@ -4,6 +4,9 @@ description = "GTK (GIMP Toolkit) is a cross-platform GUI toolkit for creating g
 license = "LGPL-2.1"
 canonical_name = "gtk"
 recipe_url = "https://download.gnome.org/sources/gtk/3.24/gtk-3.24.48.tar.xz"
+# sha256 evidence: https://download.gnome.org/sources/gtk/3.24/gtk-3.24.48.sha256sum
+sha256 = "d10ce9ea9df44c1016d8d1721f39e55d3d607fcfb85334aec0d236cdc9a70556"
+sha256_source = "upstream"
 output_type = "library"
 libname = ["gtk-3", "gdk-3", "gailutil-3"]
 include_dir = "include/gtk-3.0"

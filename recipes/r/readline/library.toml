@@ -4,6 +4,9 @@ description = "GNU Readline is a library for interactive command-line editing. I
 license = "GPL-3.0"
 canonical_name = "readline"
 recipe_url = "https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz"
+# sha256 evidence: https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz.sig; good sig Chet Ramey 7C0135FB088AAF6C66C650B9BB5869F064EA74AB; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "3feb7171f16a84ee82ca18a36d7b9be109a52c04f492a053331d7d1095007c35"
+sha256_source = "signature"
 output_type = "library"
 libname = ["readline", "history"]
 [dependencies]

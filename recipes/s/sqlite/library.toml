@@ -4,6 +4,9 @@ description = "SQLite is a small, fast, self-contained, high-reliability, full-f
 license = "PublicDomain"
 canonical_name = "sqlite"
 recipe_url = "https://www.sqlite.org/2024/sqlite-autoconf-3470200.tar.gz"
+# sha256 evidence: sqlite.org publishes SHA3-256 only for the current release (now 3.54.1); nothing for 3.47.2
+sha256 = "f1b2ee412c28d7472bc95ba996368d6f0cdcf00362affdadb27ed286c179540b"
+sha256_source = "tofu"
 output_type = "library"
 libname = "sqlite3"
 [dependencies]

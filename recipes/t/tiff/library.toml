@@ -4,6 +4,9 @@ description = "LibTIFF provides support for the Tag Image File Format (TIFF), a 
 license = "MIT"
 canonical_name = "tiff"
 recipe_url = "https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz"
+# sha256 evidence: https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz.sig; good sig Even Rouault B1FA7D81EEB8E66399178B9733EBBFC47B3DD87D; key: https://gitlab.com/rouault.gpg (maintainer GitLab profile on upstream forge)
+sha256 = "67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976"
+sha256_source = "signature"
 output_type = "library"
 libname = "tiff"
 [dependencies]

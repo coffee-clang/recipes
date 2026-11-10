@@ -4,6 +4,9 @@ description = "libXft is the X FreeType interface library, drawing anti-aliased 
 license = "HPND-sell-variant"
 canonical_name = "libxft"
 recipe_url = "https://www.x.org/releases/individual/lib/libXft-2.3.9.tar.xz"
+# sha256 evidence: https://www.x.org/releases/individual/lib/libXft-2.3.9.tar.xz.sig; good sig by 19882D92DDA4C400C22C0D56CC2AF4472167BE03; key from https://gitlab.freedesktop.org/dickey.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2025-April/003597.html
+sha256 = "60a25b78945ed6932635b3bb1899a517d31df7456e69867ffba27f89ff3976f5"
+sha256_source = "signature"
 output_type = "library"
 libname = "Xft"
 [dependencies]

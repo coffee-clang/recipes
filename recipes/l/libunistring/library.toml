@@ -4,6 +4,9 @@ description = "GNU libunistring provides functions for manipulating Unicode stri
 license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
 canonical_name = "libunistring"
 recipe_url = "https://ftp.gnu.org/gnu/libunistring/libunistring-1.5.tar.xz"
+# sha256 evidence: https://ftp.gnu.org/gnu/libunistring/libunistring-1.5.tar.xz.sig; good sig Bruno Haible E0FFBD975397F77A32AB76ECB6301D9E1BBEAC08; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "fe89007a8a414ae4790b816b86859e877d3ab135db3c37f06541ff7e85ac344b"
+sha256_source = "signature"
 output_type = "library"
 libname = "unistring"
 [dependencies]

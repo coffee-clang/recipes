@@ -4,6 +4,9 @@ description = "json-c provides a C library for parsing and manipulating JSON dat
 license = "MIT"
 canonical_name = "json_c"
 recipe_url = "https://s3.amazonaws.com/json-c_releases/releases/json-c-0.18.tar.gz"
+# sha256 evidence: no sha256/signature on S3 bucket or GitHub release json-c-0.18-20240915 (no assets)
+sha256 = "876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724"
+sha256_source = "tofu"
 output_type = "library"
 libname = "json-c"
 include_dir = "include/json-c"

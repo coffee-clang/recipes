@@ -4,6 +4,9 @@ description = "libepoxy is an OpenGL function pointer management library that re
 license = "MIT"
 canonical_name = "libepoxy"
 recipe_url = "https://download.gnome.org/sources/libepoxy/1.5/libepoxy-1.5.10.tar.xz"
+# sha256 evidence: https://download.gnome.org/sources/libepoxy/1.5/libepoxy-1.5.10.sha256sum
+sha256 = "072cda4b59dd098bba8c2363a6247299db1fa89411dc221c8b81b8ee8192e623"
+sha256_source = "upstream"
 output_type = "library"
 libname = "epoxy"
 notes = "Built with GLX only: EGL support needs Mesa's EGL headers, which the registry cannot build here. libGL is loaded at runtime, not linked."

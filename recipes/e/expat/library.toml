@@ -4,6 +4,9 @@ description = "Expat is a stream-oriented XML parser library written in C. It is
 license = "MIT"
 canonical_name = "expat"
 recipe_url = "https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.gz"
+# sha256 evidence: gpg sig https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.gz.asc; key CB8DE70A90CFBF6C3BF5CC5696262ACFFBD3AEC6 (Sebastian Pipping, maintainer) from https://github.com/hartwork.gpg
+sha256 = "fd03b7172b3bd7427a3e7a812063f74754f24542429b634e0db6511b53fb2278"
+sha256_source = "signature"
 output_type = "library"
 libname = "expat"
 [dependencies]

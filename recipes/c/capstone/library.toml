@@ -4,6 +4,9 @@ description = "Capstone is a lightweight multi-platform, multi-architecture disa
 license = "BSD-3-Clause"
 canonical_name = "capstone"
 recipe_url = "https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.3.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "3970c63ca1f8755f2c8e69b41432b710ff634f1b45ee4e5351defec4ec8e1753"
+sha256_source = "tofu"
 output_type = "library"
 libname = "capstone"
 include_dir = "include/capstone"

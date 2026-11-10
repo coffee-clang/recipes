@@ -4,6 +4,9 @@ description = "Mesa is an open-source implementation of the OpenGL, Vulkan, and 
 license = "MIT"
 canonical_name = "mesa"
 recipe_url = "https://archive.mesa3d.org/mesa-24.3.4.tar.xz"
+# sha256 evidence: https://archive.mesa3d.org/mesa-24.3.4.tar.xz.sig; good sig by 57551DE15B968F6341C248F68D8E31AFC32428A6; key from https://gitlab.freedesktop.org/eric.gpg
+sha256 = "e641ae27191d387599219694560d221b7feaa91c900bcec46bf444218ed66025"
+sha256_source = "signature"
 output_type = "library"
 libname = ["GL", "EGL", "gbm"]
 [dependencies]

@@ -4,6 +4,9 @@ description = "Argtable3 is an ANSI C library for parsing GNU-style command-line
 license = "BSD-3-Clause"
 canonical_name = "argtable3"
 recipe_url = "https://github.com/argtable/argtable3/archive/refs/tags/v3.3.1.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "8b28a4fb2cd621d8d16f34e30e1956aa488077f6a6b902e7fc9f07883e1519c1"
+sha256_source = "tofu"
 output_type = "library"
 libname = "argtable3"
 [dependencies]

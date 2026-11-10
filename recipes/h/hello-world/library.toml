@@ -4,6 +4,9 @@ description = "A trivial hello world C library for testing purposes"
 license = "MIT"
 canonical_name = "coffee_hello_world"
 recipe_url = "https://github.com/coffee-clang/hello-world/archive/refs/tags/1.0.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "01ca2197342384cbef65e26176f5d2ccfc9a88dfdf76480bb871f5aa38eaf137"
+sha256_source = "tofu"
 output_type = "library"
 libname = "hello"
 [dependencies]

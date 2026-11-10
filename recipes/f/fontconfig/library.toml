@@ -4,6 +4,9 @@ description = "Fontconfig is a library for configuring and customizing font acce
 license = "HPND-sell-variant"
 canonical_name = "fontconfig"
 recipe_url = "https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.3/fontconfig-2.18.3.tar.xz"
+# sha256 evidence: https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.3/fontconfig-2.18.3.tar.xz.sha256sum
+sha256 = "4f7b554a38cdf78c033f666c8871f3749e14a094f65a07f630c91ed0b43d35e3"
+sha256_source = "upstream"
 output_type = "both"
 libname = "fontconfig"
 [dependencies]

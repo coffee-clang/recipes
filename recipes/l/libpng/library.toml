@@ -4,6 +4,9 @@ description = "libpng is the official PNG reference library for reading and writ
 license = "libpng"
 canonical_name = "libpng"
 recipe_url = "https://download.sourceforge.net/libpng/libpng-1.6.46.tar.gz"
+# sha256 evidence: SourceForge publishes md5/sha1 only; no signature or sha256 found for 1.6.46 (SF or pnggroup GitHub release)
+sha256 = "c2b8ffb46f48331416e01f9e5c7169c7a2e08ad766b742742644e5fdf192e4a1"
+sha256_source = "tofu"
 output_type = "library"
 libname = "png16"
 [dependencies]

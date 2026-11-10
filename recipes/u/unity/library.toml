@@ -4,6 +4,9 @@ description = "Simple unit testing framework for C. Lightweight, with a single C
 license = "MIT"
 canonical_name = "unity"
 recipe_url = "https://github.com/ThrowTheSwitch/Unity/archive/refs/tags/v2.6.1.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "b41a66d45a6b99758fb3202ace6178177014d52fc524bf1f72687d93e9867292"
+sha256_source = "tofu"
 output_type = "library"
 libname = "unity"
 include_dir = "include/unity"

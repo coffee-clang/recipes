@@ -147,19 +147,32 @@ directory the suite owns. Asserting the system temp instead would be vacuous:
 whether or not the trap fired. A control test asserts the scratch directory
 *survives* with the trap removed, so the cleanup tests cannot go quiet again.
 
-**Not yet enforced: download integrity.** No recipe carries a checksum or
-signature, so a compromised mirror or upstream yields code execution as the
-invoking user. The natural fix is a `sha256` field on `library.toml` verified
-with `sha256sum -c` before extraction; it was deferred pending a decision on
-sourcing digests from upstream-published checksums rather than pinning whatever
-a first download happened to return.
+**Download integrity.** `library.toml` carries a required `sha256` and a
+`sha256_source`. The generated header downloads `$URL` to `$ARCHIVE` and runs
+`sha256sum -c` before any template code, so nothing from an archive is read
+unless its digest matches. Templates may not download anything themselves
+(`wget`, `curl`, `git clone` are refused at render time), which is why git
+recipes were moved to release tarballs: a clone cannot be checksummed.
+
+`sha256_source` records how far the pinned digest is trusted:
+
+- `signature`: the archive's upstream signature was verified with the
+  project's key when the digest was recorded
+- `upstream`: upstream publishes this sha256 (a `.sha256` file, SHA256SUMS,
+  release notes, or GitHub's release-asset digest), and it matched
+- `tofu`: nothing upstream to compare with (typically GitHub's generated
+  `archive/refs/tags/` tarballs); the digest of a first download is pinned
+
+Signatures are checked once, when a digest is recorded, not at install time:
+users need only `sha256sum`. When bumping a version, re-derive the digest from
+the strongest source available and update `sha256_source` to match.
 
 ## Current state
 
-- 117 recipes. Every template builds and installs into the prefix; there is no
-  fetch-only exemption left. Whether each one builds on a given host still
-  depends on that host's toolchain and system libraries, which the unit tests
-  cannot see.
+- Every template builds and installs into the prefix, and every download is
+  checked against a pinned sha256. Whether each one builds on a given host
+  still depends on that host's toolchain and system libraries, which the
+  unit tests cannot see.
 - `book.toml` sets `create-missing = false`, so a `SUMMARY.md` entry without a
   corresponding page fails the build rather than silently emitting an empty one.
 
@@ -177,11 +190,6 @@ Recorded here so they are not rediscovered as defects.
   generator fails partway through, a previously-good `SUMMARY.md` is deleted
   rather than left behind. Republishing a stale table is the worse failure, so
   the Makefile prefers a rebuild over a plausible-looking wrong page.
-- **`sha256` verification is absent.** No recipe pins a digest, so a compromised
-  upstream still yields code execution as the invoking user. The schema change is
-  straightforward; what is missing is a decision on sourcing digests from
-  upstream-published checksums rather than pinning whatever a first download
-  returned.
 - **The mdBook tarball digest is trust-on-first-use.** GitHub publishes no
   checksum for the v0.4.36 release, so the SHA-256 in
   `.github/workflows/build.yml` was taken from a first trusted download rather

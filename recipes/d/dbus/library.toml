@@ -4,6 +4,9 @@ description = "D-Bus is a message bus system for inter-process communication in 
 license = "GPL-2.0"
 canonical_name = "dbus"
 recipe_url = "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.0.tar.xz"
+# sha256 evidence: https://dbus.freedesktop.org/releases/dbus/dbus-1.16.0.tar.xz.sha256sum; .asc by 7A073AD1AE694FA25BFF62E5235C099D3EB33076 (Simon McVittie) not verifiable: no upstream key source found
+sha256 = "9f8ca5eb51cbe09951aec8624b86c292990ae2428b41b856e2bed17ec65c8849"
+sha256_source = "upstream"
 output_type = "library"
 libname = "dbus-1"
 include_dir = "include/dbus-1.0"

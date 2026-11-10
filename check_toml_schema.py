@@ -1,3 +1,4 @@
+import re
 import sys
 import tomllib
 from pathlib import PurePosixPath
@@ -18,6 +19,8 @@ MANDATORY_FIELDS = (
     "canonical_name",
     "output_type",
     "dependencies",
+    "sha256",
+    "sha256_source",
 )
 DEPENDENCIES_FIELD = "dependencies"
 # "data" installs files other builds read, such as protocol descriptions.
@@ -26,6 +29,12 @@ VALID_OUTPUT_TYPES = frozenset({"library", "executable", "both", "data"})
 # Output types a consumer links against, so they must say how: a libname for
 # -l<libname>, or header_only = true.
 LINKABLE_OUTPUT_TYPES = frozenset({"library", "both"})
+
+# The published script checks the download against sha256 before extracting.
+# sha256_source says how far the digest is trusted: published by upstream,
+# taken from a release whose signature was verified, or trust-on-first-use.
+SHA256 = re.compile(r"[0-9a-f]{64}")
+SHA256_SOURCES = ("upstream", "signature", "tofu")
 
 # Optional subdirectories of the install prefix, defaulting to include and lib.
 PREFIX_DIR_FIELDS = ("include_dir", "lib_dir")
@@ -78,6 +87,21 @@ def check_recipe(toml_file, data) -> list[str]:
         errors.append(f"{name}: {message}")
 
     errors.extend(f"{name}: {e}" for e in usage_errors(data))
+    errors.extend(f"{name}: {e}" for e in digest_errors(data))
+    return errors
+
+
+def digest_errors(data) -> list[str]:
+    """Return errors in the download digest fields, when present."""
+    errors = []
+    digest = data.get("sha256")
+    if digest is not None and not (isinstance(digest, str)
+                                   and SHA256.fullmatch(digest)):
+        errors.append("sha256 must be 64 lowercase hexadecimal digits")
+    source = data.get("sha256_source")
+    if source is not None and source not in SHA256_SOURCES:
+        errors.append(f"sha256_source must be one of "
+                      f"{', '.join(SHA256_SOURCES)}, got {source!r}")
     return errors
 
 

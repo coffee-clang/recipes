@@ -4,6 +4,9 @@ description = "wayland-protocols contains the XML definitions of Wayland protoco
 license = "MIT"
 canonical_name = "wayland_protocols"
 recipe_url = "https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.50/downloads/wayland-protocols-1.50.tar.xz"
+# sha256 evidence: https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.50/downloads/wayland-protocols-1.50.tar.xz.sig; good sig by A66D805F7C9329B4C5D82767CCC4F07FAC641EFF; key from https://gitlab.freedesktop.org/daniels.gpg; also https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.50/downloads/wayland-protocols-1.50.tar.xz.sha256sum
+sha256 = "4460c20cfcf68b994a5ee206ed15fc19ad312f16c96075186e83b0e3f4aa48a5"
+sha256_source = "signature"
 output_type = "data"
 [dependencies]
 

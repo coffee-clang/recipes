@@ -16,7 +16,10 @@ one place.
 - The header defines `PACKAGE` (the `canonical_name`), `VERSION`, `URL` (the
   `recipe_url`), `PREFIX`, and a scratch directory `WORK` that is removed on
   exit. The template body starts inside `WORK` and must not assign any of them.
-- The body downloads, builds in the scratch directory, and installs. Headers
+- The header downloads `$URL` to `$ARCHIVE` in the scratch directory and
+  checks it against the `sha256` in `library.toml` before anything else runs.
+  The template body extracts `$ARCHIVE`, builds, and installs; it may not
+  download anything itself. Headers
   end up in `$PREFIX/<include_dir>` and libraries in `$PREFIX/<lib_dir>`
   (`include` and `lib` unless `library.toml` says otherwise). Sources are never
   unpacked into the prefix, and the prefix is never deleted.

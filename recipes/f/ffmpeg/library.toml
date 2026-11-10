@@ -4,6 +4,9 @@ description = "FFmpeg is the leading multimedia framework for encoding, decoding
 license = "GPL-3.0"
 canonical_name = "ffmpeg"
 recipe_url = "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz"
+# sha256 evidence: https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz.asc; good sig FFmpeg release signing key FCF986EA15E6E293A5644F10B4322F04D67658D8; key: https://ffmpeg.org/ffmpeg-devel.asc
+sha256 = "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"
+sha256_source = "signature"
 output_type = "library"
 libname = ["avcodec", "avformat", "avutil", "avfilter", "avdevice", "swscale", "swresample", "postproc"]
 [dependencies]

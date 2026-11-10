@@ -4,6 +4,9 @@ description = "Simple Dynamic Strings library for C - a library for efficient dy
 license = "BSD-2-Clause"
 canonical_name = "sds"
 recipe_url = "https://github.com/antirez/sds/archive/refs/tags/2.0.0.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "379c88d31bf9957006130c00671c28612a8647d5f38ff09cb75efb7abf08f6bb"
+sha256_source = "tofu"
 output_type = "library"
 libname = "sds"
 [dependencies]

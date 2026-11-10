@@ -4,6 +4,9 @@ description = "SIMDe (SIMD Everywhere) provides portable SIMD intrinsics for x86
 license = "MIT"
 canonical_name = "simde"
 recipe_url = "https://github.com/simd-everywhere/simde/archive/refs/tags/v0.8.2.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "ed2a3268658f2f2a9b5367628a85ccd4cf9516460ed8604eed369653d49b25fb"
+sha256_source = "tofu"
 output_type = "library"
 header_only = true
 [dependencies]

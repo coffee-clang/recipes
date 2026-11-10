@@ -4,6 +4,9 @@ description = "ncurses is a programming library providing an API for building te
 license = "MIT"
 canonical_name = "ncurses"
 recipe_url = "https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz"
+# sha256 evidence: https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz.sig; good sig Thomas Dickey 19882D92DDA4C400C22C0D56CC2AF4472167BE03; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6"
+sha256_source = "signature"
 output_type = "library"
 libname = ["ncursesw", "formw", "menuw", "panelw"]
 [dependencies]

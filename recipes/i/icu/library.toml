@@ -4,6 +4,9 @@ description = "ICU (International Components for Unicode) provides Unicode and g
 license = "Unicode"
 canonical_name = "icu"
 recipe_url = "https://github.com/unicode-org/icu/releases/download/release-76-1/icu4c-76_1-src.tgz"
+# sha256 evidence: gpg sig https://github.com/unicode-org/icu/releases/download/release-76-1/icu4c-76_1-src.tgz.asc; key E52F07877A5805F9AF4AB0ACD46C5610D06E7001 from https://raw.githubusercontent.com/unicode-org/icu/main/KEYS
+sha256 = "dfacb46bfe4747410472ce3e1144bf28a102feeaa4e3875bac9b4c6cf30f4f3e"
+sha256_source = "signature"
 output_type = "library"
 libname = ["icuuc", "icui18n", "icudata"]
 [dependencies]

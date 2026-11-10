@@ -4,6 +4,9 @@ description = "libpsl is a C library for the Public Suffix List, used to check d
 license = "MIT"
 canonical_name = "libpsl"
 recipe_url = "https://github.com/rockdaboot/libpsl/releases/download/0.23.3/libpsl-0.23.3.tar.gz"
+# sha256 evidence: gpg sig https://github.com/rockdaboot/libpsl/releases/download/0.23.3/libpsl-0.23.3.tar.gz.sig; key 1CB27DBC98614B2D5841646D08302DB6A2670428 (Tim Ruehsen, maintainer) from https://github.com/rockdaboot.gpg; also GitHub asset digest matches
+sha256 = "93941f85a1e7bd593fa94f299233cb5dfc91cd144fd9a78a6ceb75001c5b03be"
+sha256_source = "signature"
 output_type = "library"
 libname = "psl"
 [dependencies]

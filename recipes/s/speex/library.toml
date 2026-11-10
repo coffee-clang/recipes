@@ -4,6 +4,9 @@ description = "Speex is a patent-free audio codec optimized for voice compressio
 license = "BSD-3-Clause"
 canonical_name = "speex"
 recipe_url = "https://downloads.xiph.org/releases/speex/speex-1.2.1.tar.gz"
+# sha256 evidence: https://downloads.xiph.org/releases/speex/speex-1.2.1.tar.gz.asc; good sig by D89B52F4A6B505890349ED5E127B10EED8765B47; key from https://gitlab.xiph.org/tmatth.gpg; also https://downloads.xiph.org/releases/speex/SHA256SUMS.txt
+sha256 = "4b44d4f2b38a370a2d98a78329fefc56a0cf93d1c1be70029217baae6628feea"
+sha256_source = "signature"
 output_type = "library"
 libname = "speex"
 [dependencies]

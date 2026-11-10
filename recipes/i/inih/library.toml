@@ -4,6 +4,9 @@ description = "inih (INI Not Invented Here) is a tiny INI file parser for C in a
 license = "BSD-3-Clause"
 canonical_name = "inih"
 recipe_url = "https://github.com/benhoyt/inih/archive/refs/tags/r56.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "4f2ba6bd122d30281a8c7a4d5723b7af90b56aa828c0e88256d7fceda03a491a"
+sha256_source = "tofu"
 output_type = "library"
 libname = "inih"
 [dependencies]

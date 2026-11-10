@@ -4,6 +4,9 @@ description = "libpcap is a system-independent interface for user-level packet c
 license = "BSD-3-Clause"
 canonical_name = "libpcap"
 recipe_url = "https://www.tcpdump.org/release/libpcap-1.10.5.tar.gz"
+# sha256 evidence: https://www.tcpdump.org/release/libpcap-1.10.5.tar.gz.sig; good sig Tcpdump Group 1F166A5742ABB9E0249A8D30E089DEF1D9C15D0D; key: https://www.tcpdump.org/release/signing-key.asc
+sha256 = "37ced90a19a302a7f32e458224a00c365c117905c2cd35ac544b6880a81488f0"
+sha256_source = "signature"
 output_type = "library"
 libname = "pcap"
 [dependencies]

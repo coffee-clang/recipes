@@ -4,6 +4,9 @@ description = "X11 (X Window System) is the foundation for graphical user interf
 license = "MIT"
 canonical_name = "x11"
 recipe_url = "https://x.org/archive/individual/lib/libX11-1.8.9.tar.xz"
+# sha256 evidence: https://x.org/archive/individual/lib/libX11-1.8.9.tar.xz.sig; good sig by 2F7DBCAD5B30E668BBD516C1CFDF148828C642A7; key from https://gitlab.freedesktop.org/alanc.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-April/003501.html
+sha256 = "779d8f111d144ef93e2daa5f23a762ce9555affc99592844e71c4243d3bd3262"
+sha256_source = "signature"
 output_type = "library"
 libname = "X11"
 [dependencies]

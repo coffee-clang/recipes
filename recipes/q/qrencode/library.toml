@@ -4,6 +4,9 @@ description = "QRencode is a fast QR code encoder library. It converts strings o
 license = "LGPL-2.1"
 canonical_name = "qrencode"
 recipe_url = "https://github.com/fukuchi/libqrencode/archive/refs/tags/v4.1.1.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "5385bc1b8c2f20f3b91d258bf8ccc8cf62023935df2d2676b5b67049f31a049c"
+sha256_source = "tofu"
 output_type = "library"
 libname = "qrencode"
 [dependencies]

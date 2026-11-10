@@ -4,6 +4,9 @@ description = "libXi is the client library for the X Input extension, providing 
 license = "MIT"
 canonical_name = "libxi"
 recipe_url = "https://www.x.org/releases/individual/lib/libXi-1.8.4.tar.xz"
+# sha256 evidence: SHA256 in https://lists.x.org/archives/xorg-announce/2026-October/003754.html; .sig by 3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2 (Alan Coopersmith new key) not verifiable: no upstream key source found
+sha256 = "ddd6057b89a91903bc2f884d55c8467440906945e482c36547260dff28661afc"
+sha256_source = "upstream"
 output_type = "library"
 libname = "Xi"
 [dependencies]

@@ -4,6 +4,9 @@ description = "Wayland is a display server protocol and library implementation. 
 license = "MIT"
 canonical_name = "wayland"
 recipe_url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.23.0/downloads/wayland-1.23.0.tar.xz"
+# sha256 evidence: https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.23.0/downloads/wayland-1.23.0.tar.xz.sig; good sig by 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48; key from https://gitlab.freedesktop.org/emersion.gpg; also https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.23.0/downloads/wayland-1.23.0.tar.xz.sha256sum
+sha256 = "05b3e1574d3e67626b5974f862f36b5b427c7ceeb965cb36a4e6c2d342e45ab2"
+sha256_source = "signature"
 output_type = "library"
 libname = ["wayland-client", "wayland-server"]
 [dependencies]

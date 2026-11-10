@@ -4,6 +4,9 @@ description = "libsndfile is a C library for reading and writing sampled audio f
 license = "LGPL-2.1-or-later"
 canonical_name = "libsndfile"
 recipe_url = "https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz"
+# sha256 evidence: gpg sig https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz.asc; key B8D5315DA00072C0A860889FCE36E117202E3842 (David Seifert, maintainer) from https://github.com/SoapGentoo.gpg
+sha256 = "3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e"
+sha256_source = "signature"
 output_type = "library"
 libname = "sndfile"
 [dependencies]

@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "gmp-$VERSION"
 # GMP 6.3.0's configure probes are not valid C23 (GCC 15's default), so

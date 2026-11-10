@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-git clone --depth 1 --branch "v$VERSION" "$URL" "$PACKAGE"
-cd "$PACKAGE"
+tar xzf "$ARCHIVE" --no-same-owner
+cd "cJSON-$VERSION"
 # Upstream's Makefile races under -j.
 make
 # The Makefile reads LIBRARY_PATH and INCLUDE_PATH with ?=, so a value

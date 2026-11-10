@@ -4,6 +4,9 @@ description = "libev is a high-performance event loop library offering the same 
 license = "BSD-2-Clause"
 canonical_name = "libev"
 recipe_url = "https://dist.schmorp.de/libev/libev-4.33.tar.gz"
+# sha256 evidence: https://dist.schmorp.de/libev/libev-4.33.tar.gz.sig (OpenBSD signify/Ed25519, verified with openssl pkeyutl); key: https://dist.schmorp.de/signing-key.pub (per https://dist.schmorp.de/signing-key.txt)
+sha256 = "507eb7b8d1015fbec5b935f34ebed15bf346bed04a11ab82b8eee848c4205aea"
+sha256_source = "signature"
 output_type = "library"
 libname = "ev"
 [dependencies]

@@ -60,16 +60,24 @@ HEADER = """\
 PACKAGE={package}
 VERSION={version}
 URL={url}
+SHA256={sha256}
 COFFEE_HOME="${{COFFEE_HOME:-$HOME/.coffee}}"
 PREFIX="${{1:-$COFFEE_HOME/$PACKAGE/$VERSION}}"
 case "$PREFIX" in /*) ;; *) PREFIX="$PWD/$PREFIX" ;; esac
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 cd "$WORK"
+ARCHIVE="$(basename "$URL")"
+wget -q "$URL"
+# Nothing from the archive is read until its digest matches library.toml.
+printf '%s  %s\\n' "$SHA256" "$ARCHIVE" | sha256sum -c --quiet -
 """
 
-HEADER_VARIABLES = ("PACKAGE", "VERSION", "URL", "COFFEE_HOME", "PREFIX",
-                    "WORK")
+HEADER_VARIABLES = ("PACKAGE", "VERSION", "URL", "SHA256", "COFFEE_HOME",
+                    "PREFIX", "WORK", "ARCHIVE")
+
+# Any fetch in a template would bypass the digest the header checks.
+DOWNLOAD = re.compile(r"^\s*(?:wget|curl)\b|\bgit\s+clone\b")
 
 
 def template_errors(template: str) -> list[str]:
@@ -84,6 +92,9 @@ def template_errors(template: str) -> list[str]:
         if name in HEADER_VARIABLES:
             errors.append(f"template assigns {name}, which the generated "
                           f"header owns: {line.strip()!r}")
+        if DOWNLOAD.search(line) and not line.lstrip().startswith("#"):
+            errors.append(f"template downloads outside the verified header "
+                          f"fetch: {line.strip()!r}")
     return errors
 
 
@@ -96,6 +107,7 @@ def render_install_script(template: str, data: dict) -> str:
         package=shlex.quote(data["canonical_name"]),
         version=shlex.quote(data["version"]),
         url=shlex.quote(data["recipe_url"]),
+        sha256=shlex.quote(data["sha256"]),
     )
     body = template[len(TEMPLATE_PREAMBLE):]
     return f"{TEMPLATE_PREAMBLE}\n{header}{body}"

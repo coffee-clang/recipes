@@ -4,6 +4,9 @@ description = "Jansson is a C library for encoding, decoding, and manipulating J
 license = "MIT"
 canonical_name = "jansson"
 recipe_url = "https://github.com/akheron/jansson/releases/download/v2.14/jansson-2.14.tar.gz"
+# sha256 evidence: gpg sig https://github.com/akheron/jansson/releases/download/v2.14/jansson-2.14.tar.gz.asc; key B5D6953E6D5059ED7ADA0F2FD3657D24D058434C (Petri Lehtinen, maintainer) from https://github.com/akheron.gpg
+sha256 = "5798d010e41cf8d76b66236cfb2f2543c8d082181d16bc3085ab49538d4b9929"
+sha256_source = "signature"
 output_type = "library"
 libname = "jansson"
 [dependencies]

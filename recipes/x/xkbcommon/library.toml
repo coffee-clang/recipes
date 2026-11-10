@@ -4,6 +4,9 @@ description = "xkbcommon is a keyboard handling library providing a portable way
 license = "MIT"
 canonical_name = "xkbcommon"
 recipe_url = "https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-1.5.0.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "053e6a6a2c3179eba20c3ada827fb8833a6663b7ffd278fdb8530c3cbf924780"
+sha256_source = "tofu"
 output_type = "library"
 libname = ["xkbcommon", "xkbcommon-x11"]
 [dependencies]

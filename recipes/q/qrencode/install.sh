@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xzf "$ARCHIVE" --no-same-owner
 cd "libqrencode-$VERSION"
 # CMakeLists.txt asks for a CMake version that CMake 4 no longer accepts.

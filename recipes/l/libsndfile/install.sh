@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e -o pipefail -u
 
-ARCHIVE="$(basename "$URL")"
-wget -q "$URL"
 tar xJf "$ARCHIVE" --no-same-owner
 cd "libsndfile-$VERSION"
 # The bundled ALAC code defines its own bool, which C23 (GCC 15) rejects.

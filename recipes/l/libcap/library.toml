@@ -4,6 +4,9 @@ description = "libcap provides an interface to the POSIX 1003.1e capabilities av
 license = "BSD-3-Clause OR GPL-2.0-only"
 canonical_name = "libcap"
 recipe_url = "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.78.tar.xz"
+# sha256 evidence: https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.78.tar.sign (over uncompressed tar); good sig Andrew G. Morgan 38A644698C69787344E954CE29EE848AE2CCF3F4; key: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/29EE848AE2CCF3F4.asc
+sha256 = "0d621e562fd932ccf67b9660fb018e468a683d7b827541df27813228c996bb11"
+sha256_source = "signature"
 output_type = "library"
 libname = ["cap", "psx"]
 [dependencies]

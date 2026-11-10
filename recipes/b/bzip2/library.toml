@@ -4,6 +4,9 @@ description = "bzip2 is a free, open-source lossless compression library known f
 license = "bzip2"
 canonical_name = "bzip2"
 recipe_url = "https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
+# sha256 evidence: https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz.sig; good sig Mark Wielaard 12768A96795990107A0D2FDFFC57E3CCACD99A78; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
+sha256_source = "signature"
 output_type = "library"
 libname = "bz2"
 [dependencies]

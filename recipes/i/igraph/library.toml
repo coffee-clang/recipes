@@ -4,6 +4,9 @@ description = "igraph is a C library for complex network analysis and graph theo
 license = "GPL-2.0"
 canonical_name = "igraph"
 recipe_url = "https://github.com/igraph/igraph/releases/download/0.10.15/igraph-0.10.15.tar.gz"
+# sha256 evidence: release asset with no signature, checksum file, digest field or digest in release notes
+sha256 = "03ba01db0544c4e32e51ab66f2356a034394533f61b4e14d769b9bbf5ad5e52c"
+sha256_source = "tofu"
 output_type = "library"
 libname = "igraph"
 include_dir = "include/igraph"

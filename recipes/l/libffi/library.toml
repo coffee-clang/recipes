@@ -4,6 +4,9 @@ description = "libffi is a portable foreign function interface library that lets
 license = "MIT"
 canonical_name = "libffi"
 recipe_url = "https://github.com/libffi/libffi/releases/download/v3.4.6/libffi-3.4.6.tar.gz"
+# sha256 evidence: release asset with no signature, checksum file, digest field or digest in release notes
+sha256 = "b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e"
+sha256_source = "tofu"
 output_type = "library"
 libname = "ffi"
 [dependencies]

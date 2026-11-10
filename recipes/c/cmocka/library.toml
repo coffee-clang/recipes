@@ -4,6 +4,9 @@ description = "cmocka is an elegant unit testing framework for C with support fo
 license = "Apache-2.0"
 canonical_name = "cmocka"
 recipe_url = "https://git.cryptomilk.org/projects/cmocka.git/snapshot/cmocka-1.1.7.tar.gz"
+# sha256 evidence: cgit snapshot, no upstream digest; official signed release is https://cmocka.org/files/1.1/cmocka-1.1.7.tar.xz(.asc)
+sha256 = "9756a1c9987a616fe5f152515b9da49d5a6dd6ef0ca01d3e58cf1b370fb0fa90"
+sha256_source = "tofu"
 output_type = "library"
 libname = "cmocka"
 [dependencies]

@@ -4,6 +4,9 @@ description = "The attr library provides extended attributes support for filesys
 license = "LGPL-2.1"
 canonical_name = "attr"
 recipe_url = "https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.gz"
+# sha256 evidence: https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.gz.sig; good sig Mike Frysinger B902B5271325F892AC251AD441633B9FE837F581; key: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/41633B9FE837F581.asc (savannah group release keyring empty)
+sha256 = "39bf67452fa41d0948c2197601053f48b3d78a029389734332a6309a680c6c87"
+sha256_source = "signature"
 output_type = "library"
 libname = "attr"
 [dependencies]

@@ -4,6 +4,9 @@ description = "BLAS (Basic Linear Algebra Subprograms) is a specification for li
 license = "BSD-3-Clause"
 canonical_name = "blas"
 recipe_url = "https://github.com/Reference-LAPACK/lapack/archive/refs/tags/v3.12.0.tar.gz"
+# sha256 evidence: GitHub auto-generated archive, no upstream digest
+sha256 = "eac9570f8e0ad6f30ce4b963f4f033f0f643e7c3912fc9ee6cd99120675ad48b"
+sha256_source = "tofu"
 output_type = "library"
 libname = ["cblas", "blas"]
 [dependencies]

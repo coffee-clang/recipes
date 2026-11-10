@@ -4,6 +4,9 @@ description = "ZeroMQ (0MQ) is a high-performance asynchronous messaging library
 license = "LGPL-3.0"
 canonical_name = "zeromq"
 recipe_url = "https://github.com/zeromq/libzmq/releases/download/v4.3.5/zeromq-4.3.5.tar.gz"
+# sha256 evidence: no sha256 upstream; SHA1SUMS release asset lists bdbf686c8a40ba638e21cf74e34dbb425e108500 (sha1 not counted) (sha1 of download: bdbf686c8a40ba638e21cf74e34dbb425e108500)
+sha256 = "6653ef5910f17954861fe72332e68b03ca6e4d9c7160eb3a8de5a5a913bfab43"
+sha256_source = "tofu"
 output_type = "library"
 libname = "zmq"
 [dependencies]

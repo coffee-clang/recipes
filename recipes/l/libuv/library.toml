@@ -4,6 +4,9 @@ description = "libuv is a multi-platform support library for async I/O operation
 license = "MIT"
 canonical_name = "libuv"
 recipe_url = "https://dist.libuv.org/dist/v1.49.2/libuv-v1.49.2.tar.gz"
+# sha256 evidence: https://dist.libuv.org/dist/v1.49.2/libuv-v1.49.2.tar.gz.sign; good sig Santiago Gimeno 612F0EAD9401622379DF4402F28C3C8DA33C03BE; key: git tag pubkey-santigimeno in https://github.com/libuv/libuv (per MAINTAINERS.md)
+sha256 = "8c10706bd2cf129045c42b94799a92df9aaa75d05f07e99cf083507239bae5a8"
+sha256_source = "signature"
 output_type = "library"
 libname = "uv"
 [dependencies]

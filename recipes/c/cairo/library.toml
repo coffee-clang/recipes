@@ -4,6 +4,9 @@ description = "Cairo is a 2D graphics library supporting multiple output targets
 license = "LGPL-2.1"
 canonical_name = "cairo"
 recipe_url = "https://www.cairographics.org/releases/cairo-1.18.2.tar.xz"
+# sha256 evidence: https://www.cairographics.org/releases/cairo-1.18.2.tar.xz.sha256sum.asc (inline-signed sha256sum, lists baseline); good sig by 53EF3DC3B63E2899271BD26322E8091EEA11BBB7; key from https://gitlab.gnome.org/ebassi.gpg (cairo maintainer's GNOME GitLab profile)
+sha256 = "a62b9bb42425e844cc3d6ddde043ff39dbabedd1542eba57a2eb79f85889d45a"
+sha256_source = "signature"
 output_type = "library"
 libname = "cairo"
 include_dir = "include/cairo"

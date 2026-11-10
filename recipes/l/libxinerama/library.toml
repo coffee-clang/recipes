@@ -4,6 +4,9 @@ description = "libXinerama is the client library for the Xinerama extension, whi
 license = "MIT"
 canonical_name = "libxinerama"
 recipe_url = "https://www.x.org/releases/individual/lib/libXinerama-1.1.6.tar.xz"
+# sha256 evidence: SHA256 in https://lists.x.org/archives/xorg-announce/2026-January/003661.html; .sig by 3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2 (Alan Coopersmith new key) not verifiable: no upstream key source found
+sha256 = "d00fc1599c303dc5cbc122b8068bdc7405d6fcb19060f4597fc51bd3a8be51d7"
+sha256_source = "upstream"
 output_type = "library"
 libname = "Xinerama"
 [dependencies]

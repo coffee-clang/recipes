@@ -4,6 +4,9 @@ description = "Nettle is a low-level cryptographic library providing implementat
 license = "LGPL-2.1"
 canonical_name = "nettle"
 recipe_url = "https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz"
+# sha256 evidence: https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz.sig; good sig Niels Moller 343C2FF0FBEE5EC2EDBEF399F3599FF828C67298; key: https://ftp.gnu.org/gnu/gnu-keyring.gpg
+sha256 = "b4c518adb174e484cb4acea54118f02380c7133771e7e9beb98a0787194ee47c"
+sha256_source = "signature"
 output_type = "library"
 libname = ["nettle", "hogweed"]
 [dependencies]

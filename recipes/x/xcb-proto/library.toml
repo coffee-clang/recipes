@@ -4,6 +4,9 @@ description = "xcb-proto provides the XML descriptions of the X11 protocol and t
 license = "MIT"
 canonical_name = "xcb_proto"
 recipe_url = "https://www.x.org/releases/individual/proto/xcb-proto-1.17.0.tar.xz"
+# sha256 evidence: SHA256 in https://lists.x.org/archives/xorg-announce/2024-April/003506.html; .sig good by subkey 16238A7D92448B02B7B10344B6B1CEAE5103DB07 of 3BB639E56F861FA2E86505690FDD682D974CA72A but key only via WKD mattst88@gentoo.org (not project domain)
+sha256 = "2c1bacd2110f4799f74de6ebb714b94cf6f80fb112316b1219480fd22562148c"
+sha256_source = "upstream"
 output_type = "data"
 [dependencies]
 

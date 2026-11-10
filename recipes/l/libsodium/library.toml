@@ -4,6 +4,9 @@ description = "libsodium is a modern, easy-to-use library for encryption, decryp
 license = "ISC"
 canonical_name = "libsodium"
 recipe_url = "https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz"
+# sha256 evidence: minisign sig https://github.com/jedisct1/libsodium/releases/download/1.0.20-RELEASE/libsodium-1.0.20.tar.gz.minisig (sig+global sig verified via python cryptography); pubkey RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3 from https://raw.githubusercontent.com/jedisct1/libsodium-doc/master/installation/README.md
+sha256 = "ebb65ef6ca439333c2bb41a0c1990587288da07f6c7fd07cb3a18cc18d30ce19"
+sha256_source = "signature"
 output_type = "library"
 libname = "sodium"
 [dependencies]

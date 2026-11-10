@@ -4,6 +4,9 @@ description = "libexif is a library for parsing, editing, and saving EXIF metada
 license = "LGPL-2.1"
 canonical_name = "exif"
 recipe_url = "https://github.com/libexif/libexif/releases/download/v0.6.24/libexif-0.6.24.tar.bz2"
+# sha256 evidence: signed (.asc, key 7C4AFD61D8AAE7570796A5172209D6902F969C95) but no upstream-controlled key source found; sig verifies GOOD only with keyserver.ubuntu.com copy of the key (not counted)
+sha256 = "d47564c433b733d83b6704c70477e0a4067811d184ec565258ac563d8223f6ae"
+sha256_source = "tofu"
 output_type = "library"
 libname = "exif"
 [dependencies]

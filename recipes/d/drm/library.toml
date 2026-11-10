@@ -4,6 +4,9 @@ description = "Direct Rendering Manager (DRM) provides user-space libraries for 
 license = "MIT"
 canonical_name = "libdrm"
 recipe_url = "https://dri.freedesktop.org/libdrm/libdrm-2.4.120.tar.xz"
+# sha256 evidence: https://dri.freedesktop.org/libdrm/libdrm-2.4.120.tar.xz.sig; good sig by 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48; key from https://gitlab.freedesktop.org/emersion.gpg; also matches SHA256 in https://lists.x.org/archives/xorg-announce/2024-January/003441.html
+sha256 = "3bf55363f76c7250946441ab51d3a6cc0ae518055c0ff017324ab76cdefb327a"
+sha256_source = "signature"
 output_type = "library"
 libname = "drm"
 include_dir = "include/libdrm"

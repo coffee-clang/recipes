@@ -4,6 +4,9 @@ description = "libXfixes is the client library for the XFIXES extension, which a
 license = "MIT"
 canonical_name = "libxfixes"
 recipe_url = "https://www.x.org/releases/individual/lib/libXfixes-6.0.2.tar.xz"
+# sha256 evidence: SHA256 in https://lists.x.org/archives/xorg-announce/2025-September/003626.html; .sig by 3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2 (Alan Coopersmith new key) not verifiable: no upstream key source found
+sha256 = "39f115d72d9c5f8111e4684164d3d68cc1fd21f9b27ff2401b08fddfc0f409ba"
+sha256_source = "upstream"
 output_type = "library"
 libname = "Xfixes"
 [dependencies]

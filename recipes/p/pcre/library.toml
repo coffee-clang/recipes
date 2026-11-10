@@ -4,6 +4,9 @@ description = "PCRE (Perl Compatible Regular Expressions) is a library implement
 license = "BSD"
 canonical_name = "pcre"
 recipe_url = "https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz"
+# sha256 evidence: https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz.sig; good sig Philip Hazel 45F68D54BBE23FB3039B46E59766E084FB0F43D8; fingerprint published in https://github.com/PCRE2Project/pcre2/blob/master/SECURITY.md, key fetched from keyserver.ubuntu.com
+sha256 = "4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09"
+sha256_source = "signature"
 output_type = "library"
 libname = "pcre"
 [dependencies]

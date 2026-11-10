@@ -78,7 +78,9 @@ version = "1.0.0"
 description = "One-line description."
 license = "LicenseName"
 canonical_name = "package_name"
-recipe_url = "https://..."
+recipe_url = "https://..."  # a release archive, never a git URL
+sha256 = "..."            # 64 lowercase hex digits, checked before extraction
+sha256_source = "upstream"  # signature | upstream | tofu, see ARCHITECTURE.md
 output_type = "library"   # library | executable | both | data
 libname = "z"             # -lz; a list for several libraries
 # header_only = true      # instead of libname, for header-only packages
@@ -146,8 +148,9 @@ recipes/
 2. Add `library.toml` with metadata
 3. Add an `install.sh` template following the contract in README.md: the
    lines `#!/bin/bash` and `set -e -o pipefail -u`, then a body that reads
-   `$PACKAGE`, `$VERSION`, `$URL` and `$PREFIX` (never assigns them), builds in
-   the current scratch directory and installs into `$PREFIX`. Extract with
+   `$PACKAGE`, `$VERSION`, `$ARCHIVE` and `$PREFIX` (never assigns them),
+   extracts the already verified `$ARCHIVE`, builds in the current scratch
+   directory and installs into `$PREFIX`. It never downloads anything. Extract with
    `tar <op> "$ARCHIVE" --no-same-owner` — the flag goes *after* the archive,
    because `f` takes the next argument as its filename.
 4. `chmod +x install.sh`; `test_install_script_execution.py` fails if it is not

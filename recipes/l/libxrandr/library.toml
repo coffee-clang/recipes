@@ -4,6 +4,9 @@ description = "libXrandr is the client library for the RandR extension, used to 
 license = "MIT"
 canonical_name = "libxrandr"
 recipe_url = "https://www.x.org/releases/individual/lib/libXrandr-1.5.5.tar.xz"
+# sha256 evidence: SHA256 in https://lists.x.org/archives/xorg-announce/2026-January/003664.html; .sig by 3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2 (Alan Coopersmith new key) not verifiable: no upstream key source found
+sha256 = "72b922c2e765434e9e9f0960148070bd4504b288263e2868a4ccce1b7cf2767a"
+sha256_source = "upstream"
 output_type = "library"
 libname = "Xrandr"
 [dependencies]

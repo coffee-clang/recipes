@@ -4,6 +4,9 @@ description = "nghttp2 is an implementation of HTTP/2 protocol framing for C. It
 license = "MIT"
 canonical_name = "nghttp2"
 recipe_url = "https://github.com/nghttp2/nghttp2/releases/download/v1.62.1/nghttp2-1.62.1.tar.gz"
+# sha256 evidence: gpg sig https://github.com/nghttp2/nghttp2/releases/download/v1.62.1/nghttp2-1.62.1.tar.gz.asc; key 516B622918D15C478AB1EA3A5339A2BE82E07DEC (Tatsuhiro Tsujikawa, maintainer) from https://github.com/tatsuhiro-t.gpg; also matches https://github.com/nghttp2/nghttp2/releases/download/v1.62.1/checksums.txt
+sha256 = "d0b0b9d00500ee4aa3bfcac00145d3b1ef372fd301c35bff96cf019c739db1b4"
+sha256_source = "signature"
 output_type = "library"
 libname = "nghttp2"
 [dependencies]

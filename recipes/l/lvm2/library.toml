@@ -4,6 +4,9 @@ description = "LVM2 is the Linux logical volume manager. This recipe builds only
 license = "LGPL-2.1-only"
 canonical_name = "lvm2"
 recipe_url = "https://sourceware.org/pub/lvm2/LVM2.2.03.44.tgz"
+# sha256 evidence: https://sourceware.org/pub/lvm2/LVM2.2.03.44.tgz.asc; good sig Marian Csontos D501A478440AE2FD130A1BE8B9112431E509039F; key: https://sourceware.org/pub/lvm2/mcsontos.pubkey.asc
+sha256 = "42f829927d2d459f5733fcdb38a5bf2455a8b84072193092450a9c69d6596eca"
+sha256_source = "signature"
 output_type = "library"
 libname = "devmapper"
 [dependencies]

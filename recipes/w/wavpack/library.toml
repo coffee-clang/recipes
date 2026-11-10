@@ -3,7 +3,10 @@ version = "5.7.0"
 description = "WavPack is a free, open-source audio codec providing both lossless and lossy compression. It offers excellent quality and is used by audio production software and music collection management."
 license = "BSD-3-Clause"
 canonical_name = "wavpack"
-recipe_url = "https://github.com/dbry/WavPack.git"
+recipe_url = "https://github.com/dbry/WavPack/releases/download/5.7.0/wavpack-5.7.0.tar.xz"
+# sha256 evidence: release asset with no signature, checksum file, digest field or digest in release notes
+sha256 = "e81510fd9ec5f309f58d5de83e9af6c95e267a13753d7e0bbfe7b91273a88bee"
+sha256_source = "tofu"
 output_type = "library"
 libname = "wavpack"
 [dependencies]

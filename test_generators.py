@@ -15,6 +15,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import hashlib
 import shutil
 import stat
 import subprocess
@@ -23,6 +24,7 @@ import generate_mdbook_src
 import generate_packages
 from recipe_metadata import RECIPES_DIR, recipe_files, recipe_usage
 from recipe_script import TEMPLATE_PREAMBLE, render_install_script
+from test_install_script_execution import WGET_SHIM, make_tarball
 
 LIB = {
     "title": "Zlib",
@@ -285,77 +287,115 @@ TEMPLATE = TEMPLATE_PREAMBLE + 'echo "$PACKAGE|$VERSION|$URL|$PREFIX"\n'
 class TestInstallScriptRendering(unittest.TestCase):
     """The published install.sh is the repo template plus a generated header.
 
-    library.toml is the one place that names the version and URL; the template
-    only reads $PACKAGE, $VERSION, $URL and $PREFIX.
+    library.toml is the one place that names the version, URL and digest; the
+    header downloads and verifies the archive, and the template only reads
+    $PACKAGE, $VERSION, $URL, $ARCHIVE and $PREFIX. Downloads are served from a
+    local tarball by the same wget shim the execution tests use.
     """
 
     def setUp(self):
-        if shutil.which("bash") is None:
-            self.skipTest("bash is not installed")
+        if shutil.which("bash") is None or shutil.which("sha256sum") is None:
+            self.skipTest("bash and sha256sum are required")
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
         self.root = Path(self._tmp.name)
+        self.bin = self.root / "bin"
+        self.bin.mkdir()
+        (self.bin / "wget").write_text(WGET_SHIM)
+        (self.bin / "wget").chmod(0o755)
+        archive = make_tarball(self.root)
+        self.url = f"file://{archive}"
+        self.base = lib(recipe_url=self.url,
+                        sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),
+                        sha256_source="upstream")
 
-    def run_rendered(self, data, *args, template=TEMPLATE):
+    def run_rendered(self, *args, template=TEMPLATE, **overrides):
         script = self.root / "install.sh"
-        script.write_text(render_install_script(template, data))
+        script.write_text(render_install_script(template,
+                                                {**self.base, **overrides}))
         env = {**os.environ, "COFFEE_HOME": str(self.root / "coffee"),
-               "TMPDIR": str(self.root)}
+               "TMPDIR": str(self.root),
+               "PATH": f"{self.bin}{os.pathsep}{os.environ['PATH']}"}
         return subprocess.run(["bash", str(script), *args], cwd=self.root,
                               capture_output=True, text=True, env=env)
 
     def test_header_takes_name_version_and_url_from_the_recipe(self):
-        result = self.run_rendered(lib())
+        result = self.run_rendered()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(
             result.stdout.strip(),
-            f"zlib|1.3.1|https://example.com/zlib.tar.gz|"
-            f"{self.root}/coffee/zlib/1.3.1",
+            f"zlib|1.3.1|{self.url}|{self.root}/coffee/zlib/1.3.1",
         )
 
     def test_package_is_the_canonical_name_not_the_title(self):
-        result = self.run_rendered(lib(title="Zlib", canonical_name="z_lib"))
+        result = self.run_rendered(title="Zlib", canonical_name="z_lib")
         self.assertTrue(result.stdout.startswith("z_lib|"), result.stdout)
 
     def test_first_argument_overrides_the_prefix(self):
-        result = self.run_rendered(lib(), "/opt/zlib")
+        result = self.run_rendered("/opt/zlib")
         self.assertTrue(result.stdout.strip().endswith("|/opt/zlib"))
 
     def test_a_relative_prefix_is_made_absolute(self):
         # The body runs in a scratch directory, so a relative prefix would
         # otherwise install into it and be deleted on exit.
-        result = self.run_rendered(lib(), "relative/dir")
+        result = self.run_rendered("relative/dir")
         self.assertTrue(
             result.stdout.strip().endswith(f"|{self.root}/relative/dir"),
             result.stdout)
 
     def test_body_runs_in_a_scratch_directory_removed_on_exit(self):
-        result = self.run_rendered(
-            lib(), template=TEMPLATE_PREAMBLE + "pwd\n")
+        result = self.run_rendered(template=TEMPLATE_PREAMBLE + "pwd\n")
         self.assertEqual(result.returncode, 0, result.stderr)
         scratch = Path(result.stdout.strip())
         self.assertNotEqual(scratch, self.root)
         self.assertTrue(scratch.is_relative_to(self.root))
         self.assertFalse(scratch.exists())
 
+    def test_the_verified_archive_is_in_the_scratch_directory(self):
+        result = self.run_rendered(
+            template=TEMPLATE_PREAMBLE + 'tar tzf "$ARCHIVE" --no-same-owner\n')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("payload.txt", result.stdout)
+
+    def test_a_digest_mismatch_stops_before_the_body_runs(self):
+        marker = self.root / "body-ran"
+        result = self.run_rendered(
+            template=TEMPLATE_PREAMBLE + f'touch "{marker}"\n',
+            sha256="0" * 64)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(marker.exists(), "body ran on an unverified archive")
+        self.assertFalse((self.root / "coffee").exists())
+
     def test_metadata_is_quoted_not_executed(self):
         evil = 'x"; touch pwned; echo "'
-        result = self.run_rendered(lib(version=evil, recipe_url="$(id)"))
+        result = self.run_rendered(version=evil)
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn(f"|{evil}|$(id)|", result.stdout)
+        self.assertIn(f"|{evil}|", result.stdout)
         self.assertFalse((self.root / "pwned").exists())
+        text = render_install_script(TEMPLATE, {**self.base,
+                                                "recipe_url": "$(id)"})
+        self.assertIn("URL='$(id)'", text)
 
     def test_template_must_start_with_the_preamble(self):
         with self.assertRaisesRegex(ValueError, "set -e -o pipefail -u"):
-            render_install_script("#!/bin/bash\necho hi\n", lib())
+            render_install_script("#!/bin/bash\necho hi\n", self.base)
+
+    def test_template_may_not_download(self):
+        # The header's fetch is the only one the digest covers.
+        for line in ('wget -q "$URL"', 'curl -LO "$URL"',
+                     'git clone "$URL" src', '  wget https://x/y.tar.gz'):
+            with self.subTest(line=line):
+                with self.assertRaisesRegex(ValueError, "download"):
+                    render_install_script(TEMPLATE_PREAMBLE + line + "\n",
+                                          self.base)
 
     def test_template_may_not_assign_a_header_variable(self):
         for var in ("PACKAGE", "VERSION", "URL", "PREFIX", "COFFEE_HOME",
-                    "WORK"):
+                    "WORK", "ARCHIVE", "SHA256"):
             with self.subTest(var=var):
                 with self.assertRaisesRegex(ValueError, var):
                     render_install_script(
-                        TEMPLATE_PREAMBLE + f'{var}="x"\n', lib())
+                        TEMPLATE_PREAMBLE + f'{var}="x"\n', self.base)
 
     def test_main_publishes_the_rendered_script_executable(self):
         out = self.root / "src"
