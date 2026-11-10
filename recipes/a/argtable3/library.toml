@@ -3,10 +3,10 @@ version = "3.3.1"
 description = "Argtable3 is an ANSI C library for parsing GNU-style command-line options with a declarative API, automatic error handling, and usage text generation."
 license = "BSD-3-Clause"
 canonical_name = "argtable3"
-recipe_url = "https://github.com/argtable/argtable3/archive/refs/tags/v3.3.1.tar.gz"
-# sha256 evidence: GitHub auto-generated archive, no upstream digest
-sha256 = "8b28a4fb2cd621d8d16f34e30e1956aa488077f6a6b902e7fc9f07883e1519c1"
-sha256_source = "tofu"
+recipe_url = "https://github.com/argtable/argtable3/releases/download/v3.3.1/argtable-v3.3.1.tar.gz"
+# sha256 evidence: GitHub release-asset digest of argtable-v3.3.1.tar.gz (api.github.com/repos/argtable/argtable3/releases/tags/v3.3.1)
+sha256 = "c08bca4b88ddb9234726b75455b3b1670d7c864d8daf198eaa7a3b4d41addf2c"
+sha256_source = "upstream"
 output_type = "library"
 libname = "argtable3"
 [dependencies]
