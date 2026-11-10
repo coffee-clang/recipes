@@ -6,7 +6,7 @@ cd "systemd-$VERSION"
 # Only libudev is wanted: configure systemd with optional features off, build
 # the one library target and install it by hand. "meson install" would install
 # all of systemd, including files under /etc and /usr/lib/systemd.
-meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release \
+meson setup build --wrap-mode=nodownload --prefix="$PREFIX" --libdir=lib --buildtype=release \
     -Dmode=release -Dtests=false -Dman=disabled -Dhtml=disabled \
     -Dtranslations=false -Dselinux=disabled -Dapparmor=disabled \
     -Dlibcryptsetup=disabled -Dpam=disabled -Dacl=disabled -Daudit=disabled \

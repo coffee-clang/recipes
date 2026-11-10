@@ -105,12 +105,12 @@ The enforced shape:
 - build in `WORK` and install into `$PREFIX`; never unpack sources into the
   prefix, never delete it (it may be a directory the user named, such as
   `/usr/local`), and pin CMake and Meson to `lib` rather than `lib64`
-- `meson setup --wrap-mode=nofallback`: otherwise Meson silently substitutes a
-  bundled or downloaded copy for a missing dependency. fontconfig's gperf wrap,
-  for one, clones an unpinned git branch, which is an unverified download
-  outside `$URL`. `--wrap-mode=nodownload` is the one alternative, for a
-  release tarball that vendors subprojects with no recipe (criterion): it
-  builds them from the tarball and never fetches
+- `meson setup --wrap-mode=nodownload`: otherwise Meson fetches a missing
+  dependency or program from a wrap file. fontconfig's gperf wrap, for one,
+  clones an unpinned git branch: an unverified download outside `$URL`.
+  `nofallback` is not enough, since it does not cover `find_program()`
+  fallbacks. Under `nodownload`, subprojects build only from sources inside
+  the checksummed archive (criterion vendors several)
 
 The lint suites run on the *rendered* scripts, since those are what users
 execute. `test_install_scripts.py::TestInstallContract` checks the templates

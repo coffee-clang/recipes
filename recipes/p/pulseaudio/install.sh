@@ -3,7 +3,7 @@ set -e -o pipefail -u
 
 tar xJf "$ARCHIVE" --no-same-owner
 cd "pulseaudio-$VERSION"
-meson setup build --wrap-mode=nofallback --prefix="$PREFIX" --libdir=lib --buildtype=release \
+meson setup build --wrap-mode=nodownload --prefix="$PREFIX" --libdir=lib --buildtype=release \
     -Ddaemon=false -Dclient=true -Dtests=false -Ddoxygen=false -Dman=false \
     -Dglib=enabled -Ddatabase=simple -Dbashcompletiondir=no -Dzshcompletiondir=no \
     -Ddbus=enabled -Dsystemd=disabled -Dx11=disabled

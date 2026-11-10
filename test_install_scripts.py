@@ -948,6 +948,25 @@ SOURCE_INTO_PREFIX = re.compile(
     r'^\s*(?:tar\s.*-C\s*"\$PREFIX"|mv\s.*"\$PREFIX"\s*$)', re.M)
 
 
+# The configure commands that must pin lib over lib64, and the pin each needs.
+LIBDIR_PINS = {
+    r"cmake\s+(?!--)": "-DCMAKE_INSTALL_LIBDIR=lib",
+    r"meson\s+setup\b": "--libdir=lib",
+}
+
+
+def joined_commands(text: str, pattern: str) -> list[str]:
+    """Return each command starting with pattern, joined across \\ lines."""
+    joined = re.sub(r"\\\n", " ", text)
+    return re.findall(r"^\s*(?:" + pattern + r").*$", joined, re.M)
+
+
+def libdir_pins(text: str) -> list[tuple[str, str]]:
+    """Return (command, required pin) for every configure command in text."""
+    return [(command, pin) for pattern, pin in LIBDIR_PINS.items()
+            for command in joined_commands(text, pattern)]
+
+
 class TestInstallContract(unittest.TestCase):
     """What every template must do: build, then install into $PREFIX.
 
@@ -984,34 +1003,42 @@ class TestInstallContract(unittest.TestCase):
     def test_build_systems_install_into_lib_not_lib64(self):
         # coffee looks in $PREFIX/<lib_dir>, which defaults to lib. CMake's
         # GNUInstallDirs and Meson pick lib64 or a multiarch path otherwise.
-        pins = {
-            r"^\s*cmake\s+(?!--)": "-DCMAKE_INSTALL_LIBDIR=lib",
-            r"^\s*meson\s+setup\b": "--libdir=lib",
-        }
         for _, template in install_templates():
-            text = template.read_text()
-            for pattern, pin in pins.items():
-                for line in re.findall(pattern + r".*", text, re.M):
-                    with self.subTest(recipe=template.parent.name, line=line):
-                        self.assertIn(pin, line)
+            for command, pin in libdir_pins(template.read_text()):
+                with self.subTest(recipe=template.parent.name, line=command):
+                    self.assertIn(pin, command)
+
+    def test_a_pin_on_a_continuation_line_counts(self):
+        text = ('cmake -S . -B build \\\n'
+                '    -DCMAKE_INSTALL_LIBDIR=lib\n'
+                'cmake --build build\n')
+        self.assertEqual(
+            [(c.split()[0], pin in c) for c, pin in libdir_pins(text)],
+            [("cmake", True)])
+
+    def test_a_missing_pin_is_reported(self):
+        text = 'meson setup build \\\n    --prefix="$PREFIX"\n'
+        [(command, pin)] = libdir_pins(text)
+        self.assertNotIn(pin, command)
 
 
-# Wrap modes under which Meson never downloads a subproject.
-NO_DOWNLOAD_WRAP_MODE = re.compile(r"--wrap-mode=(?:nofallback|nodownload)\b")
+# The one wrap mode under which Meson never downloads. nofallback is not
+# enough: it covers dependency() fallbacks but not find_program() ones, and
+# fontconfig's build cloned gperf from an unpinned branch under it.
+NO_DOWNLOAD_WRAP_MODE = re.compile(r"--wrap-mode=nodownload\b")
 
 
 def meson_setup_commands(text: str) -> list[str]:
     """Return each `meson setup` command, joined across \\ continuations."""
-    joined = re.sub(r"\\\n", " ", text)
-    return re.findall(r"^\s*meson\s+setup\b.*$", joined, re.M)
+    return joined_commands(text, r"meson\s+setup\b")
 
 
 class TestMesonUsesRegistryDependencies(unittest.TestCase):
-    """Meson falls back to a bundled or downloaded copy of a missing dependency.
+    """Meson can fetch a missing dependency or program from a wrap.
 
-    fontconfig's gperf wrap clones an unpinned git branch, so a fallback is an
-    unverified download outside $URL as well as a silent replacement for a
-    registry library. Every setup must refuse it.
+    fontconfig's gperf wrap clones an unpinned git branch: an unverified
+    download outside $URL. Every setup must refuse downloads, so every byte
+    built comes from the checksummed archive.
     """
 
     def test_every_meson_setup_refuses_downloads(self):
@@ -1022,11 +1049,12 @@ class TestMesonUsesRegistryDependencies(unittest.TestCase):
 
     def test_wrap_modes(self):
         # nodownload still builds subprojects whose sources ship inside the
-        # release tarball (criterion vendors all of its own), but never fetches.
-        self.assertRegex("meson setup b --wrap-mode=nofallback",
-                         NO_DOWNLOAD_WRAP_MODE)
+        # checksummed release tarball (criterion vendors all of its own), but
+        # never fetches anything.
         self.assertRegex("meson setup b --wrap-mode=nodownload",
                          NO_DOWNLOAD_WRAP_MODE)
+        self.assertNotRegex("meson setup b --wrap-mode=nofallback",
+                            NO_DOWNLOAD_WRAP_MODE)
         self.assertNotRegex("meson setup b --wrap-mode=default",
                             NO_DOWNLOAD_WRAP_MODE)
         self.assertNotRegex("meson setup b", NO_DOWNLOAD_WRAP_MODE)

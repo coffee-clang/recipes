@@ -3,7 +3,7 @@ set -e -o pipefail -u
 
 tar xJf "$ARCHIVE" --no-same-owner
 cd "vte-$VERSION"
-meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nofallback \
+meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nodownload \
     -Dgtk3=true -Dgtk4=false -Dgir=false -Dvapi=false -Ddocs=false \
     -Dgnutls=false -Dicu=false -D_systemd=false
 meson compile -C build

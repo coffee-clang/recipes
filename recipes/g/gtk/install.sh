@@ -5,7 +5,7 @@ tar xJf "$ARCHIVE" --no-same-owner
 cd "gtk-$VERSION"
 # X11 only: the Wayland backend requires xkbcommon, which cannot be built here.
 # The cups print backend and colord would link host libraries with no recipe.
-meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nofallback \
+meson setup build --prefix="$PREFIX" --libdir=lib --buildtype=release --wrap-mode=nodownload \
     -Dx11_backend=true -Dwayland_backend=false -Dbroadway_backend=false \
     -Dxinerama=yes -Dprint_backends=file,lpr -Dcolord=no -Dcloudproviders=false \
     -Dtracker3=false -Dprofiler=false \
