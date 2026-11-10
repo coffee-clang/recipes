@@ -1,11 +1,11 @@
 title = "cmocka"
-version = "1.1.7"
+version = "2.0.2"
 description = "cmocka is an elegant unit testing framework for C with support for mock objects. It requires only the standard C library and works on many platforms."
 license = "Apache-2.0"
 canonical_name = "cmocka"
-recipe_url = "https://cmocka.org/files/1.1/cmocka-1.1.7.tar.xz"
-# sha256 evidence: https://cmocka.org/files/1.1/cmocka-1.1.7.tar.xz.asc, good signature by 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D (Andreas Schneider), key from https://github.com/cryptomilk.gpg
-sha256 = "810570eb0b8d64804331f82b29ff47c790ce9cd6b163e98d47a4807047ecad82"
+recipe_url = "https://cmocka.org/files/2.0/cmocka-2.0.2.tar.xz"
+# sha256 evidence: https://cmocka.org/files/2.0/cmocka-2.0.2.tar.xz.asc, good signature by 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D (Andreas Schneider), key from https://github.com/cryptomilk.gpg
+sha256 = "39f92f366bdf3f1a02af4da75b4a5c52df6c9f7e736c7d65de13283f9f0ef416"
 sha256_source = "signature"
 output_type = "library"
 libname = "cmocka"
